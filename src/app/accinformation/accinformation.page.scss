@@ -1,0 +1,21 @@
+.accinfo-wrap {
+    display: flex;
+    align-items: center;
+    padding: 20px 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    h3 {
+        font-size: 18px;
+       
+    }
+}
+
+.accinfo-content {
+    padding: 10px 20px;
+    .accinfo-txt {
+        border-bottom: 1px solid #808080;
+        padding-bottom: 15px;
+    }
+    a {
+        text-decoration: none;
+    }
+}

@@ -1,0 +1,50 @@
+ion-icon {
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 20px;
+}
+.askques-wrapper {
+    background-color: #28779bd4;
+    padding: 30px;
+    color: #fff;
+    text-align: center;
+    margin: 10px;
+    button {
+        padding: 10px 20px;
+        border-radius: 25px;
+        background-color: transparent;
+        color: #fff;
+        font-size: 12px;
+        text-transform: uppercase;
+        box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+        border: 1px solid #fff;
+    }
+}
+.searchbar-wrap {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    ion-icon {
+        font-size: 25px;
+        font-weight: bold;
+        background-color: #a6d8ef;
+        padding: 10px 20px;
+        color: #000;
+        margin-right: 0;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 0 10px rgba(0,0,0,0.22);
+    }
+}
+ion-searchbar {
+    padding-right: 0;
+    ion-icon {
+        background-color: #36abe0;
+        color: #fff;
+        padding: 10px 20px;
+        margin: 0;
+        font-size: 20px;
+        font-weight: bold;
+    }
+}

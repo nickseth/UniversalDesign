@@ -1,0 +1,46 @@
+.chart-wrapper {
+    padding: 20px;
+    .chart-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    h3 {
+        font-size: 18px;
+    }
+    p {
+        // margin: 0;
+        font-size: 13px;
+        color: #808080;
+    }
+    .chart-category {
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            li {
+                display: flex;
+                justify-content: space-between;
+                padding-bottom: 20px;
+                span {
+                     padding-left: 15px;
+                }
+            }
+            img {
+                max-width: 150px;
+                width: 100%;
+                display: block;
+            }
+        }
+        h3 {
+            font-size: 14px;
+            display: flex;
+            margin: 0;
+            align-items: flex-end;
+            ion-icon {
+                font-size: 25px;
+                color: #808080;
+            }
+        }
+               
+    }
+}

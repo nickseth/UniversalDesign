@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="saved_wrapper">
+      <ion-title>saved</ion-title>
+    <ion-icon name="search-outline"></ion-icon>
+    <ion-icon name="eyedrop-outline"></ion-icon>
+    </div>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<div class="saved-wrapper">
+  <!-- Segment buttons with text and click listener -->
+<ion-segment (ionChange)="segmentChanged($event)">
+  <ion-segment-button>
+    <ion-label>Titles</ion-label>
+  </ion-segment-button>
+  <ion-segment-button>
+    <ion-label>Lists</ion-label>
+  </ion-segment-button>
+  <ion-segment-button>
+    <ion-label>Notebook</ion-label>
+  </ion-segment-button>
+  <ion-segment-button>
+    <ion-label>History</ion-label>
+  </ion-segment-button>
+</ion-segment>
+
+
+</div>
+</ion-content>

@@ -1,0 +1,19 @@
+.joined-header {
+    display: flex;
+    align-items: center;
+}
+.joined-wrapper {
+    padding: 10px 20px;
+    h2 {
+        font-size: 18px;
+        font-weight: 600;
+        text-align: center;
+    }
+    p {
+        font-size: 14px;
+        color: #808080;
+        text-align: center;
+        letter-spacing: 1px;
+    }
+}
+

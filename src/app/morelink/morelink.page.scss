@@ -1,0 +1,38 @@
+ion-item {
+    width: 100%;
+}
+
+
+.more_wrapper {
+ 
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    .moreLink-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 10px;
+        border-bottom: 1px solid #808080;
+    }
+    .more-img {
+        width: 35%;
+    }
+    .more-content {
+        width: 60%;
+        p {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        h2 {
+            font-size: 14px;
+            letter-spacing: 1px;
+            color: #000;
+            font-weight: 600;
+        }
+        span {
+            font-size: 12px;
+        }
+    }
+}

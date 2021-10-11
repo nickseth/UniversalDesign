@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="update-close">
+      <ion-icon name="close-outline" (click)="closebtn()"></ion-icon>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="updatepayment-container">
+    <div class="update-wrap">
+      <h2>Hello, how can we help?</h2>
+      <button (click)="updatecta()">Updating Your Payment Information</button>
+      </div>
+      <ion-card class="updateselect">
+       You Selected:  "Updating your Universal membership?"
+      </ion-card>
+      <ion-card class="purchase-wrap">
+        <h3>How did you purchase your universal membership</h3>
+        <button>Web/ Mobile Web Browser</button>
+        <button>Universal Mobile Application</button>
+      </ion-card>
+      <div class="searchbar-wrap">
+        <ion-searchbar></ion-searchbar>
+        <ion-icon name="rocket-outline"></ion-icon>
+      </div>  
+  </div>
+</ion-content>

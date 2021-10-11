@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="imgclick-content">
+      <ion-buttons slot="start">
+        <ion-back-button><ion-icon name="arrow-back"></ion-icon></ion-back-button>
+      </ion-buttons>
+      <ion-title>Think And Grow Rich</ion-title>
+      <ion-icon name="share-social"></ion-icon>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="imgclick_wrapper">
+    <div class="imgclick-container">
+      <div class="imgclick-img">
+        <img src="../assets/business-book.jpg" alt=" ">
+      </div>
+      <div class="imgclick-text">
+        <p>Key insighths from Amy Morin's
+        </p>
+        <h2>Think and Grow Rich</h2>
+      </div>
+    </div>
+    <button class="read-cta">Read Free For 30 Days</button>
+    <button class="pay-cta">Play Sample</button>
+    <div class="imgclick-icons">
+    <span><ion-icon name="arrow-down-circle-outline"></ion-icon>Download</span>  
+   <span><ion-icon name="bookmark-outline"></ion-icon>Save</span>   
+     <span><ion-icon name="list-outline" (click)="presentAlertPrompt()"></ion-icon>Add to List</span> 
+    </div>
+    <div class="rating-wrap">
+      <ul>
+        <li>Rating <a>
+            <ion-icon name="thumbs-up"  (click)="like()" id="like-icon"></ion-icon>94
+          </a><a>
+            <ion-icon name="thumbs-down"  (click)="dislike()" id="dislike-icon"></ion-icon>3
+          </a></li>
+        <li>Lenght <a>7 min read</a></li>
+        <li>Language<a>English</a></li>
+        <li>Format<a>Snapshot</a></li>
+      </ul>
+    </div>
+  </div>
+</ion-content>

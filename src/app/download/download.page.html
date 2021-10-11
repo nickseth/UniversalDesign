@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button>
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Downloads</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="download-wraaper">
+  <div class="download-content">
+  <ul>
+    <li (click)="managedownload()">
+      <h3>Manage downloaded titles</h3>
+      <p>0 titles are downloaded titles</p>
+    </li>
+    <li>
+      <h3>Clear cache</h3>
+      <p>0.2MB</p>
+    </li>
+  </ul>
+  </div>
+  </div>
+</ion-content>

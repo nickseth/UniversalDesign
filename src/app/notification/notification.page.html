@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="notify-header">
+      <ion-icon name="chevron-back-outline" (click)="back()"></ion-icon>
+      <ion-title>APP NOTIFICATIONS</ion-title>
+    </div>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<div class="notify-wrapper">
+  <img src="../assets/business-book.jpg" alt=" ">
+  <h2>Universal App</h2>
+</div>
+<div class="notify-content">
+  <ion-list>
+    <ion-item>
+      <ion-label id="notify_on">{{notify_on}}</ion-label>
+      <ion-toggle [(ngModel)]="darkValue" [checked]="darkValue" (ionChange)="setTheme($event)"></ion-toggle>
+    </ion-item>
+  <div id="toggle-wrap">
+    <ion-item>
+      <ion-label>App icon badges</ion-label>
+      <ion-toggle [(ngModel)]="badges"></ion-toggle>
+    </ion-item>
+  <h3>Categories</h3>
+    <ion-item>
+      <ion-label>Account Updates</ion-label>
+      <ion-toggle [(ngModel)]="Updates"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>Updates and announcement</ion-label>
+      <ion-toggle [(ngModel)]="announcement"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>On titles becoming availble</ion-label>
+      <ion-toggle [(ngModel)]="availble"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>Download in progress</ion-label>
+      <ion-toggle [(ngModel)]="progress"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>Audiobook completed</ion-label>
+      <ion-toggle [(ngModel)]="Audiobook"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>New magazine issues</ion-label>
+      <ion-toggle [(ngModel)]="magazine"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>New recommendation</ion-label>
+      <ion-toggle [(ngModel)]="recommendation"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>Download completed</ion-label>
+      <ion-toggle [(ngModel)]="Download"></ion-toggle>
+    </ion-item>
+    <h3>More Settings</h3>
+    <h2>In-app Notification settings</h2>
+  </div>
+ 
+</ion-list>
+
+</div>
+</ion-content>
