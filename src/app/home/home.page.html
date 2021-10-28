@@ -1,15 +1,15 @@
-<ion-header>
+<ion-header class="app-bg">
   <ion-toolbar>
-    <ion-title> <img src="../assets/tree.png" width="20px" />UniversalBook</ion-title>
+    <ion-title class="logo-title"><span>UniversalBook</span></ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="app-bg" >
  <div class="top-slider">
-    <button (click)="openCity(event, 'AllContent')" id='defaultOpen'>All</button>
+  <button class="tablinks" (click)="openCity($event, 'AllContent')" id='defaultOpen'>All</button>
   <div  *ngFor="let item22 of produtCategoryData;let inx3 = index">
-   
-    <button (click)='openCity(event, item22.id)' >{{item22.name}}</button>
+     
+    <button class="tablinks" (click)='openCity($event, item22.id)' >{{item22.name}}</button>
     <!-- <button (click)="openCity(event, 'audiobook')">Audiobooks</button>
     <button (click)="openCity(event, 'magazine')">Magazine</button>
     <button (click)="openCity(event, 'podcast')">Podcast</button>
