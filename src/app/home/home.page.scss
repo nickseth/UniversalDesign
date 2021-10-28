@@ -1,12 +1,23 @@
 .top-slider {
     display: flex;
     overflow-x: scroll;
+	&::-webkit-scrollbar
+{
+	
+	display:none;
+}
+&::-webkit-scrollbar-track
+{
+	display:none;
+}
 }
 button {
-    padding: 20px;
-    font-size: 14px;
+    padding: 15px;
+    font-size: 15px;
     text-align: center;
-    font-weight: 500;
+    font-weight: 400;white-space:nowrap;background:#002C42; color:#fff;
+	border-bottom:solid 3px transparent;
+	&.active{border-bottom:solid 3px var(--ion-color-primary, #3880ff)}
 }
 .banner-img {
     position: relative;
@@ -20,7 +31,7 @@ button {
     left: 20px;
     h2 {
         font-weight: bold;
-        font-size: 30px;
+        font-size: 22px;
         color: #fff;
         letter-spacing: 2px;
     }
@@ -30,11 +41,13 @@ button {
         font-weight: 500;
     }
     button.read-btn {
-        font-size: 20px;
+        font-size: 18px;
         border-radius: 5px;
-        background-color: #4952a7;
+        background-color: var(--ion-color-primary, #3880ff);
         color: #fff;
-        text-align: center;
+        text-align: center; 
+		
+		
     }
     .cancel-btn {
         background-color: transparent;
@@ -52,7 +65,7 @@ button {
         float: left;
         margin: 0;
         font-size: 16px;
-        font-weight: 600;
+        font-weight: 600;color:#fff;
     }
     a {
         float: right;
@@ -72,7 +85,7 @@ ion-card {
     width: 100%;
     height: auto;
     box-shadow: none;
-    border-radius: 12px;
+    border-radius: 0px;background:transparent;
     
     img {
         object-fit: cover;
@@ -121,12 +134,12 @@ ion-card {
             font-size: 13px;
             font-weight: 700;
             text-align: left;
-            color: #000;
+            color: #fff;
         }
         p.author-name {
             font-size: 12px;
             font-weight: 600;
-            text-align: left;
+            text-align: left;color:#a1a1a1;
         }    
 }
 .icon-wrap {
@@ -230,3 +243,13 @@ p{
         }
     }
     }
+	.app-bg{--background:#002C42}
+	.logo-title .logo{margin-right:10px}
+	.logo-title{display:flex; align-items:center; background:#002C42}
+	.logo-title span{color:#fff}
+	.active{color:var(--ion-color-primary, #3880ff)}
+	
+	.tab_bar, #tab-button-home {
+    --background: var(--ion-color-primary, #3880ff);
+	background: var(--ion-color-primary, #3880ff);
+}

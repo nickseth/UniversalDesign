@@ -96,7 +96,7 @@ this.getbannerData();
       setTimeout(() => {
         document.getElementById("defaultOpen").click();
         this.openCity(event, 'AllContent'); 
-      }, 4000);
+      }, 50);
     }
 
 this.getProductWithCategory();
@@ -152,24 +152,24 @@ return true;
     }
 
 
-  openCity(evt, cityName) {
-    this.productService.getCategoryOnes(cityName).subscribe((res)=>{
-this.fullonePro = res;
-
-    })
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-
-      tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-
+  
+openCity(evt, cityName) {
+	
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
   }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  
+  evt.currentTarget.className += " active";
+}
+
+
   movemorePage(category_id,category_title) {
     // this.router.navigateByUrl('/morelink');
     this.router.navigate(['morelink', { id: category_id,title: category_title}]);
