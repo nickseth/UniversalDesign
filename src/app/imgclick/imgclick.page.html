@@ -4,7 +4,7 @@
       <ion-buttons slot="start">
         <ion-back-button><ion-icon name="arrow-back"></ion-icon></ion-back-button>
       </ion-buttons>
-      <ion-title>Think And Grow Rich</ion-title>
+      <ion-title>{{this.title}}</ion-title>
       <ion-icon name="share-social"></ion-icon>
     </div>
   </ion-toolbar>
@@ -14,22 +14,26 @@
   <div class="imgclick_wrapper">
     <div class="imgclick-container">
       <div class="imgclick-img">
-        <img src="../assets/business-book.jpg" alt=" ">
+        <img src={{this.imagescr}} alt=" ">
       </div>
       <div class="imgclick-text">
-        <p>Key insighths from Amy Morin's
-        </p>
-        <h2>Think and Grow Rich</h2>
+        <h2>{{this.title}}</h2>
+        <div [innerHTML]="short_desc">
+        </div>
+        
       </div>
     </div>
-    <button class="read-cta">Read Free For 30 Days</button>
-    <button class="pay-cta">Play Sample</button>
+    <button class="read-cta" (click)="readBook('1')">Buy Now</button>
+    <!-- <button class="pay-cta">Play Sample</button> -->
     <div class="imgclick-icons">
-    <span><ion-icon name="arrow-down-circle-outline"></ion-icon>Download</span>  
-   <span><ion-icon name="bookmark-outline"></ion-icon>Save</span>   
-     <span><ion-icon name="list-outline" (click)="presentAlertPrompt()"></ion-icon>Add to List</span> 
+    <span><ion-icon name="arrow-down-circle-outline" (click)="downloadFileone(file_url_download)"></ion-icon>Download</span>  
+   <span><ion-icon *ngIf="wishlistData; else noWishlist" [style.color]="'#EF3B51'" name="bookmark" (click)="deletewishlist()"></ion-icon> <ng-template #noWishlist>
+    <ion-icon name="bookmark-outline" (click)="setwishlist()" 
+     style="width:30px;height:30px;padding:10px;"  slot="end"></ion-icon>
+    </ng-template>Save</span>   
+     <!-- <span><ion-icon name="list-outline" (click)="presentAlertPrompt()"></ion-icon>Add to List</span>  -->
     </div>
-    <div class="rating-wrap">
+    <!-- <div class="rating-wrap">
       <ul>
         <li>Rating <a>
             <ion-icon name="thumbs-up"  (click)="like()" id="like-icon"></ion-icon>94
@@ -40,6 +44,6 @@
         <li>Language<a>English</a></li>
         <li>Format<a>Snapshot</a></li>
       </ul>
-    </div>
+    </div> -->
   </div>
 </ion-content>

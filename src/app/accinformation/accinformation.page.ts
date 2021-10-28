@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-
+import { AuthenticationService } from './../services/authentication.service';
+import { UserdetailsService } from './../services/userdetails.service';
 
 
 @Component({
@@ -10,9 +11,28 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./accinformation.page.scss'],
 })
 export class AccinformationPage implements OnInit {
-
-
-  constructor(public router: Router,  public alertController: AlertController) {
+  token:any;
+  userdetails:any;
+  user_email:any;
+  constructor(public router: Router,
+      public alertController: AlertController,
+      public authenticationService:AuthenticationService,
+     public userdetailsService:UserdetailsService
+      ) {
+        this.authenticationService.getToken().then(val => {
+          this.token = val.value;
+          let data = {'token':this.token};
+          this.userdetailsService.getUserDeatils(data).subscribe(val=>{
+            this.userdetails = val;
+            this.user_email = this.userdetails.email; 
+            // if(this.userdetails.fname == undefined){
+            //   this.user = "Guest";
+            // } else{
+            //   this.user = this.userdetails.fname +" " +this.userdetails.lname;
+            // }
+           
+          })
+      });
    
    }
 
@@ -20,6 +40,10 @@ export class AccinformationPage implements OnInit {
   }
   paymentmethod() {
     this.router.navigateByUrl('/payment');
+  }
+  async logout() {
+    await this.authenticationService.logout();
+    this.router.navigateByUrl('/', { replaceUrl: true });
   }
   async presentAlertPrompt() {
     const alert = await this.alertController.create({
@@ -37,7 +61,7 @@ export class AccinformationPage implements OnInit {
         }, {
           text: 'Sign Out',
           handler: () => {
-            console.log('Confirm Create List');
+            this.logout();
           }
         }
       ]

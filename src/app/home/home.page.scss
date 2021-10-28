@@ -153,9 +153,9 @@ ion-segment-button{
     --color-checked: white;
     --indicator-color: transparent !important; /* this solution */
     }
-    .tabcontent {
-        display: none;
-    }
+    // .tabcontent {
+    //     display: none;
+    // }
     .magazine-container {
         display: flex;
         align-items: center;
@@ -208,4 +208,25 @@ p{
             border-bottom-right-radius: 20px;
             transform: unset;
         }
+    }
+    .scroll-2 {
+        white-space:nowrap;
+        height: 65px;
+        .scroll-item2 {
+            
+            display: inline-block;
+            margin: 10px 0;
+            margin-left: 5px;
+           ion-chip {
+            background-color: #1E90FF;
+            padding: 10px 14px;
+            border-radius: 7px;
+            small {
+                font-weight: 100;
+                text-transform: capitalize;
+                font-size: 12px;
+                text-align: center;
+            }
+        }
+    }
     }

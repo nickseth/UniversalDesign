@@ -103,6 +103,42 @@ const routes: Routes = [
     path: 'filterpage',
     loadChildren: () => import('./filterpage/filterpage.module').then( m => m.FilterpagePageModule)
   },
+  {
+    path: 'bookreader',
+    loadChildren: () => import('./bookreader/bookreader.module').then( m => m.BookreaderPageModule)
+  },
+  {
+    path: 'calculator',
+    loadChildren: () => import('./calculator/calculator.module').then( m => m.CalculatorPageModule)
+  },
+  {
+    path: 'google-search',
+    loadChildren: () => import('./google-search/google-search.module').then( m => m.GoogleSearchPageModule)
+  },
+  {
+    path: 'calendarview',
+    loadChildren: () => import('./calendarview/calendarview.module').then( m => m.CalendarviewPageModule)
+  },
+  {
+    path: 'notes',
+    loadChildren: () => import('./notes/notes.module').then( m => m.NotesPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'registration',
+    loadChildren: () => import('./registration/registration.module').then( m => m.RegistrationPageModule)
+  },
+  {
+    path: 'readnote',
+    loadChildren: () => import('./readnote/readnote.module').then( m => m.ReadnotePageModule)
+  },
+  {
+    path: 'internetfailed',
+    loadChildren: () => import('./internetfailed/internetfailed.module').then( m => m.InternetfailedPageModule)
+  },
 
 ];
 

@@ -10,18 +10,20 @@
 </ion-header>
 
 <ion-content>
-  <div class="download-wraaper">
-  <div class="download-content">
-  <ul>
-    <li (click)="managedownload()">
-      <h3>Manage downloaded titles</h3>
-      <p>0 titles are downloaded titles</p>
-    </li>
-    <li>
-      <h3>Clear cache</h3>
-      <p>0.2MB</p>
-    </li>
-  </ul>
-  </div>
-  </div>
+  <ion-refresher slot="fixed" (ionRefresh)="getUsersList($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-grid >
+    <ion-row *ngFor="let item of bookData" (click)="viewItem(item.id)">
+      <ion-col size="4" size-sm>
+        <div style ="width:100px;margin:10px">
+          <img src="{{item.image_url}}" style="width: 100px;">
+        </div>
+      </ion-col>
+      <ion-col size="8" size-sm>
+        <h6 >{{item.book_name}}</h6>
+        <!-- <div class="comment_des" [innerHTML]="item.short_description"></div> -->
+        </ion-col> 
+    </ion-row>
+    </ion-grid>
 </ion-content>

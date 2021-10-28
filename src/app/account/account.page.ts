@@ -1,17 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AuthenticationService } from './../services/authentication.service';
+import { UserdetailsService } from './../services/userdetails.service';
 @Component({
   selector: 'app-account',
   templateUrl: './account.page.html',
   styleUrls: ['./account.page.scss'],
 })
 export class AccountPage implements OnInit {
- 
-
-  constructor(public router:Router, public alertController: AlertController) { }
+  userdetails:any;
+  token:any;
+  user:any;
+  constructor(public router: Router,
+     public alertController: AlertController,
+     public authenticationService:AuthenticationService,
+     public userdetailsService:UserdetailsService
+     ) { 
+      this.authenticationService.getToken().then(val => {
+        this.token = val.value;
+        let data = {'token':this.token};
+        this.userdetailsService.getUserDeatils(data).subscribe(val=>{
+          this.userdetails = val;
+          if(this.userdetails.fname == undefined){
+            this.user = "Guest";
+          } else{
+            this.user = this.userdetails.fname +" " +this.userdetails.lname;
+          }
+         
+        })
+    });
+     }
 
   ngOnInit() {
+
   }
   accinfo() {
     this.router.navigateByUrl('/accinformation');
@@ -20,13 +42,17 @@ export class AccountPage implements OnInit {
     this.router.navigateByUrl('/faq');
   }
   audiopage() {
-    this.router.navigateByUrl('/audiopage'); 
+    this.router.navigateByUrl('/audiopage');
+  }
+  login(){
+    
+    this.router.navigateByUrl('/login');
   }
   // prefrencepage() {
   //     let prefrence= document.getElementById("prefrence");
   //     prefrence.classList.add('preadd');
   //     prefrence.classList.remove('preremove');
-    
+
   // }
   async presentAlertCheckbox() {
     const alert = await this.alertController.create({
@@ -109,7 +135,7 @@ export class AccountPage implements OnInit {
     await alert.present();
   }
   downloadpage() {
-    this.router.navigateByUrl('/download'); 
+    this.router.navigateByUrl('/download');
   }
   notificationpage() {
     this.router.navigateByUrl('/notification');

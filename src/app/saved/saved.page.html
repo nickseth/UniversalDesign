@@ -1,4 +1,22 @@
-<ion-header>
+<!-- <ion-segment (ionChange)="segmentChanged($event)">
+  <ion-segment-button (click)="openCity($event,'redhat')">
+    <ion-label>Titles</ion-label>
+  </ion-segment-button >
+  <ion-segment-button (click)="openCity($event,'redhat')">
+    <ion-label>Lists</ion-label>
+  </ion-segment-button>
+  <ion-segment-button (click)="openCity($event,'redhat')">
+    <ion-label>Notebook</ion-label>
+  </ion-segment-button>
+  <ion-segment-button (click)="openCity($event,'redhat')">
+    <ion-label>History</ion-label>
+  </ion-segment-button>
+</ion-segment> -->
+
+
+<!-- </div> -->
+<!-- </ion-content>  -->
+<!-- <ion-header>
   <ion-toolbar>
     <div class="saved_wrapper">
       <ion-title>saved</ion-title>
@@ -7,26 +25,76 @@
     </div>
     
   </ion-toolbar>
+</ion-header> -->
+<ion-header [translucent]="true">
+
+  <ion-toolbar>
+    <div class="saved_wrapper">
+      <ion-title>Saved</ion-title>
+    <!-- <ion-icon name="search-outline"></ion-icon>
+    <ion-icon name="eyedrop-outline"></ion-icon> -->
+    </div>
+    
+  </ion-toolbar>
+
+  <ion-toolbar>
+
+    <ion-segment 
+    value="all" 
+    color="" 
+    scrollable="true"
+    mode="ios"
+    [(ngModel)]="segmentModel" 
+    (ionChange)="segmentChanged($event)">
+
+      <ion-segment-button value="wishlist">
+        <ion-label>Wish List</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Notebook">
+        <ion-label>Notebook</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    
+  </ion-toolbar>
 </ion-header>
 
-<ion-content>
-<div class="saved-wrapper">
-  <!-- Segment buttons with text and click listener -->
-<ion-segment (ionChange)="segmentChanged($event)">
-  <ion-segment-button>
-    <ion-label>Titles</ion-label>
-  </ion-segment-button>
-  <ion-segment-button>
-    <ion-label>Lists</ion-label>
-  </ion-segment-button>
-  <ion-segment-button>
-    <ion-label>Notebook</ion-label>
-  </ion-segment-button>
-  <ion-segment-button>
-    <ion-label>History</ion-label>
-  </ion-segment-button>
-</ion-segment>
+<ion-content [fullscreen]="true" class="ion-padding">
 
+  <ion-card *ngIf="segmentModel === 'wishlist'">
+    <ion-card-header>
+      <ion-card-subtitle>Segment Content</ion-card-subtitle>
+      <ion-card-title>Wish List</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-refresher slot="fixed" (ionRefresh)="getUsersList($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+      <ion-grid>
+        <ion-row >
+          <ion-col size="4" size-sm *ngFor="let item of wishlistData">
+            <ion-card style ="width:100px;height: 130px" (click)="viewItem(item.id)">
+              <img src="{{item.image_url}}" style="width: 100px; height: 130px;">
+            </ion-card>
+          </ion-col>
+        </ion-row>
+        </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  
+ 
+  
+  <ion-card *ngIf="segmentModel === 'Notebook'">
+    <ion-card-header>
+      <ion-card-subtitle>Segment Content</ion-card-subtitle>
+      <ion-card-title>Notebook</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      Keep close to Nature's heart... and break clear away, once in awhile,
+      and climb a mountain or spend a week in the woods. Wash your spirit clean.
+    </ion-card-content>
+  </ion-card>
 
-</div>
+  
 </ion-content>
