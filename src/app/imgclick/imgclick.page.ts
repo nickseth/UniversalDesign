@@ -131,8 +131,8 @@ export class ImgclickPage implements OnInit {
 
     const fileTransfer: FileTransferObject = this.transfer.create();
   
-    console.log(this.file)
-    let fileexternalurl = this.file.externalRootDirectory + "Download/";
+    // console.log(this.file)
+    let fileexternalurl = this.file.externalRootDirectory + "Documents/";
     
     // this.file.createDir(this.file.externalRootDirectory, 'UniversalBook',true);
 

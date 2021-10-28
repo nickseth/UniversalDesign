@@ -36,9 +36,11 @@ export class SavedPage implements OnInit {
     this.authenticationService.getToken().then(val => {
       this.dataRetrieve(val.value);
       this.token = val.value;
+     
     });
      
     });
+   
   }
 
   segmentChanged(ev: any) {
@@ -64,6 +66,7 @@ export class SavedPage implements OnInit {
   async dataRetrieve(token_val) {
    
     let token1 = { 'token': token_val };
+    // console.log()
      this.loading = await this.loadingController.create({
           cssClass: 'my-custom-class',
           message: 'Please wait...',
@@ -71,6 +74,7 @@ export class SavedPage implements OnInit {
         await this.loading.present();
     this.notesService.getNotes(token1).subscribe(data => {
       this.notes_data = data;
+      console.log(this.notes_data)
      this.loading.dismiss();
     }, error => {
     });
@@ -150,7 +154,7 @@ export class SavedPage implements OnInit {
       this.dataRetrieve(this.token)
     }, 1000);
   }
-  viewItem2(index,id) {
+  viewNotes(index,id) {
 
     this.route.navigate(['/readnote', { index: index,notes_id:id }]);
 

@@ -11,7 +11,7 @@ import {
   PushNotifications,
   Token,
 } from '@capacitor/push-notifications';
-
+import { LoadingController } from '@ionic/angular';
 SwiperCore.use([IonicSwiper]);
 
 @Component({
@@ -31,11 +31,13 @@ button_link:any;
 button_tagline:any;
 banner_image:any;
 getData:any;
+loading:any;
 fullonePro:any;
   constructor(private router: Router,
     private productService:ProductService,
     private wishlistService:WishlistService,
-    private authenticationService:AuthenticationService
+    private authenticationService:AuthenticationService,
+    public loadingController: LoadingController,
     ) { }
   option = {
     slidesPerView: 1.5,
@@ -102,14 +104,20 @@ this.getProductWithCategory();
   }
 
    async getProductCategory(){
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+    });
+    await this.loading.present();
   await this.productService.getCategory().subscribe((res)=>{
     this.produtCategoryData = res;
-
+    this.loading.dismiss();
   })
 return true;
   }
 
   async getProductWithCategory(){
+
     await this.productService.getCategory().subscribe((res)=>{
       this.categoryid = res;
       this.categoryid.forEach(element => {

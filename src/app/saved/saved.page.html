@@ -1,31 +1,3 @@
-<!-- <ion-segment (ionChange)="segmentChanged($event)">
-  <ion-segment-button (click)="openCity($event,'redhat')">
-    <ion-label>Titles</ion-label>
-  </ion-segment-button >
-  <ion-segment-button (click)="openCity($event,'redhat')">
-    <ion-label>Lists</ion-label>
-  </ion-segment-button>
-  <ion-segment-button (click)="openCity($event,'redhat')">
-    <ion-label>Notebook</ion-label>
-  </ion-segment-button>
-  <ion-segment-button (click)="openCity($event,'redhat')">
-    <ion-label>History</ion-label>
-  </ion-segment-button>
-</ion-segment> -->
-
-
-<!-- </div> -->
-<!-- </ion-content>  -->
-<!-- <ion-header>
-  <ion-toolbar>
-    <div class="saved_wrapper">
-      <ion-title>saved</ion-title>
-    <ion-icon name="search-outline"></ion-icon>
-    <ion-icon name="eyedrop-outline"></ion-icon>
-    </div>
-    
-  </ion-toolbar>
-</ion-header> -->
 <ion-header [translucent]="true">
 
   <ion-toolbar>
@@ -67,7 +39,7 @@
     </ion-card-header>
   
     <ion-card-content>
-      <ion-refresher slot="fixed" (ionRefresh)="getUsersList($event)">
+      <!-- <ion-refresher slot="fixed" (ionRefresh)="getUsersList($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-grid>
@@ -78,23 +50,35 @@
             </ion-card>
           </ion-col>
         </ion-row>
-        </ion-grid>
+        </ion-grid> -->
     </ion-card-content>
   </ion-card>
   
- 
-  
-  <ion-card *ngIf="segmentModel === 'Notebook'">
-    <ion-card-header>
-      <ion-card-subtitle>Segment Content</ion-card-subtitle>
-      <ion-card-title>Notebook</ion-card-title>
-    </ion-card-header>
-  
-    <ion-card-content>
-      Keep close to Nature's heart... and break clear away, once in awhile,
-      and climb a mountain or spend a week in the woods. Wash your spirit clean.
-    </ion-card-content>
-  </ion-card>
 
+  <div size="6"  *ngIf="segmentModel === 'Notebook'">
+    <ion-refresher slot="fixed" (ionRefresh)="getUsersList($event,this.token)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let item of notes_data; let i = index">
+          <ion-card (click)="viewNotes(i,item.id)">
+            <ion-card-header>
+              <h5>{{item.notes_title}}</h5>
+            </ion-card-header>
+            <ion-card-content>
+              <p> {{item.notes_desc}}</p>
+              <ion-buttons slot="start">
+                <!-- <ion-icon name="open-outline" slot="start" ></ion-icon> -->
+                <!-- <ion-icon name="create-outline" slot="end"
+                  (click)="editNotesModel(i,item.title,item.description,item.notes_id)"></ion-icon>
+                <ion-icon name="trash-outline" slot="end" (click)="deleteItem(i,item.id)"></ion-icon> -->
+              </ion-buttons>
+            </ion-card-content>
   
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</div>
 </ion-content>
