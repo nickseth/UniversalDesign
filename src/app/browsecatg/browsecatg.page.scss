@@ -1,0 +1,86 @@
+.browse-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+.browsecatg-container {
+    padding: 10px;
+    h2 {
+        font-size: 20px;
+        padding-left: 14px;
+    }
+    h3 {
+        font-size: 18px;
+        padding-left: 16px;
+        font-weight: bold;
+    }
+    button {
+        padding: 10px;
+        border: 1px solid #808080;
+        border-radius: 25px;
+        background-color: #fff;
+        color: #000;
+        font-size: 12px;
+        font-weight: 600;
+    }
+    ion-slide{
+        width: 200px !important;
+    }
+    .best-sell_wrap {
+        clear: both;
+        clear: both;
+        padding: 20px 20px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        h2 {
+            float: left;
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 0;
+        }
+        a {
+            float: right;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }   
+    }  
+    .audio-books_wrap {
+        padding: 0 10px;
+        h3.books-name {
+                font-size: 13px;
+                font-weight: 700;
+                text-align: left;
+                color: #000;
+                padding: 0;
+            }
+            p.author-name {
+                font-size: 12px;
+                font-weight: 600;
+                text-align: left;
+            }    
+    }  
+    .icon-wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
+    }
+}
+.browse-title {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 0 20px;
+    ion-title {
+        padding: 0;
+    }
+    label {
+        font-size: 12px;
+    color: #808080;
+    }
+}

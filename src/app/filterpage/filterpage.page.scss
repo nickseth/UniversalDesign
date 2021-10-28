@@ -1,0 +1,32 @@
+.filter-wrapper {
+    padding: 0 20px;
+    ul {
+        padding: 0;
+        list-style-type: none;
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 10px;
+        }
+    }
+    ion-list-header {
+        ion-label {
+            font-size: 18px;
+        }
+    }
+    ion-label {  
+    font-size: 15px;
+    }
+}
+.filert-header {
+    display: flex;
+    align-items: center;
+}
+
+::ng-deep .radio-icon {
+    --border-color: transparent !important;
+}
+:host(.radio-checked) .radio-icon {
+    --border-color: transparent !important;
+}

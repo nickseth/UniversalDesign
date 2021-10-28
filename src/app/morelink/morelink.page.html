@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button>
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-back-button>
+      </ion-buttons>
+      <h2>{{category_name}}</h2>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+    <ion-item>
+      <ion-label>Sort</ion-label>
+      <ion-select value="brown" okText="Okay" cancelText="Dismiss">
+        <ion-select-option value="brown">Best Seller</ion-select-option>
+        <ion-select-option value="blonde">Most Recent</ion-select-option>
+      </ion-select>
+    </ion-item>
+    </ion-list-header>
+  </ion-list>
+
+  <div class="more_wrapper" *ngFor="let item of products">
+<div class="moreLink-container">
+  <div class="more-img">
+    <img src={{item.images[0].src}} alt=" " (click)="imgclick(item.id)">
+  </div>
+  <div class="more-content">
+    <div (click)="imgclick(item.id)">{{item.name}}<ion-icon name="bookmark-outline"></ion-icon></div>
+    <h2 [innerHTML]="item.short_description"></h2>
+   
+  </div>
+</div>
+  </div>
+</ion-content>

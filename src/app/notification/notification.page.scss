@@ -1,0 +1,44 @@
+.notify-header {
+    display: flex;
+    padding: 5px 15px;
+    ion-title {
+        font-size: 16px;
+    }
+}
+.notify-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+    border-bottom: 1px solid #808080;
+    img {
+        max-width: 100px;
+        width: 100%;
+    }
+    h2 {
+        font-size: 18px;
+    }
+}
+.toggleon {
+    display: none;
+}
+.notify-content {
+    h3 {
+        font-size: 18px;
+        margin-left: 15px;
+        position: relative;
+    }
+    h3:before {
+        position: absolute;
+        content: "";
+        background-color: #d7d1d1;
+        width: 243px;
+        height: 1px;
+        left: 97px;
+        top: 8px;
+    }
+    h2 {
+        font-size: 18px;
+        margin-left: 15px;
+    }
+}

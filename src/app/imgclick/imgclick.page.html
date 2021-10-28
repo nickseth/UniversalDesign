@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="imgclick-content">
+      <ion-buttons slot="start">
+        <ion-back-button><ion-icon name="arrow-back"></ion-icon></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{this.title}}</ion-title>
+      <ion-icon name="share-social"></ion-icon>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="imgclick_wrapper">
+    <div class="imgclick-container">
+      <div class="imgclick-img">
+        <img src={{this.imagescr}} alt=" ">
+      </div>
+      <div class="imgclick-text">
+        <h2>{{this.title}}</h2>
+        <div [innerHTML]="short_desc">
+        </div>
+        
+      </div>
+    </div>
+    <button class="read-cta" (click)="readBook('1')">Buy Now</button>
+    <!-- <button class="pay-cta">Play Sample</button> -->
+    <div class="imgclick-icons">
+    <span><ion-icon name="arrow-down-circle-outline" (click)="downloadFileone(file_url_download)"></ion-icon>Download</span>  
+   <span><ion-icon *ngIf="wishlistData; else noWishlist" [style.color]="'#EF3B51'" name="bookmark" (click)="deletewishlist()"></ion-icon> <ng-template #noWishlist>
+    <ion-icon name="bookmark-outline" (click)="setwishlist()" 
+     style="width:30px;height:30px;padding:10px;"  slot="end"></ion-icon>
+    </ng-template>Save</span>   
+     <!-- <span><ion-icon name="list-outline" (click)="presentAlertPrompt()"></ion-icon>Add to List</span>  -->
+    </div>
+    <!-- <div class="rating-wrap">
+      <ul>
+        <li>Rating <a>
+            <ion-icon name="thumbs-up"  (click)="like()" id="like-icon"></ion-icon>94
+          </a><a>
+            <ion-icon name="thumbs-down"  (click)="dislike()" id="dislike-icon"></ion-icon>3
+          </a></li>
+        <li>Lenght <a>7 min read</a></li>
+        <li>Language<a>English</a></li>
+        <li>Format<a>Snapshot</a></li>
+      </ul>
+    </div> -->
+  </div>
+</ion-content>

@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button>
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Audio Player Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="audio-wrapper">
+    <h3>Audiobook jump <span>30 sec</span></h3>
+    <h3>Podcast Autoplay <ion-toggle></ion-toggle>
+    </h3>
+    <div class="popup" (click)="myFunction()">
+      <h3>Connect Waze<ion-toggle></ion-toggle>
+      </h3>
+      <div class="popuptext" id="myPopup">
+        <h2>You must be a member to connect to Waze</h2>
+        <p>Get direction while you listen to audiobooks. Start your free trail now!!</p>
+        <div class="audio-popup_CTA">
+          <button (click)="audiobtn()">Cancel</button>
+          <button (click)="payment()">Get Started</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

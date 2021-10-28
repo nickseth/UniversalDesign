@@ -1,0 +1,635 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="browse-header">
+      <ion-buttons slot="start">
+        <ion-back-button><ion-icon name="arrow-back"></ion-icon></ion-back-button>
+      </ion-buttons>
+     <div class="browse-title">
+      <ion-title>Contemporary Fiction</ion-title>
+      <label>Everything</label>
+     </div>
+    </div>   
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<div class="browsecatg-container">
+  <h2>Contemporary Fiction</h2>
+  <ion-item>
+    <ion-label>Everything</ion-label>
+    <ion-select>
+      <ion-select-option value="Everything">Everything</ion-select-option>
+      <ion-select-option value="Books">Books</ion-select-option>
+      <ion-select-option value="Audiobooks">Audiobooks</ion-select-option>
+      <ion-select-option value="Magazines">Magazines</ion-select-option>
+      <ion-select-option value="Documents">Documents</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <div class="browse-catg_wrap">
+    <h3>Categories in Contemporary</h3>
+    <div class="categries">
+      <ion-slides [options]="option" class="ion-margin-top">
+        <ion-slide> <button>BScience & Mathematics</button> </ion-slide>
+        <ion-slide> <button>BScience & Mathematics</button> </ion-slide>
+        <ion-slide> <button>BScience & Mathematics</button> </ion-slide>
+        <ion-slide> <button>BScience & Mathematics</button> </ion-slide>
+        <ion-slide> <button>BScience & Mathematics</button> </ion-slide>
+      </ion-slides>
+    </div>
+    <div class="best-sell_wrap">
+      <h2>Bestselling Books & Audiobook</h2>
+       <a href="javascript:void(0)" (click)="movemorePage()">More <ion-icon name="chevron-forward"></ion-icon></a>
+    </div>
+    <ion-slides [options]="option" class="ion-margin-top">
+
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+
+    <div class="best-sell_wrap">
+      <h2>Bestselling Books & Audiobook</h2>
+       <a href="javascript:void(0)" (click)="movemorePage()">More <ion-icon name="chevron-forward"></ion-icon></a>
+    </div>
+    <ion-slides [options]="option" class="ion-margin-top">
+
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+
+    <div class="best-sell_wrap">
+      <h2>Bestselling Books & Audiobook</h2>
+       <a href="javascript:void(0)" (click)="movemorePage()">More <ion-icon name="chevron-forward"></ion-icon></a>
+    </div>
+    <ion-slides [options]="option" class="ion-margin-top">
+
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+
+    <div class="best-sell_wrap">
+      <h2>Bestselling Books & Audiobook</h2>
+       <a href="javascript:void(0)" (click)="movemorePage()">More <ion-icon name="chevron-forward"></ion-icon></a>
+    </div>
+    <ion-slides [options]="option" class="ion-margin-top">
+
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+
+    <div class="best-sell_wrap">
+      <h2>Bestselling Books & Audiobook</h2>
+       <a href="javascript:void(0)" (click)="movemorePage()">More <ion-icon name="chevron-forward"></ion-icon></a>
+    </div>
+    <ion-slides [options]="option" class="ion-margin-top">
+
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+
+      <ion-slide>
+         <ion-card href="javascript:void(0)" (click)="imgclick()">
+          <img src="../assets/banner.jpeg" alt=" ">
+          <div class="audio-books_wrap">
+            <h3 class="books-name">The Guest List: A Novel</h3>
+            <p class="author-name">Lucy Foley</p>
+          </div>
+          <div class="icon-wrap">
+            <div class="review-icons">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half-outline"></ion-icon>
+            </div>
+            <div class="saved-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+  </div>
+</div>
+</ion-content>

@@ -1,0 +1,23 @@
+.download-wraaper {
+    padding: 0 20px;
+    .download-content {
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            li {
+                border-bottom: 1px solid #ccc;
+            }
+        }
+        h3 {
+            font-size: 18px;
+        }
+        p {           
+            margin: 0;
+            font-size: 14px;
+            font-weight: 300;
+            color: #808080;
+            text-transform: lowercase;
+            margin-bottom: 15px;
+        }
+    }
+}
