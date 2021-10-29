@@ -130,6 +130,7 @@ return true;
     }
     products(id,name){
         this.productService.getCategoryOnes(id).subscribe((res)=>{
+          console.log(res)
           // {'category_id':id,'category_name':name,product:res};
         let product = {'category_id':id,'category_name':name,product:res};
         this.combine_array_data.push(product);

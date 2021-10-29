@@ -7,7 +7,7 @@
 <ion-content class="app-bg" >
  <div class="top-slider">
   <button class="tablinks" (click)="openCity($event, 'AllContent')" id='defaultOpen'>All</button>
-  <div  *ngFor="let item22 of produtCategoryData;let inx3 = index">
+  <div  *ngFor="let item22 of categoryid;let inx3 = index">
      
     <button class="tablinks" (click)='openCity($event, item22.id)' >{{item22.name}}</button>
     <!-- <button (click)="openCity(event, 'audiobook')">Audiobooks</button>
@@ -19,7 +19,8 @@
   </div>
 </div>
 
-  <div class="All-content__wrapper tabcontent" id='AllContent' *ngFor="let item of produtCategoryData;let inx2 = index">
+  <div class="All-content__wrapper tabcontent" id='AllContent'>
+ 
     <div class="banner-img">
       <img src={{banner_image}} />
     </div>
@@ -31,7 +32,7 @@
       <button class="cancel-btn">{{button_tagline}}</button>
     </div>
 
-
+ 
 
     <div class="best-sell_wrap">
       <h2>Recommended categories</h2>
@@ -76,38 +77,40 @@
       </ion-slides>
     </div>
    
+   
   </div>
-  <div *ngFor="let item of produtCategoryData;let inx2 = index">
-  <div class="books-wrap tabcontent" id={{item.id}}>
-    <div class="best-sell_wrap">
-      <h2>{{item.name}}</h2>
-      <a href="javascript:void(0)" (click)="movemorePage(item.id,item.name)">More <ion-icon name="chevron-forward"></ion-icon></a>
+  <div *ngFor="let item of combine_array_data;let inx2 = index">
+    <div class="books-wrap tabcontent" id={{item.category_id}}>
+      <div class="best-sell_wrap">
+        <h2>{{item.category_name}}</h2>
+        <a href="javascript:void(0)" (click)="movemorePage(item.category_id,item.category_name)">More <ion-icon name="chevron-forward"></ion-icon></a>
+      </div>
+      <ion-slides [options]="option" class="ion-margin-top">
+        <ion-slide *ngFor="let item2 of item.product">
+        
+          <ion-card href="javascript:void(0)" (click)="imgclick(item2.id)">
+            <img src={{item2.images[0].src}} alt=" ">
+            <div class="audio-books_wrap">
+              <h3 class="books-name">{{item2.name}}</h3>
+              <!-- <p class="author-name">Lucy Foley</p> -->
+            </div>
+            <div class="icon-wrap">
+              <div class="review-icons">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star-half-outline"></ion-icon>
+              </div>
+              <div class="saved-icon">
+                <ion-icon name="bookmark-outline"></ion-icon>
+              </div>
+            </div>
+          </ion-card>
+        </ion-slide>
+      </ion-slides>
     </div>
-    <ion-slides [options]="option" class="ion-margin-top">
-      <ion-slide *ngFor="let item2 of fullonePro">
-        <ion-card href="javascript:void(0)" (click)="imgclick(item2.id)">
-          <img src={{item2.images[0].src}} alt=" ">
-          <div class="audio-books_wrap">
-            <h3 class="books-name">{{item2.name}}</h3>
-            <!-- <p class="author-name">Lucy Foley</p> -->
-          </div>
-          <div class="icon-wrap">
-            <div class="review-icons">
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star-half-outline"></ion-icon>
-            </div>
-            <div class="saved-icon">
-              <ion-icon name="bookmark-outline"></ion-icon>
-            </div>
-          </div>
-        </ion-card>
-      </ion-slide>
-    </ion-slides>
-  </div>
-  </div>
+    </div>
 </ion-content>
 
 
