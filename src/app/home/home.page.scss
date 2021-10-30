@@ -74,6 +74,7 @@ button {
         display: flex;
         align-items: center;
         text-decoration: none;
+        color: #fff;
     }   
 }
 
@@ -82,15 +83,16 @@ ion-title {
 }
 
 ion-card {
-    width: 100%;
+    width: auto;
     height: auto;
     box-shadow: none;
     border-radius: 0px;background:transparent;
     
     img {
-        object-fit: cover;
+        object-fit: contain;
         width: 100%;
-        transform: scale(1.1, 1.1) rotate(1deg);
+        max-height: 230px;
+        transform: scale(1, 1) rotate(1deg);
         transition: 600ms all ease-in-out;
     }
 }
@@ -123,7 +125,7 @@ ion-card {
         font-weight: 700;
         margin-top: 10px;
         border: 1px solid #808080;
-        color: #808080;
+        color: #000;
     }
     ion-slide {
         width: unset !important;
@@ -139,7 +141,7 @@ ion-card {
         p.author-name {
             font-size: 12px;
             font-weight: 600;
-            text-align: left;color:#a1a1a1;
+            text-align: left;color:#fff;
         }    
 }
 .icon-wrap {
@@ -147,7 +149,10 @@ ion-card {
     justify-content: space-between;
     align-items: center;
 }
-
+ion-icon {
+    font-size: 24px;
+    color: #fff;
+}
 ::ng-deep.toolbar-content {
     display: flex;
     align-items: center;

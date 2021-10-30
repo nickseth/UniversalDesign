@@ -9,7 +9,9 @@
     width: 40px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     }
-
+h3 {
+    color: #fff;
+}
 }
 ul {
     list-style-type: none;
@@ -19,11 +21,20 @@ ul {
 li {
     padding-bottom: 15px;
     a {
-        color: #808080;
+        color: #fff;
         font-size: 14px;
         font-weight: 100;
     }
 }
+}
+p {
+    color: #fff;
+}
+.acc-header {
+    background-color: #002C42
+}
+::ng-deep .ion-page {
+    display: block !important;
 }
 .app-logo {
     max-width: 100px;
@@ -40,4 +51,13 @@ li {
     letter-spacing: 1px;
     font-weight: 300;
     text-align: left;
+}
+::ng-deep ion-header {
+    background-color: #002C42;
+}
+::ng-deep ion-content {
+    background-color: #002C42;
+}
+::ng-deep main.inner-scroll.scroll-y {
+    background-color: #002C42;
 }

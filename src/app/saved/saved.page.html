@@ -30,9 +30,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<!-- <ion-content [fullscreen]="true" class="ion-padding"> -->
 
-  <div *ngIf="segmentModel === 'wishlist'">
+  <div *ngIf="segmentModel === 'wishlist'" style="background-color: #002C42 !important;">
     <ion-refresher slot="fixed" (ionRefresh)="getUsersList($event)">
       <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
@@ -74,4 +74,4 @@
       </ion-row>
     </ion-grid>
 </div>
-</ion-content>
+<!-- </ion-content> -->

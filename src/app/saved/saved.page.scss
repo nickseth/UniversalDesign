@@ -21,3 +21,6 @@ p {
     max-height: 3.6em;
     line-height: 1.8em;
   }
+  ::ng-deep .ion-page {
+      display: block !important;
+  }

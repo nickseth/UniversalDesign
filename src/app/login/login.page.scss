@@ -1,8 +1,11 @@
+.log-wrap {
+    background-color: #002C42;
+}
 form {
     padding: 20px;
     box-shadow: var(--box-shadow4);
     margin: 17px;
-    border: 1px solid var(--gray);
+    border: 1px solid #fff;
 }
 .acc-create-wrap {
     display: flex;
@@ -12,17 +15,17 @@ form {
 }
 a.small-text {
     text-decoration: none;
-    color: var(--black);
+    color: #fff;
     font-size: 14px;
 }
 .small-text:hover {
-    color: var(--blue);
+    color: #fff;
 }
 .user-icon {
     text-align: center;
     ion-icon {
         font-size: 50px;
-        fill: darkblue;
+        fill: #fff;
     }
 }
 
@@ -33,33 +36,33 @@ ion-item {
     }
 }
 ::ng-deep .dark input {
-    color: #000;
+    color: rgb(252, 229, 229);
 }
 ::ng-deep .dark form label {
-    color: var(--white);
+    color: #fff;
 }
 ::ng-deep .dark form .acc-create-wrap a {
-    color: var(--white) !important;
+    color: #fff !important;
 }
 .acc-create-wrap a{
     font-size: var(--x-small);
     font-weight: 600;
-    color: var(--blue);
+    color: #fff;
 }
 input {
     width: 100%;
     padding: 10px;
-    border: 1px solid var(--gray);
+    border: 1px solid #fff;
     margin: 10px 0;
 }
 label {
     font-size: 16px;
     font-weight: 600;
     letter-spacing: 3px;
-    color: var(--black);
+    color: #fff;
 }
 ion-title.md.title-default.hydrated {
-    color: var(--black);
+    color: #fff;
     font-size: 22px;
     font-weight: 600;
     text-align: center;
@@ -70,9 +73,9 @@ ion-title.md.title-default.hydrated {
 .cta {
     text-align: center;
     button {
-        background-color: var(--blue);
+        background-color: #fff;
         padding: 13px 40px;
-        color: var(--white);
+        color: #000;
         font-size: var(--small);
         border-radius: 25px;
         font-weight: 700;
@@ -84,5 +87,11 @@ ion-title.md.title-default.hydrated {
 }
 
 ::ng-deep .dark .cta button {
-    color: var(--white);
+    color: #fff;
 } 
+::ng-deep .ion-page {
+    display: block !important;
+}
+label {
+    color: #fff;
+}

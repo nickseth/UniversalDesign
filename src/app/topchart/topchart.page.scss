@@ -1,5 +1,6 @@
 .chart-wrapper {
     padding: 20px;
+    background-color: #002C42 !important;
     .chart-heading {
         display: flex;
         align-items: center;
@@ -7,11 +8,12 @@
     }
     h3 {
         font-size: 18px;
+        color: #fff;
     }
     p {
         // margin: 0;
         font-size: 13px;
-        color: #808080;
+        color: #fff;
     }
     .chart-category {
         ul {
@@ -35,12 +37,19 @@
             font-size: 14px;
             display: flex;
             margin: 0;
-            align-items: flex-end;
+            align-items: center;
+            color: #fff;
             ion-icon {
                 font-size: 25px;
-                color: #808080;
+                color: #fff;
             }
         }
                
     }
+}
+ion-header {
+    background-color: #002C42 !important;
+}
+ion-icon {
+    color: #fff;
 }
