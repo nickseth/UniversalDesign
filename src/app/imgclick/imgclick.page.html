@@ -23,7 +23,7 @@
         
       </div>
     </div>
-    <button class="read-cta" (click)="readBook('1')">Buy Now</button>
+    <button class="read-cta" (click)="readBook(this.product_id)">Buy Now</button>
     <!-- <button class="pay-cta">Play Sample</button> -->
     <div class="imgclick-icons">
     <span><ion-icon name="arrow-down-circle-outline" (click)="downloadFileone(file_url_download)"></ion-icon>Download</span>  
@@ -45,5 +45,7 @@
         <li>Format<a>Snapshot</a></li>
       </ul>
     </div> -->
+    
   </div>
+ 
 </ion-content>

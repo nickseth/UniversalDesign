@@ -2,14 +2,14 @@ import { Component, ViewChild, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import { CalendarComponent } from 'ionic2-calendar';
-
+import { ScheduleService } from '../services/schedule.service';
+import { AuthenticationService } from '../services/authentication.service';
 @Component({
   selector: 'app-calendarview',
   templateUrl: 'calendarview.page.html',
   styleUrls: ['calendarview.page.scss'],
 })
 export class CalendarviewPage implements OnInit {
- 
   event = {
     title: '',
     desc: '',
@@ -29,14 +29,21 @@ export class CalendarviewPage implements OnInit {
   };
  
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
- 
-  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string) { }
+  token:any;
+  constructor(private alertCtrl: AlertController,
+     @Inject(LOCALE_ID) private locale: string,
+     public schedule:ScheduleService,
+     private authentication:AuthenticationService
+     ) {
+      this.authentication.getToken().then(val => {
+        this.token = val.value;
+      })
+      }
  
   ngOnInit() {
     this.resetEvent();
  
   }
- 
   resetEvent() {
     this.event = {
       title: '',
@@ -50,6 +57,7 @@ export class CalendarviewPage implements OnInit {
   // Create the right event format and reload source
   addEvent() {
     let eventCopy = {
+      token:this.token,
       title: this.event.title,
       startTime:  new Date(this.event.startTime),
       endTime: new Date(this.event.endTime),
@@ -65,9 +73,14 @@ export class CalendarviewPage implements OnInit {
       eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
     }
  
-    this.eventSource.push(eventCopy);
+    // this.eventSource.push(eventCopy);
+    this.schedule.addSchedulefun(eventCopy).subscribe(val=>{
+      console.log(val);
+    })
     this.myCal.loadEvents();
     this.resetEvent();
+    console.log(this.eventSource)
+
   }
 
  // Change current month/week/day
@@ -98,6 +111,7 @@ onViewTitleChanged(title) {
  
 // Calendar event was clicked
 async onEventSelected(event) {
+
   // Use Angular date pipe for conversion
   let start = formatDate(event.startTime, 'medium', this.locale);
   let end = formatDate(event.endTime, 'medium', this.locale);

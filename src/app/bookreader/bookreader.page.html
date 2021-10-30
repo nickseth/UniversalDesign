@@ -167,6 +167,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
+    <ion-button (click)="sethilightData()">Add highlight</ion-button>
     <ion-buttons slot="end">
       <ion-icon *ngIf="bookmarkData; else nobookmarkData" [style.color]="'#EF3B51'" name="bookmark"
         (click)="deletebookmark(this.bookmarks_index)" style="width:30px;height:30px;padding:10px;" slot="end"
@@ -240,4 +241,32 @@
      
     </ion-fab-list>
   </ion-fab>
+  <ion-tabs class="tbhideshow" style="display:none">
+    <ion-tab-bar slot="bottom" class="tab_bar">
+      <ion-tab-button tab="home">
+        <ion-icon name="home-outline"></ion-icon>
+        <ion-label>Home</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="topchart">
+        <ion-icon name="search-outline"></ion-icon>
+        <ion-label>Top Chart</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="search">
+        <ion-icon name="search-outline"></ion-icon>
+        <ion-label>Seacrh</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="saved2">
+        <ion-icon name="bookmark-outline"></ion-icon>
+        <ion-label>Saved</ion-label>
+      </ion-tab-button>
+      
+      <ion-tab-button tab="account2">
+        <ion-icon name="person-outline"></ion-icon>
+        <ion-label>Account2</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
 </ion-content>

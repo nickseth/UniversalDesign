@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class TabsPage {
 
   constructor(public router: Router) {}
-  serchpage() {
-    this.router.navigateByUrl('/search');
-  }
+  // serchpage() {
+  //   this.router.navigateByUrl('/search');
+  // }
 }

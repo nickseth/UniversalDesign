@@ -16,7 +16,7 @@ import { Themes } from 'epubjs/src/themes';
 // import { SqdatabaseService } from './../api/s.service';
 import { File } from '@ionic-native/file/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
-
+import { ProductService } from '../services/product.service';
 @Component({
   selector: 'app-bookreader',
   templateUrl: './bookreader.page.html',
@@ -46,13 +46,14 @@ export class BookreaderPage implements OnInit {
   bookmarkTitle: any;
   bookmarks: any;
   spine1: any;
-  csrf_csrf: any;
+  product_ones: any;
   book_bookmark_highlight: any;
   bookmarkData: any;
   bookmarks_index: any;
   bookmark_highlightData: any;
   token: any;
   selctedtext: any = '';
+ 
   list22: string[];
   private win: any = window;
   constructor(private route: ActivatedRoute,
@@ -65,7 +66,8 @@ export class BookreaderPage implements OnInit {
     // public sqdatabaseService: SqdatabaseService,
     public modalController: ModalController,
     public file:File,
-    private androidPermissions:AndroidPermissions
+    private androidPermissions:AndroidPermissions,
+    public productdata:ProductService
   ) {
 
 
@@ -77,6 +79,7 @@ export class BookreaderPage implements OnInit {
       document.getElementById("defaultOpen").click();
       this.openCity(event, 'chapter');
     }, 100);
+
   }
 
   async presentActionSheet(cfiurl, text, index) {
@@ -191,7 +194,12 @@ export class BookreaderPage implements OnInit {
 
     this.book_id = this.route.snapshot.paramMap.get('id');
     // if(this.getPermission()) {
-      this.epubFileReader(this.book_id);
+      this.productdata.getBookone(this.book_id).subscribe(val=>{
+        this.product_ones = val;
+        this.epubFileReader(this.product_ones.downloads[0].file)
+        
+      })
+      // this.epubFileReader(this.book_id);
     // }
   
    
@@ -199,7 +207,7 @@ export class BookreaderPage implements OnInit {
   }
   epubFileReader(urlbook) {
     // 
-    // this.book = Epub('https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub');
+    this.book = Epub(urlbook, { replacements: "blobUrl" });
       // this.book = Epub(this.file.externalRootDirectory+"Universal-Book/"+urls);
     // this.sqdatabaseService.getDownloadedBookLocation().then(val => {
     //   val.forEach(element => {
@@ -209,7 +217,7 @@ export class BookreaderPage implements OnInit {
     // let newPath = this.win.Ionic.WebView.convertFileSrc(this.file.externalRootDirectory+"Documents/robert-louis-stevenson_treasure-island.epub");
     //      console.log(newPath);
     // this.book = Epub(newPath, { replacements: "blobUrl" });
-       this.book = Epub('https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub');
+      //  this.book = Epub('https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub');
     //       //          // "https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub"
     //       // this.webview.convertFileSrc()
     //       // let urlabc =  Filesystem.readFile({
@@ -470,17 +478,21 @@ export class BookreaderPage implements OnInit {
       this.bookTitle = meta.title;
 
     });
-    this.rendition.on("selected", (cfiRange, contents) => {
+  
+      this.rendition.on("selected", (cfiRange, contents) => {
 
-      this.book.getRange(cfiRange).then(range => {
-
-        if (range.toString()) {
-          this.book_highlight(cfiRange, range.toString());
-        }
+        this.book.getRange(cfiRange).then(range => {
+  
+          if (range.toString()) {
+            console.log(range.toString())
+            // this.book_highlight(cfiRange, range.toString());
+          }
+        });
+        contents.window.getSelection().removeAllRanges();
+  
       });
-      contents.window.getSelection().removeAllRanges();
-
-    });
+    
+   
 
 
     ///theme background change------------------------------------------
@@ -622,6 +634,8 @@ export class BookreaderPage implements OnInit {
   }
 
 
+
+
   showNext() {
     this.rendition.on('relocated', (location) => {
 
@@ -629,6 +643,8 @@ export class BookreaderPage implements OnInit {
     });
     this.rendition.next();
   }
+  
+ 
 
   showPrev() {
     this.rendition.on('relocated', (location) => {
@@ -907,5 +923,7 @@ export class BookreaderPage implements OnInit {
     });
     return await modal.present();
   }
+
+
 
 }

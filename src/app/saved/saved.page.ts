@@ -32,7 +32,7 @@ export class SavedPage implements OnInit {
   ngOnInit() {
     this.storagewishlistService.getWishlistData().then(val=>{
       this.wishlistData = val;
-      
+      console.log(this.wishlistData)
     this.authenticationService.getToken().then(val => {
       this.dataRetrieve(val.value);
       this.token = val.value;
@@ -48,7 +48,7 @@ export class SavedPage implements OnInit {
   }
 
   viewItem(item_id) {
-    this.activatedRouter.navigate(['/product-view', { id: item_id }]);
+    this.activatedRouter.navigate(['/imgclick', { id: item_id }]);
 
   }
   getUsersList(event) {

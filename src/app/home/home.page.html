@@ -52,7 +52,7 @@
         <h2>{{item.category_name}}</h2>
         <a (click)="movemorePage(item.category_id,item.category_name)">More<ion-icon name="chevron-forward"></ion-icon></a>
       </div>
-      <ion-slides pager="true" [options]="option" class="ion-margin-top">
+      <ion-slides  [options]="option" class="ion-margin-top">
         <ion-slide *ngFor="let item2 of item.product">
           <ion-card href="javascript:void(0)" (click)="imgclick(item2.id)">
             <img src={{item2.images[0].src}} alt=" ">
