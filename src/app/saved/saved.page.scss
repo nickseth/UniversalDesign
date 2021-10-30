@@ -24,3 +24,8 @@ p {
   ::ng-deep .ion-page {
       display: block !important;
   }
+  div.ion-header,
+  div.ion-toolbar {
+    background-color: #607d8b;
+  }
+  

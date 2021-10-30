@@ -6,11 +6,11 @@
     ion-icon {
         font-size: 20px;
     font-weight: bold;
-    color: #000;
+    color: #fff;
     }
    ion-title {
     font-size: 16px;
-    color: #000;
+    color: #fff;
    }
 }
 .w3-hide {
@@ -28,10 +28,10 @@
     justify-content: left;
     font-size: 16px;
     font-weight: 500;
-    color: #000;
+    color: #fff;
     ion-icon {
         padding-left: 20px;
-        color: #000;
+        color: #fff;
         font-size: 20px;
     }
 }
@@ -54,4 +54,29 @@
     margin: 0;
     text-align: justify;
     }
+}
+
+div.ion-header {
+    background-color: #607d8b;
+    h2 {
+        color: #fff;
+        margin: 0;
+        padding: 10px;
+    }
+    button {
+        color: #fff;
+    }
+    
+}
+::ng-deep span.button-inner {
+    color: #fff !important;
+}
+div.ion-content {
+    background-color: #002C42;
+}
+::ng-deep .ion-page {
+    display: block !important;
+}
+ion-icon {
+    color: #fff;
 }

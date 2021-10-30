@@ -47,8 +47,12 @@
                
     }
 }
-ion-header {
-    background-color: #002C42 !important;
+div.ion-header {
+    background-color: #607d8b;
+    h2 {
+        color: #fff;
+        
+    }
 }
 ion-icon {
     color: #fff;

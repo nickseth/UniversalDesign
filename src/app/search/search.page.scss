@@ -49,3 +49,12 @@
 ::ng-deep .toolbar-container {
     background-color: #002C42 !important;
 }
+div.ion-header {
+    background-color: #607d8b;
+}
+div.ion-content {
+    background-color: #002C42;
+}
+::ng-deep .ion-app {
+    display: block;
+}

@@ -31,7 +31,12 @@ p {
     color: #fff;
 }
 .acc-header {
-    background-color: #002C42
+    background-color: #607d8b;
+    h2 {
+        color: #fff;
+        margin: 0;
+        padding: 10px;
+    }
 }
 ::ng-deep .ion-page {
     display: block !important;

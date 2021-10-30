@@ -28,11 +28,22 @@ ion-item {
         h2 {
             font-size: 14px;
             letter-spacing: 1px;
-            color: #000;
+            color: #fff;
             font-weight: 600;
         }
         span {
             font-size: 12px;
         }
     }
+}
+.more-title {
+    background-color: #607d8b;
+    display: flex;
+    align-items: center;
+    h2 {
+        color: #fff;
+    }
+}
+ion-icon {
+    color: #fff;
 }
