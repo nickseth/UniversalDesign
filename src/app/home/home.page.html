@@ -36,16 +36,14 @@
 
     <div class="best-sell_wrap">
       <h2>Recommended categories</h2>
-      <a>All Interest<ion-icon name="chevron-forward"></ion-icon></a>
+      <!-- <a>All Interest<ion-icon name="chevron-forward"></ion-icon></a> -->
     </div>
     <div class="categries">
-      <ion-slides [options]="option" class="ion-margin-top">
-        <ion-slide> <button>BScience & Mathematics</button> </ion-slide>
-        <ion-slide> <button>BScience & Mathematics</button> </ion-slide>
-        <ion-slide> <button>BScience & Mathematics</button> </ion-slide>
-        <ion-slide> <button>BScience & Mathematics</button> </ion-slide>
-        <ion-slide> <button>BScience & Mathematics</button> </ion-slide>
-      </ion-slides>
+      <div class="top-slider">
+        <div  *ngFor="let item22 of categoryid;let inx3 = index">
+          <button class="tablinks" (click)='movemorePage(item22.id,item22.name)' >{{item22.name}}</button>
+        </div>
+      </div>
     </div>
     <div class="magazine-wrap" *ngFor="let item of combine_array_data">
       <div class="best-sell_wrap">
