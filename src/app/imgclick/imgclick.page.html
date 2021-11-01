@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="app-bg">
   <ion-toolbar>
     <div class="imgclick-content">
       <ion-buttons slot="start">
@@ -10,7 +10,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="app-bg">
   <div class="imgclick_wrapper">
     <div class="imgclick-container">
       <div class="imgclick-img">
@@ -29,7 +29,7 @@
     <span><ion-icon name="arrow-down-circle-outline" (click)="downloadFileone(file_url_download)"></ion-icon>Download</span>  
    <span><ion-icon *ngIf="wishlistData; else noWishlist" [style.color]="'#EF3B51'" name="bookmark" (click)="deletewishlist()"></ion-icon> <ng-template #noWishlist>
     <ion-icon name="bookmark-outline" (click)="setwishlist()" 
-     style="width:30px;height:30px;padding:10px;"  slot="end"></ion-icon>
+     ></ion-icon>
     </ng-template>Save</span>   
      <!-- <span><ion-icon name="list-outline" (click)="presentAlertPrompt()"></ion-icon>Add to List</span>  -->
     </div>

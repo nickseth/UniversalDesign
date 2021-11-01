@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+
 
 import { IonicModule } from '@ionic/angular';
 
 import { RegistrationPageRoutingModule } from './registration-routing.module';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegistrationPage } from './registration.page';
 
 @NgModule({
@@ -13,7 +13,8 @@ import { RegistrationPage } from './registration.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    RegistrationPageRoutingModule
+    RegistrationPageRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [RegistrationPage]
 })

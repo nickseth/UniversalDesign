@@ -1,3 +1,11 @@
+.app-bg{--background:#002C42;
+    --ion-toolbar-background:#002C42;
+   
+    ion-title{
+        color:white;
+    }
+ 
+}
 .faq {
     padding: 20px;
     ul {
@@ -10,7 +18,7 @@
             a {
                 font-size: 18px;
                 font-weight: 500;
-                color: #000;
+                color: #fff;
             }
         }
     }

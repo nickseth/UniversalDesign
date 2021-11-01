@@ -248,7 +248,9 @@ p{
         }
     }
     }
-	.app-bg{--background:#002C42}
+	.app-bg{--background:#002C42;
+        --ion-toolbar-background:#002C42;
+    }
 	.logo-title .logo{margin-right:10px}
 	.logo-title{display:flex; align-items:center; background:#002C42}
 	.logo-title span{color:#fff}
@@ -257,4 +259,10 @@ p{
 	.tab_bar, #tab-button-home {
     --background: var(--ion-color-primary, #3880ff);
 	background: var(--ion-color-primary, #3880ff);
+}
+.categries button {margin-right: 10px;}
+::ng-deep
+.my-custom-class{
+    --background:#ebf1f500e7;
+    --spinner-color: #fff
 }

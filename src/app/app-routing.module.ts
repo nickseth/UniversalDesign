@@ -139,6 +139,14 @@ const routes: Routes = [
     path: 'internetfailed',
     loadChildren: () => import('./internetfailed/internetfailed.module').then( m => m.InternetfailedPageModule)
   },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+  },
+  {
+    path: 'linkshow',
+    loadChildren: () => import('./linkshow/linkshow.module').then( m => m.LinkshowPageModule)
+  },
 
 ];
 

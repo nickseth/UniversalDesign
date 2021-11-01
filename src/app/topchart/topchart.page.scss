@@ -1,3 +1,10 @@
+.app-bg{--background:#002C42;
+    --ion-toolbar-background:#002C42;
+    --color:#fff;
+    ion-title{
+        color:#fff
+    }
+}
 .chart-wrapper {
     padding: 20px;
     background-color: #002C42 !important;
@@ -52,4 +59,8 @@ ion-header {
 }
 ion-icon {
     color: #fff;
+}
+::ng-deep .my-custom-class{
+    --background:#ebf1f500e7;
+    --spinner-color: #fff
 }

@@ -1,10 +1,10 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header  class="app-bg">
+  <ion-toolbar >
     <ion-title>Top Charts</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="app-bg">
 <div class="chart-wrapper">
   <!-- <div class="chart-heading">
     <h3>Top Charts</h3>
@@ -12,15 +12,19 @@
   </div>
   <p>The most popular books and audiobbook generating buzz from critics, NYT, and more.</p> -->
 
-  <div class='chart-category' *ngFor="let item of data">
+  <div class='chart-category' *ngFor="let item of data;">
+    
     <ul>
       <li>
         <img src={{item.images[0].src}}  (click)="imgclick(item.id)"/>
+        <!-- {{*ngIf="addAndFetchWishlist(item.id)}} (click)="deletewishlist()"(click)="setwishlist(item.id,item.name,item.images[0].src)"-->
         <span>
-          <h3>{{item.name}}<ion-icon *ngIf="wishlistData; else noWishlist" [style.color]="'#EF3B51'" name="bookmark" (click)="deletewishlist()"></ion-icon> 
-            <ng-template #noWishlist>
-            <ion-icon name="bookmark-outline" (click)="setwishlist(item.id,item.name,item.images[0].src)" 
-             style="width:30px;height:30px;padding:10px;"  slot="end"></ion-icon></ng-template></h3>
+          <!-- [style.color]="'#EF3B51'" -->
+          <h3 >{{item.name}}<ion-icon   name="bookmark" ></ion-icon> 
+            <!-- <ng-template #noWishlist>
+            <ion-icon name="bookmark-outline"  
+             ></ion-icon></ng-template> -->
+            </h3>
           <p>Mark Manson</p>
           <div class="icon-wrap">
             <ion-icon name="star-outline"></ion-icon>
@@ -30,8 +34,6 @@
           </div>
         </span>
       </li>
-
-
     </ul>
   </div>
 </div>

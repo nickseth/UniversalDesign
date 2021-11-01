@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import SwiperCore from 'swiper';
-import { IonicSwiper } from '@ionic/angular';
+import { IonicSwiper, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ProductService  } from '../services/product.service';
 import { WishlistService } from '../services/localstorage/wishlist.service';
 import { AuthenticationService } from './../services/authentication.service';
+import { LinkshowPage } from './../linkshow/linkshow.page';
 import {
   ActionPerformed,
   PushNotificationSchema,
@@ -12,6 +13,8 @@ import {
   Token,
 } from '@capacitor/push-notifications';
 import { LoadingController } from '@ionic/angular';
+import { Network } from '@capacitor/network';
+
 SwiperCore.use([IonicSwiper]);
 
 @Component({
@@ -33,12 +36,54 @@ banner_image:any;
 getData:any;
 loading:any;
 fullonePro:any;
+networkstatus:any;
   constructor(private router: Router,
     private productService:ProductService,
     private wishlistService:WishlistService,
     private authenticationService:AuthenticationService,
     public loadingController: LoadingController,
-    ) { }
+    private modalController:ModalController
+    ) { 
+
+      Network.getStatus().then(val=>{
+        if(val.connected == false){
+         this.networkstatus = false;
+         this.router.navigate(['/account']);
+         this.loading.dismiss();
+        } else{
+         this.networkstatus = true;
+       
+         this.getbannerData();
+        }
+           })
+  
+           Network.addListener('networkStatusChange', status => {
+            if(status.connected == false){
+              this.networkstatus = false;
+              this.router.navigate(['/account']);
+              this.loading.dismiss();
+             } else{
+              this.networkstatus = true;
+              console.log(this.networkstatus);
+              this.getbannerData();
+             }
+          });
+          
+          const logCurrentNetworkStatus = async () => {
+            const status = await Network.getStatus();
+            if(status.connected == false){
+              this.networkstatus = false;
+              this.router.navigate(['/account']);
+              this.loading.dismiss();
+             } else{
+              this.networkstatus = true;
+              console.log(this.networkstatus);
+              this.getbannerData();
+             }
+          };
+
+
+    }
   option = {
     slidesPerView: 1.5,
     centeredSlides: true,
@@ -106,7 +151,8 @@ this.getProductWithCategory();
    async getProductCategory(){
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Please wait...',
+      backdropDismiss: true,
+      translucent: true,
     });
     await this.loading.present();
   await this.productService.getCategory().subscribe((res)=>{
@@ -117,7 +163,7 @@ return true;
   }
 
   async getProductWithCategory(){
-
+ 
     await this.productService.getCategory().subscribe((res)=>{
       this.categoryid = res;
       this.categoryid.forEach(element => {
@@ -128,12 +174,13 @@ return true;
     })
   
     }
-    products(id,name){
-        this.productService.getCategoryOnes(id).subscribe((res)=>{
+    async products(id,name){
+      await this.productService.getCategoryOnes(id).subscribe((res)=>{
           console.log(res)
           // {'category_id':id,'category_name':name,product:res};
         let product = {'category_id':id,'category_name':name,product:res};
         this.combine_array_data.push(product);
+       
         // console.log(this.combine_array_data);
       })
  
@@ -177,6 +224,19 @@ openCity(evt, cityName) {
   }
   imgclick(item_id) {
     this.router.navigate(['imgclick', { id: item_id }]);
+  }
+
+  async presentModal(txt) {
+   
+    const modal = await this.modalController.create({
+      component: LinkshowPage,
+      cssClass: 'my-custom-class',
+      componentProps: {
+        'linkshowany': txt,
+
+      }
+    });
+    return await modal.present();
   }
 
 

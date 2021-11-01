@@ -10,6 +10,8 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { WishlistService } from '../services/localstorage/wishlist.service';
 import { AuthenticationService } from './../services/authentication.service';
 import { DownloadedfileService } from '../services/localstorage/downloadedfile.service';
+import { LoadingController } from '@ionic/angular';
+import { ToastController  } from '@ionic/angular';
 @Component({
   selector: 'app-imgclick',
   templateUrl: './imgclick.page.html',
@@ -27,6 +29,7 @@ export class ImgclickPage implements OnInit {
   wishlist_index:any;
   product_id:any;
   fileCreated:any;
+  loading:any;
   constructor(private router: Router,
     private rec_router: ActivatedRoute,
     public alertController: AlertController,
@@ -37,7 +40,9 @@ export class ImgclickPage implements OnInit {
     private androidPermissions: AndroidPermissions,
     private wishlistService:WishlistService,
     private authenticationService:AuthenticationService,
-    public downloadedfile:DownloadedfileService
+    public downloadedfile:DownloadedfileService,
+    public loadingController: LoadingController,
+    public toast:ToastController
   ) {
     
     this.authenticationService.getToken().then(val => {
@@ -68,14 +73,21 @@ export class ImgclickPage implements OnInit {
     this.addAndFetchWishlist();
 
   }
-  getProduct(id) {
+  async getProduct(id) {
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      backdropDismiss: true,
+      translucent: true,
+    });
+    await this.loading.present();
     this.productService.getBookone(id).subscribe(res => {
       this.data = res;
       this.title = this.data.name;
       this.imagescr = this.data.images[0].src;
       this.short_desc = this.data.short_description;
       this.file_url_download = this.data.downloads[0].file;
-
+      this.loading.dismiss();
+     console.log("prod"+this.imagescr)
     })
   }
 
@@ -132,42 +144,53 @@ export class ImgclickPage implements OnInit {
     const fileTransfer: FileTransferObject = this.transfer.create();
   
     // console.log(this.file)
-    let fileexternalurl = this.file.externalRootDirectory + "Documents/";
+    let fileexternalurl = this.file.externalRootDirectory + "UniversalApp/";
     
     // this.file.createDir(this.file.externalRootDirectory, 'UniversalBook',true);
 
-    let url = "https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub";
-    // let url = fileurl;
+    // let url = "https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub";
+    let url = fileurl;
     let filename1 = url.substring(url.lastIndexOf('/') + 1);
 
     let geturlfinal = encodeURI(url);
-    // this.platform.ready().then(() =>{
-    //   if(this.platform.is('android')) {
-    //     this.file.checkDir(this.file.externalRootDirectory, 'UniversalApp').then(response => {
-    //       console.log('Directory exists'+response);
-    //     }).catch(err => {
-    //       console.log('Directory doesn\'t exist'+JSON.stringify(err));
-    //       this.file.createDir(this.file.externalRootDirectory, 'UniversalApp', true).then(response => {
-    //         console.log('Directory create'+response);
-    //       }).catch(err => {
-    //         console.log('Directory no create'+JSON.stringify(err));
-    //       }); 
-    //     });
-    //   }
-    // });
+
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class2',
+      message:'Downloading...',
+     
+    });
+    await this.loading.present();
+
+
+    this.platform.ready().then(() =>{
+      if(this.platform.is('android')) {
+        this.file.checkDir(this.file.externalRootDirectory, 'UniversalApp').then(response => {
+          console.log('Directory exists'+response);
+        }).catch(err => {
+          console.log('Directory doesn\'t exist'+JSON.stringify(err));
+          this.file.createDir(this.file.externalRootDirectory, 'UniversalApp', false).then(response => {
+            console.log('Directory create'+response);
+          }).catch(err => {
+            console.log('Directory no create'+JSON.stringify(err));
+          }); 
+        });
+
+         fileTransfer.download(geturlfinal, fileexternalurl + filename1).then((entry) => {
+          this.downloadedfile.addBookDownload(this.product_id,this.token,this.title,this.imagescr,filename1);
+          this.showToast();
+          this.loading.dismiss();
+          setTimeout(() => {
+            this.HideToast();
+          }, 3000);
+        }, (error) => {
+          console.log(error)
+        });
+      }
+    });
     // fileTransfer.onProgress((progressEvent) => {
     //         this.progress = perc;
     // });
-    await fileTransfer.download(geturlfinal, fileexternalurl + filename1).then((entry) => {
-      this.downloadedfile.addBookDownload(this.product_id,this.token,this.title,this.imagescr,filename1);
-      console.log(entry.toURL());
-      // setTimeout(()=>{
-      //   this.valueDisplay = 'none';
-      // },1000)
-      // this.file_exist_status = true;
-    }, (error) => {
-      console.log(error)
-    });
+
 
   }
 
@@ -221,6 +244,17 @@ export class ImgclickPage implements OnInit {
     // book_location
 
   }
-  
+  showToast() {
+    this.toast.create({
+      message: 'Downloading Complete',
+      duration: 2000
+    }).then((toastData) => {
+    
+      toastData.present();
+    });
+  }
+  HideToast() {
+   this.toast.dismiss();
+  }
 
 }

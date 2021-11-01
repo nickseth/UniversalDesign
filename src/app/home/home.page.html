@@ -4,7 +4,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="app-bg" >
+<ion-content class="app-bg">
+  <!-- <div *ngIf="this.networkstatus else netproblem"> -->
  <div class="top-slider">
   <button class="tablinks" (click)="openCity($event, 'AllContent')" id='defaultOpen'>All</button>
   <div  *ngFor="let item22 of categoryid;let inx3 = index">
@@ -27,7 +28,7 @@
     <div class="banner-img_content">
       <h2>{{banner_title}}</h2>
       <p>{{banner_tagline}}</p>
-      <a href={{button_link}}><button class="read-btn">{{button_text}}</button></a>
+      <a (click)="presentModal(button_link)"><button class="read-btn">{{button_text}}</button></a>
       <br>
       <button class="cancel-btn">{{button_tagline}}</button>
     </div>
@@ -109,6 +110,14 @@
       </ion-slides>
     </div>
     </div>
+  <!-- </div>
+  <ng-template #netproblem>
+    <div style="text-align: center; padding-top:20%">
+      <p>Internet Connection Problem</p>
+    </div>
+  </ng-template> -->
 </ion-content>
+
+
 
 

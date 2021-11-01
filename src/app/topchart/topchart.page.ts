@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { WishlistService } from '../services/localstorage/wishlist.service';
+import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-topchart',
   templateUrl: './topchart.page.html',
@@ -12,18 +13,30 @@ data:any;
 wishlistData:any;
 token:any;
 wishlist_index:any;
+loading:any;
   constructor(public router: Router,
     public products:ProductService,
     private wishlistService:WishlistService,
+    public loadingController: LoadingController,
     ) { }
 
   ngOnInit() {
-
+   this.fetData();
+   
+  }
+  async fetData(){
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      backdropDismiss: true,
+      translucent: true,
+    });
+    await this.loading.present();
   this.products.getCategoryOnes(34).subscribe(res=>{
    this.data = res;
    console.log(this.data)
    this.data.forEach(element => {
-    this.addAndFetchWishlist(element.id)
+    
+    this.loading.dismiss();
    });
  
   })
@@ -35,16 +48,13 @@ wishlist_index:any;
   imgclick(item_id) {
     this.router.navigate(['imgclick', { id: item_id }]);
   }
-  addAndFetchWishlist(product_id) {
+  addAndFetchWishlist(indx) {
 
     this.wishlistService.getWishlistData().then(val => {
       // console.log(val)
       if (val != null) {
-        val.forEach((element, index) => {
-          if (element.id == product_id) {
-            this.wishlist_index = index;
-            this.wishlistData = val;
-          }
+       val.filter((elem) =>{
+          return (elem.recordId === indx);
         });
       }
 

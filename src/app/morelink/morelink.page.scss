@@ -1,3 +1,21 @@
+.app-bg{--background:#002C42;
+    --ion-toolbar-background:#002C42;
+   color:#fff;
+    ion-title{
+        color:#fff
+    }
+    ion-buttons{
+        color:#fff;
+    }
+    div {
+        color:#fff; 
+      
+      
+    }
+
+}
+
+
 ion-item {
     width: 100%;
 }
@@ -28,7 +46,7 @@ ion-item {
         h2 {
             font-size: 14px;
             letter-spacing: 1px;
-            color: #000;
+            color: #fff;
             font-weight: 600;
         }
         span {

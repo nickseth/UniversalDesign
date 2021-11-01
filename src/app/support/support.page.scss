@@ -1,3 +1,20 @@
+.app-bg{--background:#002C42;
+    --ion-toolbar-background:#002C42;
+    div{
+        ion-title{
+            color:#fff;
+        }
+       
+        ion-buttons{
+            color:#fff; 
+        }
+        ion-icon{
+            color:#fff;  
+        }
+    }
+ 
+
+}
 .support-wrapper {
     display: flex;
     align-items: center;
@@ -6,11 +23,11 @@
     ion-icon {
         font-size: 20px;
     font-weight: bold;
-    color: #000;
+    color: #fff;
     }
    ion-title {
     font-size: 16px;
-    color: #000;
+    color: #fff;
    }
 }
 .w3-hide {
@@ -28,10 +45,10 @@
     justify-content: left;
     font-size: 16px;
     font-weight: 500;
-    color: #000;
+    color: #fff;
     ion-icon {
         padding-left: 20px;
-        color: #000;
+        color: #fff;
         font-size: 20px;
     }
 }
@@ -49,7 +66,7 @@
     p {     
     font-size: 14px;
     font-weight: 500;
-    color: #808080;
+    color: #776e6e;
     letter-spacing: 1px;
     margin: 0;
     text-align: justify;

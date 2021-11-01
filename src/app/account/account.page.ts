@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AuthenticationService } from './../services/authentication.service';
 import { UserdetailsService } from './../services/userdetails.service';
+import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-account',
   templateUrl: './account.page.html',
@@ -12,28 +13,41 @@ export class AccountPage implements OnInit {
   userdetails:any;
   token:any;
   user:any;
+  loading:any;
   constructor(public router: Router,
      public alertController: AlertController,
      public authenticationService:AuthenticationService,
-     public userdetailsService:UserdetailsService
+     public userdetailsService:UserdetailsService,
+     public loadingController: LoadingController,
      ) { 
       this.authenticationService.getToken().then(val => {
         this.token = val.value;
-        let data = {'token':this.token};
-        this.userdetailsService.getUserDeatils(data).subscribe(val=>{
-          this.userdetails = val;
-          if(this.userdetails.fname == undefined){
-            this.user = "Guest";
-          } else{
-            this.user = this.userdetails.fname +" " +this.userdetails.lname;
-          }
-         
-        })
+    
     });
+    this.getData();
      }
 
   ngOnInit() {
 
+  }
+  async getData(){
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      backdropDismiss: true,
+      translucent: true,
+    });
+    await this.loading.present();
+    let data = {'token':this.token};
+    this.userdetailsService.getUserDeatils(data).subscribe(val=>{
+      this.userdetails = val;
+      this.loading.dismiss();
+      if(this.userdetails.fname == undefined){
+        this.user = "Guest";
+      } else{
+        this.user = this.userdetails.fname +" " +this.userdetails.lname;
+      }
+     
+    })
   }
   accinfo() {
     this.router.navigateByUrl('/accinformation');

@@ -19,4 +19,16 @@ export class ScheduleService {
    return this.http.post(this.baseUrl+ `wp-json/mobileapi/v1/add_schedule`, JSON.stringify(scheduledata),options);
    
   }
+  getSchedule(token){
+
+    let headers = new HttpHeaders({
+      "Content-type": "application/json",
+     });
+  
+     let options = {
+        headers: headers
+     }
+    return this.http.post(this.baseUrl+ `wp-json/mobileapi/v1/view_schedule`, JSON.stringify(token),options);
+    
+  }
 }

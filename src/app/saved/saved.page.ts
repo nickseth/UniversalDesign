@@ -68,8 +68,9 @@ export class SavedPage implements OnInit {
     let token1 = { 'token': token_val };
     // console.log()
      this.loading = await this.loadingController.create({
-          cssClass: 'my-custom-class',
-          message: 'Please wait...',
+      cssClass: 'my-custom-class',
+      backdropDismiss: true,
+      translucent: true,
         });
         await this.loading.present();
     this.notesService.getNotes(token1).subscribe(data => {

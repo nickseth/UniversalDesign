@@ -13,7 +13,7 @@ import { ModalController } from '@ionic/angular';
 import { CalculatorPage } from '../calculator/calculator.page';
 import { GoogleSearchPage } from '../google-search/google-search.page';
 import { Themes } from 'epubjs/src/themes';
-// import { SqdatabaseService } from './../api/s.service';
+import { DownloadedfileService } from '../services/localstorage/downloadedfile.service';
 import { File } from '@ionic-native/file/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { ProductService } from '../services/product.service';
@@ -67,7 +67,8 @@ export class BookreaderPage implements OnInit {
     public modalController: ModalController,
     public file:File,
     private androidPermissions:AndroidPermissions,
-    public productdata:ProductService
+    public productdata:ProductService,
+    private localdownload:DownloadedfileService
   ) {
 
 
@@ -194,11 +195,13 @@ export class BookreaderPage implements OnInit {
 
     this.book_id = this.route.snapshot.paramMap.get('id');
     // if(this.getPermission()) {
-      this.productdata.getBookone(this.book_id).subscribe(val=>{
-        this.product_ones = val;
-        this.epubFileReader(this.product_ones.downloads[0].file)
+      // this.productdata.getBookone(this.book_id).subscribe(val=>{
+      //   this.product_ones = val;
+      //   // this.product_ones.downloads[0].file
+    
         
-      })
+      // })
+      this.epubFileReader(this.book_id);
       // this.epubFileReader(this.book_id);
     // }
   
@@ -209,15 +212,15 @@ export class BookreaderPage implements OnInit {
     // 
     // this.book = Epub(urlbook, { replacements: "blobUrl" });
       // this.book = Epub(this.file.externalRootDirectory+"Universal-Book/"+urls);
-    // this.sqdatabaseService.getDownloadedBookLocation().then(val => {
-    //   val.forEach(element => {
-    //     if (element.id == urlbook) {
+    this.localdownload.getDownloadedBookLocation().then(val => {
+      val.forEach(element => {
+        if (element.id == urlbook) {
       // '../../assets/abs.epub'
     
-    // let newPath = this.win.Ionic.WebView.convertFileSrc(this.file.externalRootDirectory+"Documents/robert-louis-stevenson_treasure-island.epub");
+    let newPath = this.win.Ionic.WebView.convertFileSrc(this.file.externalRootDirectory+"UniversalApp/"+element.book_location);
     //      console.log(newPath);
-    // this.book = Epub(newPath, { replacements: "blobUrl" });
-       this.book = Epub('https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub');
+    this.book = Epub(newPath, { replacements: "blobUrl" });
+      //  this.book = Epub('https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub');
     //       //          // "https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub"
     //       // this.webview.convertFileSrc()
     //       // let urlabc =  Filesystem.readFile({
@@ -228,10 +231,10 @@ export class BookreaderPage implements OnInit {
     
     //      this.book = Epub(this.file.externalRootDirectory+"Universal-Book/"+urls);
         
-    //     }
-    //   });
+        }
+      });
 
-    // });
+    });
 
     this.rendition = this.book.renderTo('viewer', { flow: 'auto', width: '100%',
      ignoreClass: 'annotator-hl', height: '100%',
@@ -485,15 +488,38 @@ export class BookreaderPage implements OnInit {
   
           if (range.toString()) {
             console.log(range.toString())
-            // this.book_highlight(cfiRange, range.toString());
+             this.book_highlight(cfiRange, range.toString());
           }
         });
         contents.window.getSelection().removeAllRanges();
   
       });
-    
-   
+      // window.oncontextmenu = (event) => {
+      //   event.preventDefault();
+      //   event.stopPropagation();
+      //   alert('hi');
+      //   return false;
+      // };
+//    this.rendition.on("rendered", (e,i) => {;
+//   i.document.documentElement.addEventListener('contextmenu', (cfiRange, contents) => {
+//       alert('hey');
+//   })
+// });
+this.rendition.on("rendered", () => {
+  const contents = this.rendition.getContents()
+  contents.document.addEventListener('contextmenu', (event)=>{
+    event.preventDefault();
+    alert('hello')
+  }, false);
+});
 
+// this.rendition.on('rendered', (rendition: Rendition, iframe: Window) => {
+//   alert('Rendition rendered');
+//   iframe.document.documentElement.addEventListener('contextmenu', (event: TouchEvent) => {
+//       alert('Stopping contextual menu coming from epubjs iframe');
+//       event.preventDefault();
+//   });
+// });
 
     ///theme background change------------------------------------------
     this.rendition.themes.register("dark1",

@@ -1,3 +1,9 @@
+.app-bg{--background:#002C42;
+    --ion-toolbar-background:#002C42;
+    ion-title{
+        color:#fff;
+    }  
+}
 .saved_wrapper {
     display: flex;
     align-items: center;
@@ -24,3 +30,8 @@ p {
   ::ng-deep .ion-page {
       display: block !important;
   }
+  ::ng-deep .my-custom-class{
+    --background:#ebf1f500e7;
+    --spinner-color: #fff;
+}
+

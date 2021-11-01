@@ -1,3 +1,14 @@
+.app-bg{--background:#002C42;
+    --ion-toolbar-background:#002C42;
+   
+    ion-title{
+        color:white;
+    }
+    div{
+        color:white;   
+    }
+}
+
 .accinfo-wrap {
     display: flex;
     align-items: center;
@@ -18,4 +29,9 @@
     a {
         text-decoration: none;
     }
+}
+::ng-deep
+.my-custom-class{
+    --background:#ebf1f500e7;
+    --spinner-color: #fff
 }

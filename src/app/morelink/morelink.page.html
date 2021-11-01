@@ -1,15 +1,15 @@
-<ion-header>
+<ion-header class="app-bg">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button>
         <ion-icon name="arrow-back"></ion-icon>
       </ion-back-button>
       </ion-buttons>
-      <h2>{{category_name}}</h2>
+      <ion-title>{{category_name}}</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <ion-list>
+<ion-content class="app-bg">
+  <!-- <ion-list>
     <ion-list-header>
     <ion-item>
       <ion-label>Sort</ion-label>
@@ -19,7 +19,7 @@
       </ion-select>
     </ion-item>
     </ion-list-header>
-  </ion-list>
+  </ion-list> -->
 
   <div class="more_wrapper" *ngFor="let item of products">
 <div class="moreLink-container">

@@ -41,6 +41,9 @@ export class CalendarviewPage implements OnInit {
       }
  
   ngOnInit() {
+    this.schedule.getSchedule(this.token).subscribe(res=>{
+      console.log(res)
+    })
     this.resetEvent();
  
   }
@@ -58,19 +61,19 @@ export class CalendarviewPage implements OnInit {
   addEvent() {
     let eventCopy = {
       token:this.token,
-      title: this.event.title,
-      startTime:  new Date(this.event.startTime),
-      endTime: new Date(this.event.endTime),
-      allDay: this.event.allDay,
-      desc: this.event.desc
+      time_title: this.event.title,
+      start_time:  new Date(this.event.startTime),
+      end_time: new Date(this.event.endTime),
+      all_Day: this.event.allDay,
+      time_description: this.event.desc
     }
  
-    if (eventCopy.allDay) {
-      let start = eventCopy.startTime;
-      let end = eventCopy.endTime;
+    if (eventCopy.all_Day) {
+      let start = eventCopy.start_time;
+      let end = eventCopy.end_time;
  
-      eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
-      eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
+      eventCopy.start_time = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
+      eventCopy.end_time = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
     }
  
     // this.eventSource.push(eventCopy);

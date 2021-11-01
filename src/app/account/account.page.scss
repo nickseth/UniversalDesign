@@ -1,3 +1,10 @@
+.app-bg{--background:#002C42;
+    --ion-toolbar-background:#002C42;
+    ion-title{
+        color:white;
+    }
+}
+
 .acc-img {
     max-width: 126px;
     margin: 20px auto;
@@ -60,4 +67,9 @@ p {
 }
 ::ng-deep main.inner-scroll.scroll-y {
     background-color: #002C42;
+}
+::ng-deep
+.my-custom-class{
+    --background:#ebf1f500e7;
+    --spinner-color: #fff
 }

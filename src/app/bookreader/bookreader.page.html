@@ -166,8 +166,8 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
-    </ion-buttons>
-    <ion-button (click)="sethilightData()">Add highlight</ion-button>
+    </ion-buttons>,
+    <!-- <ion-button (click)="sethilightData()">Add highlight</ion-button> -->
     <ion-buttons slot="end">
       <ion-icon *ngIf="bookmarkData; else nobookmarkData" [style.color]="'#EF3B51'" name="bookmark"
         (click)="deletebookmark(this.bookmarks_index)" style="width:30px;height:30px;padding:10px;" slot="end"

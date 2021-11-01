@@ -1,11 +1,10 @@
-<div class="acc-header" style="background-color: #002C42;">
-<ion-header>
+<ion-header class="app-bg">
   <ion-toolbar>
     <ion-title>Account</ion-title>
   </ion-toolbar>
 </ion-header>
-</div>
-  <div class="account-wrapper" style="background-color: #002C42;">
+<ion-content class="app-bg">
+  <div class="account-wrapper">
     <div class="acc-img">
       <img src="../assets/banner.jpeg" alt=" ">
       <h3>{{user}}</h3>
@@ -19,11 +18,12 @@
         <li><a (click)="faqinfo()">Faqs & Support</a></li>
         <!-- <li><a (click)="audiopage()">Audio Player Setting</a></li> -->
         <!-- <li><a (click)="presentAlertCheckbox()">Language Prefrences</a></li> -->
-        <li><a (click)="downloadpage()">Download</a></li>
-        <!-- <li><a (click)="notificationpage()">Notification Settings</a></li> -->
+         <!-- <li><a (click)="notificationpage()">Notification Settings</a></li> -->
         <!-- <li><a (click)="privacypage()">Privacy</a></li> -->
         <!-- <li><a (click)="invitefrdpage()">Invite Friends</a></li> -->
         <!-- <li><a>Open Source Licenses</a></li> -->
+        <li><a (click)="downloadpage()">Download</a></li>
+       
       </ul>
 
       <div class="app-logo">
@@ -31,4 +31,5 @@
         <p>Made in India</p>
       </div>
     </div>
-  </div>
+    </div>
+  </ion-content>

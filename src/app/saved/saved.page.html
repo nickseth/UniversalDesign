@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="app-bg">
 
   <ion-toolbar>
     <div class="saved_wrapper">
@@ -26,13 +26,12 @@
         <ion-label>Notebook</ion-label>
       </ion-segment-button>
     </ion-segment>
-    
   </ion-toolbar>
-</ion-header>
+   </ion-header>
 
-<!-- <ion-content [fullscreen]="true" class="ion-padding"> -->
 
-  <div *ngIf="segmentModel === 'wishlist'" style="background-color: #002C42 !important;">
+<ion-content [fullscreen]="true" class="ion-padding app-bg">
+  <div *ngIf="segmentModel === 'wishlist'">
     <ion-refresher slot="fixed" (ionRefresh)="getUsersList($event)">
       <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
@@ -49,7 +48,7 @@
   
 
   <div size="6"  *ngIf="segmentModel === 'Notebook'">
-    <ion-refresher slot="fixed" (ionRefresh)="getUsersList($event,this.token)">
+    <ion-refresher slot="fixed" (ionRefresh)="getUsersList2($event,this.token)">
       <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
     <ion-grid>
@@ -73,5 +72,5 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-</div>
-<!-- </ion-content> -->
+ </div>
+</ion-content>
