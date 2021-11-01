@@ -1,11 +1,10 @@
-<ion-header>
-  <ion-toolbar>
+<div class="ion-header">
+  
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Log In</ion-title>
-  </ion-toolbar>
-</ion-header>
+    <h2 class="ion-title">Log In</h2>
+  </div>
 <div class="log-wrap">
     <div class="img-wrap"></div>
     <form (ngSubmit)="login()" [formGroup]="credentials">

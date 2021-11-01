@@ -17,6 +17,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px;
+    background-color: #607d8b;
 }
 .imgclick-container {
     display: flex;
@@ -33,13 +34,14 @@
     p {
         font-size: 10px;
         font-weight: 100;
-        color: #808080;
+        color: #fff;
         margin: 0;
     }
     h2 {
         font-size: 16px;
     font-weight: bold;
     margin-top: 10px;
+    color: #fff;
     }
 
 }
@@ -71,6 +73,7 @@ button {
     border-bottom: 1px solid #cccccc;
     ion-icon{
         font-size: 30px;
+        color: #fff;
     }
     span {
         display: flex;
@@ -78,7 +81,7 @@ button {
         align-items: center;
         font-size: 12px;
         font-weight: 600;
-        color: #808080;
+        color: #fff;
         margin-left: 45px;
         position: relative;
 
@@ -87,7 +90,7 @@ button {
             width: 41px;
             height: 1px;
             content: '';
-            background-color: #d7d8da;
+            background-color: #fff;
             transform: rotateZ(90deg);
             right: -33px;
             top: 23px;
@@ -109,7 +112,7 @@ button {
         max-width: 200px;
         margin: 0 auto;
         li {
-            color: #808080;
+            color: #fff;
             font-size: 12px;
             text-transform: uppercase;
             display: flex;
@@ -168,7 +171,20 @@ button {
     letter-spacing: 2px;
     text-align: center;
 } 
+<<<<<<< HEAD
 ::ng-deep .my-custom-class{
     --background:#ebf1f500e7;
     --spinner-color: #fff
+=======
+
+::ng-deep .ion-page {
+    display: block !important;
+}
+ion-icon {
+    color: #fff;
+}
+h2 {
+    color: #fff;
+    margin: 0;
+>>>>>>> 53e885cef871af8be65eec58da0961b5576125fd
 }

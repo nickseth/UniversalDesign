@@ -1,11 +1,14 @@
-<ion-header class="app-bg">
-  <ion-toolbar>
-    <ion-title class="logo-title"><span>UniversalBook</span></ion-title>
-  </ion-toolbar>
-</ion-header>
+<div class="home_ion-header">
 
+<<<<<<< HEAD
 <ion-content class="app-bg">
   <!-- <div *ngIf="this.networkstatus else netproblem"> -->
+=======
+    <h2 class="ion-title logo-title"><span>UniversalBook</span></h2>
+  
+</div>
+<ion-content class="app-bg" >
+>>>>>>> 53e885cef871af8be65eec58da0961b5576125fd
  <div class="top-slider">
   <button class="tablinks" (click)="openCity($event, 'AllContent')" id='defaultOpen'>All</button>
   <div  *ngFor="let item22 of categoryid;let inx3 = index">
@@ -51,8 +54,8 @@
         <h2>{{item.category_name}}</h2>
         <a (click)="movemorePage(item.category_id,item.category_name)">More<ion-icon name="chevron-forward"></ion-icon></a>
       </div>
-      <ion-slides  [options]="option" class="ion-margin-top">
-        <ion-slide *ngFor="let item2 of item.product">
+      <div class="home_ion-slides ion-margin-top"  [options]="option">
+        <div class="home_ion-slide" *ngFor="let item2 of item.product">
           <ion-card href="javascript:void(0)" (click)="imgclick(item2.id)">
             <img src={{item2.images[0].src}} alt=" ">
             <div class="audio-books_wrap">
@@ -72,8 +75,8 @@
               </div>
             </div>
           </ion-card>
-        </ion-slide>
-      </ion-slides>
+        </div>
+      </div>
     </div>
    
    
@@ -84,8 +87,8 @@
         <h2>{{item.category_name}}</h2>
         <a href="javascript:void(0)" (click)="movemorePage(item.category_id,item.category_name)">More <ion-icon name="chevron-forward"></ion-icon></a>
       </div>
-      <ion-slides [options]="option" class="ion-margin-top">
-        <ion-slide *ngFor="let item2 of item.product">
+      <div class="home_ion-slides ion-margin-top" [options]="option">
+        <div class="home_ion-slide" *ngFor="let item2 of item.product">
         
           <ion-card href="javascript:void(0)" (click)="imgclick(item2.id)">
             <img src={{item2.images[0].src}} alt=" ">
@@ -106,8 +109,8 @@
               </div>
             </div>
           </ion-card>
-        </ion-slide>
-      </ion-slides>
+        </div>
+      </div>
     </div>
     </div>
   <!-- </div>

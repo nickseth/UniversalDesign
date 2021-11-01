@@ -127,7 +127,7 @@ ion-card {
         border: 1px solid #808080;
         color: #000;
     }
-    ion-slide {
+    .home_ion-slide {
         width: unset !important;
     }
 }
@@ -260,9 +260,35 @@ p{
     --background: var(--ion-color-primary, #3880ff);
 	background: var(--ion-color-primary, #3880ff);
 }
+<<<<<<< HEAD
 .categries button {margin-right: 10px;}
 ::ng-deep
 .my-custom-class{
     --background:#ebf1f500e7;
     --spinner-color: #fff
+=======
+
+.home_ion-slides {
+    display: inline-flex;
+    overflow-x: scroll !important;
+    width: 100%;
+    overflow-y: hidden;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.home_ion-slide {
+    width: 50%;
+    flex: 0 0 50%;
+}
+.logo-title {
+    margin: 0;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    display: block;
+}
+.home_ion-header {
+    background-color: #607d8b;
+>>>>>>> 53e885cef871af8be65eec58da0961b5576125fd
 }

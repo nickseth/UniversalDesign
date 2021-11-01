@@ -95,3 +95,19 @@ ion-title.md.title-default.hydrated {
 label {
     color: #fff;
 }
+div.ion-header {
+    background-color: #607d8b;
+    display: flex;
+    align-items: center;
+    h2 {
+        color: #fff;
+        margin: 0;
+    }
+    button {
+        color: #fff;
+    }
+    
+}
+::ng-deep span.button-inner {
+    color: #fff !important;
+}

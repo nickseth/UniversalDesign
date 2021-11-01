@@ -72,3 +72,28 @@
     text-align: justify;
     }
 }
+
+div.ion-header {
+    background-color: #607d8b;
+    h2 {
+        color: #fff;
+        margin: 0;
+        padding: 10px;
+    }
+    button {
+        color: #fff;
+    }
+    
+}
+::ng-deep span.button-inner {
+    color: #fff !important;
+}
+div.ion-content {
+    background-color: #002C42;
+}
+::ng-deep .ion-page {
+    display: block !important;
+}
+ion-icon {
+    color: #fff;
+}
