@@ -260,14 +260,13 @@ p{
     --background: var(--ion-color-primary, #3880ff);
 	background: var(--ion-color-primary, #3880ff);
 }
-<<<<<<< HEAD
+
 .categries button {margin-right: 10px;}
 ::ng-deep
 .my-custom-class{
     --background:#ebf1f500e7;
-    --spinner-color: #fff
-=======
-
+    --spinner-color: #fff;
+}
 .home_ion-slides {
     display: inline-flex;
     overflow-x: scroll !important;
@@ -290,5 +289,5 @@ p{
 }
 .home_ion-header {
     background-color: #607d8b;
->>>>>>> 53e885cef871af8be65eec58da0961b5576125fd
+
 }

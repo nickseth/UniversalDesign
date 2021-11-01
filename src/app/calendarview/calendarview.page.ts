@@ -37,25 +37,29 @@ export class CalendarviewPage implements OnInit {
      ) {
       this.authentication.getToken().then(val => {
         this.token = val.value;
+        console.log(this.token)
+        this.schedule.getSchedule(this.token).subscribe(res=>{
+          console.log(res)
+        })
       })
       }
  
   ngOnInit() {
-    this.schedule.getSchedule(this.token).subscribe(res=>{
-      console.log(res)
-    })
-    this.resetEvent();
+   
+   
+    // this.resetEvent();
  
   }
-  resetEvent() {
-    this.event = {
-      title: '',
-      desc: '',
-      startTime: new Date().toISOString(),
-      endTime: new Date().toISOString(),
-      allDay: false
-    };
-  }
+  // .toISOString()
+  // resetEvent() {
+  //   this.event = {
+  //     title: '',
+  //     desc: '',
+  //     startTime: new Date('Y-m-d H:i A'),
+  //     endTime: new Date('Y-m-d H:i A'),
+  //     allDay: 0
+  //   };
+  // }
  
   // Create the right event format and reload source
   addEvent() {
@@ -77,11 +81,12 @@ export class CalendarviewPage implements OnInit {
     }
  
     // this.eventSource.push(eventCopy);
+    console.log(eventCopy)
     this.schedule.addSchedulefun(eventCopy).subscribe(val=>{
       console.log(val);
     })
     this.myCal.loadEvents();
-    this.resetEvent();
+    // this.resetEvent();
     console.log(this.eventSource)
 
   }
