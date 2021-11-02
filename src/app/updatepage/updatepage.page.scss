@@ -12,14 +12,15 @@
 .updatepayment-container {
     padding: 0 10px;
     .update-wrap {
-        background-color: #36abe0;
-        color: #fff;
-        text-align: center;
-        padding: 30px;
-        margin: 10px 0;
+        background-color: transparent;
+    color: #fff;
+    text-align: center;
+    padding: 30px;
+    margin: 10px 0;
+    box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
         button {
             background-color: transparent;
-            border: 1px solid #000;
+            border: 1px solid #fff;
             border-radius: 25px;
             padding: 10px 20px;
             color: #fff;
@@ -32,22 +33,24 @@
 }
 .updateselect {
     padding: 20px;
-    background-color: #7aa7bb;
-    color: #fff;
+    background-color: #fff;
+    color: #000;
 }
     .purchase-wrap {
         padding: 20px;
         text-align: center;
+        background-color: transparent;
         button {
             background-color: transparent;
             color: #000;
             text-align: center;
             text-transform: uppercase;
-            border: 1px solid #000;
+            border: 1px solid #fff;
             border-radius: 8px;
             padding: 10px 20px;
             margin-bottom: 20px;
             font-weight: 700;
+            margin-right: 20px;
             line-height: 2;
             font-size: 12px;
         }
@@ -55,4 +58,33 @@
 .searchbar-wrap {
     display: flex;
     align-items: center;
+}
+
+div.ion-header {
+    background-color: #607d8b;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    h2 {
+        color: #fff;
+        margin: 0;
+        padding: 10px;
+    }
+    button {
+        color: #fff;
+    }
+    
+}
+::ng-deep span.button-inner {
+    color: #fff !important;
+}
+.ion-content {
+    background-color: #002C42;
+}
+::ng-deep .ion-page {
+    display: block !important;
+}
+ion-icon {
+    color: #fff;
 }

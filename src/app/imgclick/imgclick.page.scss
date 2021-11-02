@@ -188,3 +188,17 @@ h2 {
 
 }
 }
+
+.ion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    h2 {
+        color: #fff;
+    }
+    ion-icon.sharing-icon.ios.hydrated {
+        padding-right: 15px;
+        font-size: 20px;
+        color: #fff;
+    }
+}

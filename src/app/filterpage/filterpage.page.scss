@@ -1,5 +1,6 @@
 .filter-wrapper {
     padding: 0 20px;
+    background-color: #002C42;
     ul {
         padding: 0;
         list-style-type: none;
@@ -13,6 +14,7 @@
     ion-list-header {
         ion-label {
             font-size: 18px;
+            color: #fff;
         }
     }
     ion-label {  
@@ -30,3 +32,32 @@
 :host(.radio-checked) .radio-icon {
     --border-color: transparent !important;
 }
+
+
+div.ion-header {
+    background-color: #607d8b;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    color: #fff;
+    h2 {
+        color: #fff;
+        margin: 0;
+        padding: 10px;
+    }
+    button {
+        color: #fff;
+    }
+    
+  }
+  ::ng-deep span.button-inner {
+    color: #fff !important;
+  }
+  .ion-content,
+  ion-list.md.list-md.hydrated {
+    background-color: #002C42;
+  }
+  ::ng-deep .ion-page {
+    display: block !important;
+  }

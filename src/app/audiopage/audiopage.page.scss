@@ -6,7 +6,7 @@
     align-items: center;
     font-size: 18px;
     font-weight: 500;
-    color: #000;
+    color: #fff;
     }
 }
 .popup {
@@ -27,10 +27,11 @@ align-items: center;
 justify-content: space-between;
 margin: 20px;
 button {
-    color: #3880ff;
+  color: #fff;
+    background-color: #607d8b;
     text-transform: uppercase;
     font-weight: bold;
-    background-color: transparent;
+    padding: 10px 20px;
 }
     }
   
@@ -67,3 +68,31 @@ button {
     from {opacity: 0;}
     to {opacity:1 ;}
   }
+  div.ion-header {
+    background-color: #607d8b;
+    // display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    h2 {
+        color: #fff;
+        margin: 0;
+        padding: 10px;
+    }
+    button {
+        color: #fff;
+    }
+    
+}
+::ng-deep span.button-inner {
+    color: #fff !important;
+}
+.ion-content {
+    background-color: #002C42;
+}
+::ng-deep .ion-page {
+    display: block !important;
+}
+ion-icon {
+    color: #fff;
+}

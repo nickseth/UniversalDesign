@@ -73,3 +73,34 @@
     ::ng-deep .picker-col:last-child {
         border-right: unset;
     }
+
+    div.ion-header {
+        background-color: #607d8b;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        color: #fff;
+        h2 {
+            color: #fff;
+            margin: 0;
+            padding: 10px;
+        }
+        button {
+            color: #fff;
+        }
+        
+      }
+      ::ng-deep span.button-inner {
+        color: #fff !important;
+      }
+      .ion-content {
+        background-color: #002C42;
+      }
+      ::ng-deep .ion-page {
+        display: block !important;
+      }
+      ::ng-deep small,
+     ::ng-deep td {
+          color: #fff;
+      }

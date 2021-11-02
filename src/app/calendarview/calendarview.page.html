@@ -1,5 +1,4 @@
-<ion-header class="app-bg">
-  <ion-toolbar>
+<div class="ion-header app-bg">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
@@ -9,10 +8,9 @@
     <ion-buttons slot="end">
       <ion-button (click)="today()">Today</ion-button>
     </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+</div>
  
-<ion-content class="Calender-Section">
+<div class="ion-content Calender-Section">
   <!-- Card for adding a new event -->
   <ion-card>
     <ion-card-header tappable (click)="collapseCard = !collapseCard">
@@ -79,4 +77,4 @@
   startingDayWeek="1">
   </calendar>
  
-</ion-content>
+</div>

@@ -15,6 +15,34 @@
 //   src: url("../../assets/fonts/DSEG7Classic-Bold.woff") format('woff');
 // }
 
+ion-button {
+  background-color: #fff;
+}
+div.ion-header {
+  background-color: #607d8b;
+  // display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  h2 {
+      color: #fff;
+      margin: 0;
+      padding: 10px;
+  }
+  button {
+      color: #fff;
+  }
+  
+}
+::ng-deep span.button-inner {
+  color: #fff !important;
+}
+.ion-content {
+  background-color: #002C42;
+}
+::ng-deep .ion-page {
+  display: block !important;
+}
 
 
 
@@ -30,50 +58,50 @@ ion-grid {
       line-height: 5px;
       padding: 3px;
       box-shadow: var(--box-shadow2);
-      background-color: var(--black);
-      color: var(--white);
+      background-color: #fff;
+      color: #000;
     }
     .display {
       font-size: 2.8em;
       text-align: right;
-      color: var(--black);
+      color: #fff;
       font-family: "deseg7";
       padding-top: 0.5em;
       padding-bottom: 0.5em;
     }
     ion-icon {
-      font-size: var(--x-large);
+      font-size: 22px;
       font-weight: bold;
     }
    
   }
   ::ng-deep .md body.dark .cal-close_wrap {
-    background-color: var(--white);
+    background-color: #000;
   }
   ::ng-deep .md body.dark  .cal-close_wrap ion-icon {
-    color: var(--black);
+    color: #fff;
   }
   ::ng-deep .md body.dark .display {
-    color: var(--white);
+    color: #000;
   }
   
   ::ng-deep .md body.dark ion-grid {
-  background-color: var(--white);
+  background-color: #000;
   }
   ::ng-deep .md body.dark ion-grid ion-button {
-    background: var(--black) !important;
-    color: var(--white);
+    background: #fff !important;
+    color: #000;
   }
   ::ng-deep .md body.dark ion-grid .display {
-    color: var(--black);
+    color: #fff;
   }
   
   ::ng-deep .md body.dark ion-grid .button  {
-    background: var(--black) !important
+    background: #fff !important
   ;}
   ::ng-deep ion-ripple-effect {
     box-shadow: none !important;
   }
   ::ng-deep .button-native {
-    color: var(--black);
+    color: #fff;
   }

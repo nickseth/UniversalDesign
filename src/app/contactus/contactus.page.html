@@ -1,13 +1,11 @@
-<ion-header>
-  <ion-toolbar>
+<div class="ion-header">
     <ion-buttons slot="start">
       <ion-back-button><ion-icon name="arrow-back"></ion-icon></ion-back-button>
     </ion-buttons>
-    <ion-title>Contact us</ion-title>
-  </ion-toolbar>
-</ion-header>
+    <h2>Contact us</h2>
+</div>
 
-<ion-content>
+<div class="ion-content">
   <button class="open-button" (click)="openForm()">Chat</button>
 
   <div class="chat-popup" id="myForm">
@@ -21,4 +19,4 @@
       <button type="button" class="btn cancel" (click)="closeForm()">Close</button>
     </form>
   </div>
-</ion-content>
+</div>

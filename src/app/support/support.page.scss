@@ -61,12 +61,12 @@
 .w3-container {
     text-align: left;
     padding: 10px;
-    max-width: 315px;
+    max-width: 400px;
     margin: 0 auto;
     p {     
     font-size: 14px;
     font-weight: 500;
-    color: #776e6e;
+    color: #fff;
     letter-spacing: 1px;
     margin: 0;
     text-align: justify;
@@ -75,6 +75,9 @@
 
 div.ion-header {
     background-color: #607d8b;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     h2 {
         color: #fff;
         margin: 0;
@@ -96,4 +99,6 @@ div.ion-content {
 }
 ion-icon {
     color: #fff;
+    font-size: 20px;
+    padding-right: 20px;
 }
