@@ -96,6 +96,13 @@
       }
       .ion-content {
         background-color: #002C42;
+        background-color: #002C42;
+        overflow-y: scroll !important;
+        /* overflow: scroll !important; */
+        display: block;
+        width: 100%;
+        height: 400px;
+        margin-top: 5px;
       }
       ::ng-deep .ion-page {
         display: block !important;
@@ -104,3 +111,18 @@
      ::ng-deep td {
           color: #fff;
       }
+
+      ::ng-deep ion-button.ios.button.button-clear.ion-activatable.ion-focusable.hydrated,
+      ::ng-deep ion-back-button.ios.button.ion-activatable.ion-focusable.show-back-button.hydrated {
+        color: #fff!important;
+    }
+    table {
+        th {
+            color: #fff;
+        }
+    }
+::ng-deep th,
+::ng-deep .weekview-allday-label,
+::ng-deep .dayview-allday-label {
+    color: #fff;
+}
