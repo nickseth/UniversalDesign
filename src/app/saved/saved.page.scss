@@ -35,10 +35,19 @@ p {
     --background:#ebf1f500e7;
     --spinner-color: #fff;
 }
-
+::ng-deep ion-segment-button.ios.in-toolbar.in-segment.in-segment-color.segment-button-has-label.segment-button-has-label-only.segment-button-layout-icon-top.ion-activatable.ion-activatable-instant.ion-focusable.hydrated.segment-button-after-checked
+    {
+    color: #fff;
+}
+::ng-deep ion-segment-button.ios.in-toolbar.in-segment.in-segment-color.segment-button-has-label.segment-button-has-label-only.segment-button-layout-icon-top.ion-activatable.ion-activatable-instant.ion-focusable.hydrated.segment-button-after-checked:hover ion-label.sc-ion-label-ios-h.sc-ion-label-ios-s.ios.hydrated{
+color: #fff;
+}
+::ng-deep .loading-wrapper.ion-overlay-wrapper.sc-ion-loading-md {
+    box-shadow: unset;
+}
   div.ion-header,
   div.ion-toolbar {
-    background-color: #607d8b;
+    background-color: #05151b;
   }
   
 

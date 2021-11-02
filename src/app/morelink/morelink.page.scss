@@ -22,32 +22,32 @@ ion-item {
 
 
 .more_wrapper {
- 
-    padding-bottom: 20px;
-    margin-bottom: 20px;
     .moreLink-container {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin: 0 10px;
-        border-bottom: 1px solid #808080;
+        margin: 10px;
     }
     .more-img {
         width: 35%;
+        img {
+            width: 100%;
+            display: block;
+        }
     }
     .more-content {
         width: 60%;
         div {
-            font-size: 14px;
+            font-size: 18px;
             display: flex;
             align-items: center;
             justify-content: space-around;
         }
-        h2 {
-            font-size: 14px;
+        p {
+            font-size: 11px;
             letter-spacing: 1px;
             color: #fff;
-            font-weight: 600;
+            font-weight: 100;
         }
         span {
             font-size: 12px;
@@ -55,7 +55,7 @@ ion-item {
     }
 }
 .more-title {
-    background-color: #607d8b;
+    background-color: #05151b;
     display: flex;
     align-items: center;
     h2 {
@@ -64,4 +64,5 @@ ion-item {
 }
 ion-icon {
     color: #fff;
+    font-size: 25px;
 }
