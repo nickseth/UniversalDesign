@@ -80,6 +80,7 @@ export class BookreaderPage implements OnInit {
       document.getElementById("defaultOpen").click();
       this.openCity(event, 'chapter');
     }, 100);
+    // this.epubFileReader();
 
   }
 
@@ -194,69 +195,58 @@ export class BookreaderPage implements OnInit {
   ngOnInit() {
 
     this.book_id = this.route.snapshot.paramMap.get('id');
-    // if(this.getPermission()) {
+   
       // this.productdata.getBookone(this.book_id).subscribe(val=>{
       //   this.product_ones = val;
       //   // this.product_ones.downloads[0].file
-    
+      //   this.epubFileReader(this.product_ones.downloads[0].file);
         
       // })
-      this.epubFileReader(this.book_id);
+        this.localdownload.getDownloadedBookLocation().then(val => {
+          let index_book = val.findIndex(p => p.id == this.book_id);
+
+
+          let bkdata = val[index_book].book_location;
+          this.epubFileReader(bkdata);
+      
+    })
+      
       // this.epubFileReader(this.book_id);
-    // }
-  
+    
+      // this.epubFileReader();
    
 
   }
   epubFileReader(urlbook) {
-    // 
-    // this.book = Epub(urlbook, { replacements: "blobUrl" });
-      // this.book = Epub(this.file.externalRootDirectory+"Universal-Book/"+urls);
-    this.localdownload.getDownloadedBookLocation().then(val => {
-      val.forEach(element => {
-        if (element.id == urlbook) {
-      // '../../assets/abs.epub'
-    
-    let newPath = this.win.Ionic.WebView.convertFileSrc(this.file.externalRootDirectory+"UniversalApp/"+element.book_location);
-    //      console.log(newPath);
+   
+    let newPath = this.win.Ionic.WebView.convertFileSrc(this.file.externalRootDirectory+"UniversalApp/"+urlbook);
+         console.log("this new url"+ newPath);
     this.book = Epub(newPath, { replacements: "blobUrl" });
       //  this.book = Epub('https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub');
     //       //          // "https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub"
-    //       // this.webview.convertFileSrc()
-    //       // let urlabc =  Filesystem.readFile({
-    //       //   path: element.book_location
-    //       // });
-    //       let urls = element.book_location;
-    //       // let filename1 = urls.substring(urls.lastIndexOf('/')+1);
-    
-    //      this.book = Epub(this.file.externalRootDirectory+"Universal-Book/"+urls);
-        
-        }
-      });
-
-    });
-
+  
     this.rendition = this.book.renderTo('viewer', { flow: 'auto', width: '100%',
-     ignoreClass: 'annotator-hl', height: '100%',
-      manager: "continuous", allowScriptedContent: true });
-    let current_location2 = this.storage.get('current_location' + this.book_id);
-    current_location2.then(val => {
-      if (val != null) {
-        setTimeout(() => {
-          this.rendition.display(val);
-        }, 1000);
+    ignoreClass: 'annotator-hl', height: '100%',
+     manager: "continuous", allowScriptedContent: true });
+   let current_location2 = this.storage.get('current_location' + this.book_id);
+   current_location2.then(val => {
+     if (val != null) {
+       setTimeout(() => {
+         this.rendition.display(val);
+       }, 1000);
 
-      } else {
-        this.rendition.display();
-      }
-    });
-    this.rendition.display();
-    this.navOpen = false;
+     } else {
+       this.rendition.display();
+     }
+   });
+   this.rendition.display();
+   this.navOpen = false;
 
+   
     this.rendition.on('rendered', (section) => {
       this.currentChapter = this.book.navigation.get(section.href);
     });
-
+  
     // let touchStart = 0;
     // let touchEnd = 0;
 
@@ -447,13 +437,13 @@ export class BookreaderPage implements OnInit {
       }
     });
     this.book.loaded.spine.then(spine => {
-      // console.log(spine);
+      console.log(spine);
       spine.each(item => {
 
         let i: any = "1";
         this.rendition.on("rendered", section => {
           var current = this.book.navigation.get(item.href);
-          // console.log(current)
+          console.log(current)
           if (i <= 1) {
             var ion_item1 = document.createElement("ion-item");
             ion_item1.innerHTML = current.label;

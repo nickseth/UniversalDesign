@@ -82,7 +82,7 @@ networkstatus:any;
              }
           };
 
-
+          this.getbannerData();
     }
   option = {
     slidesPerView: 1.5,
@@ -98,7 +98,7 @@ networkstatus:any;
   ngOnInit() {
 
 
-this.getbannerData();
+
 
        // Request permission to use push notifications
     // iOS will prompt user and return if they granted permission or not

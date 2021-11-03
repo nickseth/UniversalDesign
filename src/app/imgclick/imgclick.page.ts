@@ -30,6 +30,8 @@ export class ImgclickPage implements OnInit {
   product_id:any;
   fileCreated:any;
   loading:any;
+  author_name:any;
+  book_publisher:any;
   constructor(private router: Router,
     private rec_router: ActivatedRoute,
     public alertController: AlertController,
@@ -72,6 +74,24 @@ export class ImgclickPage implements OnInit {
     this.getProduct(this.product_id);
     this.addAndFetchWishlist();
 
+    
+    this.platform.ready().then(() =>{
+      if(this.platform.is('android')) {
+        this.file.checkDir(this.file.externalRootDirectory, 'UniversalApp').then(response => {
+          console.log('Directory exists'+response);
+        }).catch(err => {
+          console.log('Directory doesn\'t exist'+JSON.stringify(err));
+          this.file.createDir(this.file.externalRootDirectory, 'UniversalApp', false).then(response => {
+            console.log('Directory create'+response);
+          }).catch(err => {
+            console.log('Directory no create'+JSON.stringify(err));
+          }); 
+        });
+
+      
+      }
+    });
+
   }
   async getProduct(id) {
     this.loading = await this.loadingController.create({
@@ -87,7 +107,13 @@ export class ImgclickPage implements OnInit {
       this.short_desc = this.data.short_description;
       this.file_url_download = this.data.downloads[0].file;
       this.loading.dismiss();
-     console.log("prod"+this.imagescr)
+ 
+    let index_publisher = this.data.meta_data.findIndex(p => p.key == "book_publisher");
+     let index_author = this.data.meta_data.findIndex(p => p.key == "book_author");
+     this.author_name = this.data.meta_data[index_author].value;
+     this.book_publisher = this.data.meta_data[index_publisher].value;
+    //  console.log(this.author_name);
+    //  console.log(this.book_publisher)
     })
   }
 
@@ -156,36 +182,19 @@ export class ImgclickPage implements OnInit {
 
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class2',
-      message:'Downloading...',
+      message:filename1+'Downloading...',
      
     });
     await this.loading.present();
-
-
-    this.platform.ready().then(() =>{
-      if(this.platform.is('android')) {
-        this.file.checkDir(this.file.externalRootDirectory, 'UniversalApp').then(response => {
-          console.log('Directory exists'+response);
-        }).catch(err => {
-          console.log('Directory doesn\'t exist'+JSON.stringify(err));
-          this.file.createDir(this.file.externalRootDirectory, 'UniversalApp', false).then(response => {
-            console.log('Directory create'+response);
-          }).catch(err => {
-            console.log('Directory no create'+JSON.stringify(err));
-          }); 
-        });
-
-         fileTransfer.download(geturlfinal, fileexternalurl + filename1).then((entry) => {
-          this.downloadedfile.addBookDownload(this.product_id,this.token,this.title,this.imagescr,filename1);
-          this.showToast();
-          this.loading.dismiss();
-          setTimeout(() => {
-            this.HideToast();
-          }, 3000);
-        }, (error) => {
-          console.log(error)
-        });
-      }
+    fileTransfer.download(geturlfinal, fileexternalurl + filename1).then((entry) => {
+      this.downloadedfile.addBookDownload(this.product_id,this.token,this.title,this.imagescr,filename1);
+      this.showToast();
+      this.loading.dismiss();
+      setTimeout(() => {
+        this.HideToast();
+      }, 3000);
+    }, (error) => {
+      console.log(error)
     });
     // fileTransfer.onProgress((progressEvent) => {
     //         this.progress = perc;

@@ -4,12 +4,14 @@ import { formatDate } from '@angular/common';
 import { CalendarComponent } from 'ionic2-calendar';
 import { ScheduleService } from '../services/schedule.service';
 import { AuthenticationService } from '../services/authentication.service';
+
 @Component({
   selector: 'app-calendarview',
   templateUrl: 'calendarview.page.html',
   styleUrls: ['calendarview.page.scss'],
 })
 export class CalendarviewPage implements OnInit {
+ 
   event = {
     title: '',
     desc: '',
@@ -17,10 +19,10 @@ export class CalendarviewPage implements OnInit {
     endTime: '',
     allDay: false
   };
- 
+  redhat = [];
   minDate = new Date().toISOString();
  
-  eventSource = [];
+  eventSource:any;
   viewTitle;
  
   calendar = {
@@ -29,37 +31,48 @@ export class CalendarviewPage implements OnInit {
   };
  
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
+  getscheduleData:any;
   token:any;
-  constructor(private alertCtrl: AlertController,
-     @Inject(LOCALE_ID) private locale: string,
-     public schedule:ScheduleService,
-     private authentication:AuthenticationService
-     ) {
-      this.authentication.getToken().then(val => {
-        this.token = val.value;
-        console.log(this.token)
-        this.schedule.getSchedule(this.token).subscribe(res=>{
-          console.log(res)
-        })
-      })
-      }
- 
+  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,
+  public schedule:ScheduleService,
+  private authentication:AuthenticationService
+  ) {
+    this.authentication.getToken().then(val => {
+      this.token = val.value;
+      // this.getScheduleData(this.token);
+    });
+   }
   ngOnInit() {
-   
-   
-    // this.resetEvent();
- 
+    this.resetEvent();
   }
-  // .toISOString()
-  // resetEvent() {
-  //   this.event = {
-  //     title: '',
-  //     desc: '',
-  //     startTime: new Date('Y-m-d H:i A'),
-  //     endTime: new Date('Y-m-d H:i A'),
-  //     allDay: 0
-  //   };
-  // }
+  getScheduleData(token1){
+    let stoken = {token:token1}
+    this.schedule.getSchedule(stoken).subscribe(res=>{
+      this.getscheduleData = res;
+      
+      const newArray = this.getscheduleData.map(item => {
+        return {
+          title: item.time_title, 
+          startTime: item.start_time,
+          endTime:item.end_time,
+          allDay:false,
+          desc:item.time_description
+         };
+      });
+     this.eventSource = newArray;
+     console.log(newArray)
+    })
+  }
+ 
+  resetEvent() {
+    this.event = {
+      title: '',
+      desc: '',
+      startTime: new Date().toISOString(),
+      endTime: new Date().toISOString(),
+      allDay: false
+    };
+  }
  
   // Create the right event format and reload source
   addEvent() {
@@ -73,22 +86,24 @@ export class CalendarviewPage implements OnInit {
     }
  
     if (eventCopy.all_Day) {
+
       let start = eventCopy.start_time;
       let end = eventCopy.end_time;
  
       eventCopy.start_time = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
       eventCopy.end_time = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
     }
- 
-    // this.eventSource.push(eventCopy);
-    console.log(eventCopy)
+//  alert(eventCopy.start_time);
     this.schedule.addSchedulefun(eventCopy).subscribe(val=>{
-      console.log(val);
+      alert('Schedule Saved');
+      
     })
-    this.myCal.loadEvents();
-    // this.resetEvent();
-    console.log(this.eventSource)
 
+    this.redhat.push(eventCopy);
+    this.myCal.loadEvents();
+    this.resetEvent();
+    console.log(this.redhat)
+    this.getScheduleData(this.token)
   }
 
  // Change current month/week/day
@@ -119,7 +134,6 @@ onViewTitleChanged(title) {
  
 // Calendar event was clicked
 async onEventSelected(event) {
-
   // Use Angular date pipe for conversion
   let start = formatDate(event.startTime, 'medium', this.locale);
   let end = formatDate(event.endTime, 'medium', this.locale);
