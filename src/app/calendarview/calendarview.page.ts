@@ -4,7 +4,7 @@ import { formatDate } from '@angular/common';
 import { CalendarComponent } from 'ionic2-calendar';
 import { ScheduleService } from '../services/schedule.service';
 import { AuthenticationService } from '../services/authentication.service';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-calendarview',
   templateUrl: 'calendarview.page.html',
@@ -77,21 +77,21 @@ export class CalendarviewPage implements OnInit {
   // Create the right event format and reload source
   addEvent() {
     let eventCopy = {
-      token:this.token,
-      time_title: this.event.title,
-      start_time:  new Date(this.event.startTime),
-      end_time: new Date(this.event.endTime),
-      all_Day: this.event.allDay,
-      time_description: this.event.desc
+      // token:this.token,
+      title: this.event.title,
+      startTime:  new Date(this.event.startTime),
+      endTime: new Date(this.event.endTime),
+      allDay: this.event.allDay,
+      desc: this.event.desc
     }
  
-    if (eventCopy.all_Day) {
+    if (eventCopy.allDay) {
 
-      let start = eventCopy.start_time;
-      let end = eventCopy.end_time;
+      let start = eventCopy.startTime;
+      let end = eventCopy.endTime;
  
-      eventCopy.start_time = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
-      eventCopy.end_time = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
+      eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
+      eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
     }
 //  alert(eventCopy.start_time);
     this.schedule.addSchedulefun(eventCopy).subscribe(val=>{
@@ -99,7 +99,7 @@ export class CalendarviewPage implements OnInit {
       
     })
 
-    this.redhat.push(eventCopy);
+    // this.redhat.push(eventCopy);
     this.myCal.loadEvents();
     this.resetEvent();
     console.log(this.redhat)

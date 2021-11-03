@@ -21,6 +21,7 @@ export class ImgclickPage implements OnInit {
   title: any;
   imagescr: any;
   id: any;
+  long_desc:any;
   data: any;
   short_desc: any;
   file_url_download: any;
@@ -182,19 +183,25 @@ export class ImgclickPage implements OnInit {
 
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class2',
-      message:filename1+'Downloading...',
+      message:'Downloading...',
      
     });
     await this.loading.present();
     fileTransfer.download(geturlfinal, fileexternalurl + filename1).then((entry) => {
       this.downloadedfile.addBookDownload(this.product_id,this.token,this.title,this.imagescr,filename1);
-      this.showToast();
+      this.showToast('Downloading Complete');
       this.loading.dismiss();
       setTimeout(() => {
         this.HideToast();
       }, 3000);
     }, (error) => {
       console.log(error)
+      this.loading.dismiss();
+      this.showToast('Downloading Failed');
+      setTimeout(() => {
+        this.HideToast();
+      }, 3000);
+      
     });
     // fileTransfer.onProgress((progressEvent) => {
     //         this.progress = perc;
@@ -253,9 +260,9 @@ export class ImgclickPage implements OnInit {
     // book_location
 
   }
-  showToast() {
+  showToast(message) {
     this.toast.create({
-      message: 'Downloading Complete',
+      message: message,
       duration: 2000
     }).then((toastData) => {
     
