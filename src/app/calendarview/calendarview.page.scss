@@ -71,7 +71,11 @@
         border-right: unset;
     }
     div.ion-header {
+<<<<<<< HEAD
         background-color: #607D8B;
+=======
+        background-color: #05151b;
+>>>>>>> d2327356ef82e7c21fc684689165cbe96e0b903f
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -106,6 +110,10 @@
      ::ng-deep td {
           color: #fff;
       }
+<<<<<<< HEAD
+=======
+
+>>>>>>> d2327356ef82e7c21fc684689165cbe96e0b903f
       ::ng-deep ion-button.ios.button.button-clear.ion-activatable.ion-focusable.hydrated,
       ::ng-deep ion-back-button.ios.button.ion-activatable.ion-focusable.show-back-button.hydrated {
         color: #fff!important;

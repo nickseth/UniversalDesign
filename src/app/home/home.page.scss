@@ -1,6 +1,7 @@
 .top-slider {
     display: flex;
     overflow-x: scroll;
+    background-color: #05151b;
 	&::-webkit-scrollbar
 {
 	
@@ -252,7 +253,7 @@ p{
         --ion-toolbar-background:#002C42;
     }
 	.logo-title .logo{margin-right:10px}
-	.logo-title{display:flex; align-items:center; background:#002C42}
+	.logo-title{display:flex; align-items:center;}
 	.logo-title span{color:#fff}
 	.active{color:var(--ion-color-primary, #3880ff)}
 	
@@ -288,6 +289,5 @@ p{
     display: block;
 }
 .home_ion-header {
-    background-color: #607d8b;
-
+    background-color: #05151b !important;
 }

@@ -27,9 +27,10 @@ ul {
     margin: 0 auto;
 li {
     padding-bottom: 15px;
+    cursor: pointer;
     a {
         color: #fff;
-        font-size: 14px;
+        font-size: 20px;
         font-weight: 100;
     }
 }
@@ -38,7 +39,7 @@ p {
     color: #fff;
 }
 .acc-header {
-    background-color: #607d8b;
+    background-color: #05151b;
     h2 {
         color: #fff;
         margin: 0;
