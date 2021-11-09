@@ -16,14 +16,16 @@ export class AppComponent {
     }
     backButtonEvent(){
       this.platform.backButton.subscribeWithPriority(10,()=>{
-     
+     console.log(this._location.isCurrentPathEqualTo('/home'));
         if(!this.routerOutlet.canGoBack()){
+        
           this.backButtonAlert();
         } else{
           this._location.back();
         }
       });
     }
+    
     async backButtonAlert(){
     const alert = await this.alertController.create({
       header: 'Universal Book',

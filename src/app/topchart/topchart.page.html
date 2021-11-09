@@ -17,12 +17,12 @@
     <ul>
       <li>
         <img src={{item.images[0].src}}  (click)="imgclick(item.id)"/>
-        <!-- {{*ngIf="addAndFetchWishlist(item.id)}} (click)="deletewishlist()"(click)="setwishlist(item.id,item.name,item.images[0].src)"-->
+        <!-- {{*ngIf="addAndFetchWishlist(item.id)}} -->
         <span>
-          <!-- [style.color]="'#EF3B51'" -->
-          <h3 >{{item.name}}<ion-icon   name="bookmark" ></ion-icon> 
+          <!--  -->
+          <h3 >{{item.name}}<ion-icon [style.color]="item['isBookMark'] ? '#EF3B51' : ''" name="bookmark" (click)="setwishlist(item)"></ion-icon> 
             <!-- <ng-template #noWishlist>
-            <ion-icon name="bookmark-outline"  
+            <ion-icon name="bookmark-outline"  (click)="deletewishlist()" 
              ></ion-icon></ng-template> -->
             </h3>
           <p>Mark Manson</p>

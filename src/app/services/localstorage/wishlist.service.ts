@@ -27,9 +27,10 @@ export class WishlistService {
     return this.storage.get('wishlist');
   }
 
-  deletewishlist1(index){
+  deletewishlist1(index1){
     this.book_wishlist_array = this.storage.get('wishlist');
     this.book_wishlist_array.then(val=>{
+      let index = val.findIndex((rank, index) => rank.id === index1);
        val.splice(index,1);
         this.storage.set('wishlist',this.book_wishlist_array);
      

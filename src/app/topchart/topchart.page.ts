@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { WishlistService } from '../services/localstorage/wishlist.service';
 import { LoadingController } from '@ionic/angular';
+import { AuthenticationService } from './../services/authentication.service';
+
 @Component({
   selector: 'app-topchart',
   templateUrl: './topchart.page.html',
@@ -18,29 +20,45 @@ loading:any;
     public products:ProductService,
     private wishlistService:WishlistService,
     public loadingController: LoadingController,
-    ) { }
+    private authenticationService:AuthenticationService
+    ) { 
+      this.authenticationService.getToken().then(val => {
+        this.token =  val.value;
+       });
+      this.fetData();
+    }
 
   ngOnInit() {
-   this.fetData();
+  
    
   }
   async fetData(){
+  
+  this.products.getCategoryOnes(34).subscribe(res=>{
+   this.getBookmark(res);
+  //  console.log(this.data)
+  //  this.data.forEach(element => {
+    
+  //  });
+ 
+  })
+  }
+  async getBookmark(pro_array){
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       backdropDismiss: true,
       translucent: true,
     });
     await this.loading.present();
-  this.products.getCategoryOnes(34).subscribe(res=>{
-   this.data = res;
-   console.log(this.data)
-   this.data.forEach(element => {
-    
+    let book_cmk =  await this.wishlistService.getWishlistData();
+    pro_array.forEach(element => {
+      if(book_cmk.some(obj => element.id == obj.id)){
+       element['isBookMark'] = true;
+      }
+    });
+     this.data = pro_array;
     this.loading.dismiss();
-   });
- 
-  })
-  }
+   }
   // filetrpage() {
   //   this.router.navigateByUrl('/filterpage');
   // }
@@ -48,37 +66,42 @@ loading:any;
   imgclick(item_id) {
     this.router.navigate(['imgclick', { id: item_id }]);
   }
-  addAndFetchWishlist(indx) {
+  addAndFetchWishlist() {
 
     this.wishlistService.getWishlistData().then(val => {
       // console.log(val)
-      if (val != null) {
-       val.filter((elem) =>{
-          return (elem.recordId === indx);
-        });
-      }
+      // if (val != null) {
+      //  val.filter((elem) =>{
+      //     return (elem.recordId === indx);
+        // });
+      // }
 
     });
   }
 
-  setwishlist(product_id,title,imagescr) {
-    // if (this.token != null) {
-      this.wishlistService.addBookWishlist(product_id, this.token, title, imagescr);
+  setwishlist(product) {
+    console.log(product.id)
+    if(product['isBookMark']) { //deleting the bookmark
+      this.wishlistService.deletewishlist1(product.id);
+
+    
+      product['isBookMark'] = false;
+      
 
       this.wishlistData = true;
     // } else {
     //   this.router.navigate(['/login']);
     // }
+  } else { /// adding the bbookmark
+    product['isBookMark'] = true;
+      console.log(product.id)
+    this.wishlistService.addBookWishlist(product.id, this.token, product.name, product.images[0].src);
+    console.log(product);
 
   }
 
-  deletewishlist() {
-    this.wishlistService.deletewishlist1(this.wishlist_index);
-
-    this.wishlistData = false;
-
-    // book_location
-
   }
+
+
  
 }
