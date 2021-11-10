@@ -497,13 +497,13 @@ export class BookreaderPage implements OnInit {
     //       alert('hey');
     //   })
     // });
-    this.rendition.on("rendered", () => {
-      const contents = this.rendition.getContents()
-      contents.document.addEventListener('contextmenu', (event) => {
-        event.preventDefault();
-        alert('hello')
-      }, false);
-    });
+    // this.rendition.on("rendered", () => {
+    //   const contents = this.rendition.getContents()
+    //   contents.document.addEventListener('contextmenu', (event) => {
+    //     event.preventDefault();
+    //     alert('hello')
+    //   }, false);
+    // });
 
     // this.rendition.on('rendered', (rendition: Rendition, iframe: Window) => {
     //   alert('Rendition rendered');
@@ -561,7 +561,7 @@ export class BookreaderPage implements OnInit {
     });
 
     this.storage.get('bookmark' + this.book_id).then((val) => {
-      var result = val.filter(function (item) {
+      var result = val.filter((item) => {
         return item.type == 'highlight';
       });
       result.forEach((element, index) => {

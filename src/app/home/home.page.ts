@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import SwiperCore from 'swiper';
-import { IonicSwiper, ModalController } from '@ionic/angular';
+import {  ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { WishlistService } from '../services/localstorage/wishlist.service';
@@ -15,7 +14,6 @@ import {
 import { LoadingController } from '@ionic/angular';
 import { Network } from '@capacitor/network';
 
-SwiperCore.use([IonicSwiper]);
 
 @Component({
   selector: 'app-home',
@@ -146,7 +144,7 @@ export class HomePage implements OnInit {
     if (this.getProductCategory()) {
       setTimeout(() => {
         document.getElementById("defaultOpen").click();
-        this.openCity(event, 'AllContent');
+        // this.openCity(event, 'AllContent');
       }, 50);
     }
 
@@ -194,26 +192,11 @@ export class HomePage implements OnInit {
       let product = { 'category_id': id, 'category_name': name, product: this.pro_array };
       this.combine_array_data.push(product);
     });
-    // pro_array.forEach(element => {
-    //   if(book_cmk.some(obj => element.id == obj.id)){
-    //    element['isBookMark'] = true;
-    //   }
-
-    //   // console.log(res)
-    //   // {'category_id':id,'category_name':name,product:res};
-
-
-
-    // console.log(this.combine_array_data);
-    // })
-
-
   }
 
   getbannerData() {
     this.productService.getBannerData().subscribe((response) => {
       this.getData = response;
-      // console.log(this.getData);
       this.banner_title = this.getData.banner_title;
       this.banner_image = this.getData.banner_image;
       this.banner_tagline = this.getData.banner_tagline;
@@ -243,7 +226,6 @@ export class HomePage implements OnInit {
 
 
   movemorePage(category_id, category_title) {
-    // this.router.navigateByUrl('/morelink');
     this.router.navigate(['morelink', { id: category_id, title: category_title }]);
   }
   imgclick(item_id) {
