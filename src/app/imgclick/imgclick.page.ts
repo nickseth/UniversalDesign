@@ -11,7 +11,7 @@ import { WishlistService } from '../services/localstorage/wishlist.service';
 import { AuthenticationService } from './../services/authentication.service';
 import { DownloadedfileService } from '../services/localstorage/downloadedfile.service';
 import { LoadingController } from '@ionic/angular';
-import { ToastController  } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-imgclick',
   templateUrl: './imgclick.page.html',
@@ -21,18 +21,18 @@ export class ImgclickPage implements OnInit {
   title: any;
   imagescr: any;
   id: any;
-  long_desc:any;
+  long_desc: any;
   data: any;
   short_desc: any;
   file_url_download: any;
-  token:any;
-  wishlistData:any;
-  wishlist_index:any;
-  product_id:any;
-  fileCreated:any;
-  loading:any;
-  author_name:any;
-  book_publisher:any;
+  token: any;
+  wishlistData: any;
+  wishlist_index: any;
+  product_id: any;
+  fileCreated: any;
+  loading: any;
+  author_name: any;
+  book_publisher: any;
   constructor(private router: Router,
     private rec_router: ActivatedRoute,
     public alertController: AlertController,
@@ -41,16 +41,16 @@ export class ImgclickPage implements OnInit {
     private file: File,
     private platform: Platform,
     private androidPermissions: AndroidPermissions,
-    private wishlistService:WishlistService,
-    private authenticationService:AuthenticationService,
-    public downloadedfile:DownloadedfileService,
+    private wishlistService: WishlistService,
+    private authenticationService: AuthenticationService,
+    public downloadedfile: DownloadedfileService,
     public loadingController: LoadingController,
-    public toast:ToastController
+    public toast: ToastController
   ) {
-    
+
     this.authenticationService.getToken().then(val => {
-      this.token =  val.value;
-     });
+      this.token = val.value;
+    });
 
 
     //  this.platform.ready().then(() =>{
@@ -75,21 +75,21 @@ export class ImgclickPage implements OnInit {
     this.getProduct(this.product_id);
     this.addAndFetchWishlist();
 
-    
-    this.platform.ready().then(() =>{
-      if(this.platform.is('android')) {
+
+    this.platform.ready().then(() => {
+      if (this.platform.is('android')) {
         this.file.checkDir(this.file.externalRootDirectory, 'UniversalApp').then(response => {
-          console.log('Directory exists'+response);
+          console.log('Directory exists' + response);
         }).catch(err => {
-          console.log('Directory doesn\'t exist'+JSON.stringify(err));
+          console.log('Directory doesn\'t exist' + JSON.stringify(err));
           this.file.createDir(this.file.externalRootDirectory, 'UniversalApp', false).then(response => {
-            console.log('Directory create'+response);
+            console.log('Directory create' + response);
           }).catch(err => {
-            console.log('Directory no create'+JSON.stringify(err));
-          }); 
+            console.log('Directory no create' + JSON.stringify(err));
+          });
         });
 
-      
+
       }
     });
 
@@ -108,13 +108,13 @@ export class ImgclickPage implements OnInit {
       this.short_desc = this.data.short_description;
       this.file_url_download = this.data.downloads[0].file;
       this.loading.dismiss();
- 
-    let index_publisher = this.data.meta_data.findIndex(p => p.key == "book_publisher");
-     let index_author = this.data.meta_data.findIndex(p => p.key == "book_author");
-     this.author_name = this.data.meta_data[index_author].value;
-     this.book_publisher = this.data.meta_data[index_publisher].value;
-    //  console.log(this.author_name);
-    //  console.log(this.book_publisher)
+
+      let index_publisher = this.data.meta_data.findIndex(p => p.key == "book_publisher");
+      let index_author = this.data.meta_data.findIndex(p => p.key == "book_author");
+      this.author_name = this.data.meta_data[index_author].value;
+      this.book_publisher = this.data.meta_data[index_publisher].value;
+      //  console.log(this.author_name);
+      //  console.log(this.book_publisher)
     })
   }
 
@@ -169,10 +169,10 @@ export class ImgclickPage implements OnInit {
   async downloadFileone(fileurl) {
 
     const fileTransfer: FileTransferObject = this.transfer.create();
-  
+
     // console.log(this.file)
     let fileexternalurl = this.file.externalRootDirectory + "UniversalApp/";
-    
+
     // this.file.createDir(this.file.externalRootDirectory, 'UniversalBook',true);
 
     // let url = "https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub";
@@ -183,12 +183,12 @@ export class ImgclickPage implements OnInit {
 
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class2',
-      message:'Downloading...',
-     
+      message: 'Downloading...',
+
     });
     await this.loading.present();
     fileTransfer.download(geturlfinal, fileexternalurl + filename1).then((entry) => {
-      this.downloadedfile.addBookDownload(this.product_id,this.token,this.title,this.imagescr,filename1);
+      this.downloadedfile.addBookDownload(this.product_id, this.token, this.title, this.imagescr, filename1);
       this.showToast('Downloading Complete');
       this.loading.dismiss();
       setTimeout(() => {
@@ -201,7 +201,7 @@ export class ImgclickPage implements OnInit {
       setTimeout(() => {
         this.HideToast();
       }, 3000);
-      
+
     });
     // fileTransfer.onProgress((progressEvent) => {
     //         this.progress = perc;
@@ -225,7 +225,7 @@ export class ImgclickPage implements OnInit {
     await alert.present();
   }
 
-  addAndFetchWishlist() {
+  addAndFetchWishlist(){
 
     this.wishlistService.getWishlistData().then(val => {
       console.log(val)
@@ -265,12 +265,12 @@ export class ImgclickPage implements OnInit {
       message: message,
       duration: 2000
     }).then((toastData) => {
-    
+
       toastData.present();
     });
   }
   HideToast() {
-   this.toast.dismiss();
+    this.toast.dismiss();
   }
 
 }

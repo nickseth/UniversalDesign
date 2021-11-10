@@ -11,57 +11,52 @@ import { AuthenticationService } from './../services/authentication.service';
   styleUrls: ['./topchart.page.scss'],
 })
 export class TopchartPage implements OnInit {
-data:any;
-wishlistData:any;
-token:any;
-wishlist_index:any;
-loading:any;
+  data: any;
+  wishlistData: any;
+  token: any;
+  wishlist_index: any;
+  loading: any;
   constructor(public router: Router,
-    public products:ProductService,
-    private wishlistService:WishlistService,
+    public products: ProductService,
+    private wishlistService: WishlistService,
     public loadingController: LoadingController,
-    private authenticationService:AuthenticationService
-    ) { 
-      this.authenticationService.getToken().then(val => {
-        this.token =  val.value;
-       });
-      this.fetData();
-    }
+    private authenticationService: AuthenticationService
+  ) {
+    this.authenticationService.getToken().then(val => {
+      this.token = val.value;
+    });
+    this.fetData();
+  }
 
   ngOnInit() {
-  
-   
+
+
   }
-  async fetData(){
-  
-  this.products.getCategoryOnes(34).subscribe(res=>{
-   this.getBookmark(res);
-  //  console.log(this.data)
-  //  this.data.forEach(element => {
-    
-  //  });
- 
-  })
+  async fetData() {
+
+    this.products.getCategoryOnes(34).subscribe(res => {
+      this.getBookmark(res);
+
+    })
   }
-  async getBookmark(pro_array){
+  async getBookmark(pro_array) {
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       backdropDismiss: true,
       translucent: true,
     });
     await this.loading.present();
-    let book_cmk =  await this.wishlistService.getWishlistData();
+    let book_cmk = await this.wishlistService.getWishlistData();
     pro_array.forEach(element => {
-      if(book_cmk.some(obj => element.id == obj.id)){
-       element['isBookMark'] = true;
+      if (book_cmk.some(obj => element.id == obj.id)) {
+        element['isBookMark'] = true;
       }
     });
-     this.data = pro_array;
+    this.data = pro_array;
     this.loading.dismiss();
-   }
-  // filetrpage() {
-  //   this.router.navigateByUrl('/filterpage');
-  // }
+    console.log(pro_array)
+  }
+
 
   imgclick(item_id) {
     this.router.navigate(['imgclick', { id: item_id }]);
@@ -69,39 +64,34 @@ loading:any;
   addAndFetchWishlist() {
 
     this.wishlistService.getWishlistData().then(val => {
-      // console.log(val)
-      // if (val != null) {
-      //  val.filter((elem) =>{
-      //     return (elem.recordId === indx);
-        // });
-      // }
+
 
     });
   }
 
   setwishlist(product) {
-    console.log(product.id)
-    if(product['isBookMark']) { //deleting the bookmark
+    // console.log(product.id)
+    if (product['isBookMark']) { //deleting the bookmark
       this.wishlistService.deletewishlist1(product.id);
 
-    
+
       product['isBookMark'] = false;
-      
+
 
       this.wishlistData = true;
-    // } else {
-    //   this.router.navigate(['/login']);
-    // }
-  } else { /// adding the bbookmark
-    product['isBookMark'] = true;
+      // } else {
+      //   this.router.navigate(['/login']);
+      // }
+    } else { /// adding the bbookmark
+      product['isBookMark'] = true;
       console.log(product.id)
-    this.wishlistService.addBookWishlist(product.id, this.token, product.name, product.images[0].src);
-    console.log(product);
+      this.wishlistService.addBookWishlist(product.id, this.token, product.name, product.images[0].src);
+      console.log(product);
+
+    }
 
   }
 
-  }
 
 
- 
 }

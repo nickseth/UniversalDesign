@@ -53,7 +53,7 @@ export class BookreaderPage implements OnInit {
   bookmark_highlightData: any;
   token: any;
   selctedtext: any = '';
- 
+
   list22: string[];
   private win: any = window;
   constructor(private route: ActivatedRoute,
@@ -65,10 +65,10 @@ export class BookreaderPage implements OnInit {
     private authenticationService: AuthenticationService,
     // public sqdatabaseService: SqdatabaseService,
     public modalController: ModalController,
-    public file:File,
-    private androidPermissions:AndroidPermissions,
-    public productdata:ProductService,
-    private localdownload:DownloadedfileService
+    public file: File,
+    private androidPermissions: AndroidPermissions,
+    public productdata: ProductService,
+    private localdownload: DownloadedfileService
   ) {
 
 
@@ -195,58 +195,60 @@ export class BookreaderPage implements OnInit {
   ngOnInit() {
 
     this.book_id = this.route.snapshot.paramMap.get('id');
-   
-      // this.productdata.getBookone(this.book_id).subscribe(val=>{
-      //   this.product_ones = val;
-      //   // this.product_ones.downloads[0].file
-      //   this.epubFileReader(this.product_ones.downloads[0].file);
-        
-      // })
-        this.localdownload.getDownloadedBookLocation().then(val => {
-          let index_book = val.findIndex(p => p.id == this.book_id);
+
+    // this.productdata.getBookone(this.book_id).subscribe(val=>{
+    //   this.product_ones = val;
+    //   // this.product_ones.downloads[0].file
+    //   this.epubFileReader(this.product_ones.downloads[0].file);
+
+    // })
+    this.localdownload.getDownloadedBookLocation().then(val => {
+      let index_book = val.findIndex(p => p.id == this.book_id);
 
 
-          let bkdata = val[index_book].book_location;
-          // this.epubFileReader(bkdata);
-      
+      let bkdata = val[index_book].book_location;
+      // this.epubFileReader(bkdata);
+
     })
-      
-      this.epubFileReader(this.book_id);
-    
-      // this.epubFileReader();
-   
+
+    this.epubFileReader(this.book_id);
+
+    // this.epubFileReader();
+
 
   }
   epubFileReader(urlbook) {
-   
+
     // let newPath = this.win.Ionic.WebView.convertFileSrc(this.file.externalRootDirectory+"UniversalApp/"+urlbook);
     //      console.log("this new url"+ newPath);
     // this.book = Epub(newPath, { replacements: "blobUrl" });
-       this.book = Epub('https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub');
+    this.book = Epub('https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub');
     //       //          // "https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub"
-  
-    this.rendition = this.book.renderTo('viewer', { flow: 'auto', width: '100%',
-    ignoreClass: 'annotator-hl', height: '100%',
-     manager: "continuous", allowScriptedContent: true });
-   let current_location2 = this.storage.get('current_location' + this.book_id);
-   current_location2.then(val => {
-     if (val != null) {
-       setTimeout(() => {
-         this.rendition.display(val);
-       }, 1000);
 
-     } else {
-       this.rendition.display();
-     }
-   });
-   this.rendition.display();
-   this.navOpen = false;
+    this.rendition = this.book.renderTo('viewer', {
+      flow: 'auto', width: '100%',
+      ignoreClass: 'annotator-hl', height: '100%',
+      manager: "continuous", allowScriptedContent: true
+    });
+    let current_location2 = this.storage.get('current_location' + this.book_id);
+    current_location2.then(val => {
+      if (val != null) {
+        setTimeout(() => {
+          this.rendition.display(val);
+        }, 1000);
 
-   
+      } else {
+        this.rendition.display();
+      }
+    });
+    this.rendition.display();
+    this.navOpen = false;
+
+
     this.rendition.on('rendered', (section) => {
       this.currentChapter = this.book.navigation.get(section.href);
     });
-  
+
     // let touchStart = 0;
     // let touchEnd = 0;
 
@@ -268,11 +270,11 @@ export class BookreaderPage implements OnInit {
 
     this.rendition.hooks.content.register((contents) => {
       contents.addScript("https://code.jquery.com/jquery-2.1.4.min.js"),
-      contents.addStylesheet("../../assets/css/theme.css")
+        contents.addStylesheet("../../assets/css/theme.css")
       // var loaded = Promise.all([
       //   contents.addScript("https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"),
       //   // contents.addScript("../../assets/js/swipedetector.js"),
-     
+
       //   contents.addStylesheet('../../assets/css/theme.css')
       // ]);
 
@@ -471,45 +473,45 @@ export class BookreaderPage implements OnInit {
       this.bookTitle = meta.title;
 
     });
-  
-      this.rendition.on("selected", (cfiRange, contents) => {
 
-        this.book.getRange(cfiRange).then(range => {
-  
-          if (range.toString()) {
-            console.log(range.toString())
-             this.book_highlight(cfiRange, range.toString());
-          }
-        });
-        contents.window.getSelection().removeAllRanges();
-  
+    this.rendition.on("selected", (cfiRange, contents) => {
+
+      this.book.getRange(cfiRange).then(range => {
+
+        if (range.toString()) {
+          console.log(range.toString())
+          this.book_highlight(cfiRange, range.toString());
+        }
       });
-      // window.oncontextmenu = (event) => {
-      //   event.preventDefault();
-      //   event.stopPropagation();
-      //   alert('hi');
-      //   return false;
-      // };
-//    this.rendition.on("rendered", (e,i) => {;
-//   i.document.documentElement.addEventListener('contextmenu', (cfiRange, contents) => {
-//       alert('hey');
-//   })
-// });
-this.rendition.on("rendered", () => {
-  const contents = this.rendition.getContents()
-  contents.document.addEventListener('contextmenu', (event)=>{
-    event.preventDefault();
-    alert('hello')
-  }, false);
-});
+      contents.window.getSelection().removeAllRanges();
 
-// this.rendition.on('rendered', (rendition: Rendition, iframe: Window) => {
-//   alert('Rendition rendered');
-//   iframe.document.documentElement.addEventListener('contextmenu', (event: TouchEvent) => {
-//       alert('Stopping contextual menu coming from epubjs iframe');
-//       event.preventDefault();
-//   });
-// });
+    });
+    // window.oncontextmenu = (event) => {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    //   alert('hi');
+    //   return false;
+    // };
+    //    this.rendition.on("rendered", (e,i) => {;
+    //   i.document.documentElement.addEventListener('contextmenu', (cfiRange, contents) => {
+    //       alert('hey');
+    //   })
+    // });
+    this.rendition.on("rendered", () => {
+      const contents = this.rendition.getContents()
+      contents.document.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+        alert('hello')
+      }, false);
+    });
+
+    // this.rendition.on('rendered', (rendition: Rendition, iframe: Window) => {
+    //   alert('Rendition rendered');
+    //   iframe.document.documentElement.addEventListener('contextmenu', (event: TouchEvent) => {
+    //       alert('Stopping contextual menu coming from epubjs iframe');
+    //       event.preventDefault();
+    //   });
+    // });
 
     ///theme background change------------------------------------------
     this.rendition.themes.register("dark1",
@@ -659,8 +661,8 @@ this.rendition.on("rendered", () => {
     });
     this.rendition.next();
   }
-  
- 
+
+
 
   showPrev() {
     this.rendition.on('relocated', (location) => {
