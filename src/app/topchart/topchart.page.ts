@@ -16,6 +16,7 @@ export class TopchartPage implements OnInit {
   token: any;
   wishlist_index: any;
   loading: any;
+  book_cmk:any;
   constructor(public router: Router,
     public products: ProductService,
     private wishlistService: WishlistService,
@@ -35,7 +36,10 @@ export class TopchartPage implements OnInit {
   async fetData() {
 
     this.products.getCategoryOnes(34).subscribe(res => {
-      this.getBookmark(res);
+      
+        this.getBookmark(res);
+     
+    
 
     })
   }
@@ -46,11 +50,15 @@ export class TopchartPage implements OnInit {
       translucent: true,
     });
     await this.loading.present();
-    let book_cmk = await this.wishlistService.getWishlistData();
+    this.book_cmk = await this.wishlistService.getWishlistData();
     pro_array.forEach(element => {
-      if (book_cmk.some(obj => element.id == obj.id)) {
-        element['isBookMark'] = true;
+      
+      if(this.book_cmk != null){
+        if(this.book_cmk.some(obj => element.id == obj.id)) {
+          element['isBookMark'] = true;
+        }
       }
+     
     });
     this.data = pro_array;
     this.loading.dismiss();

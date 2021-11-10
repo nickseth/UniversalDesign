@@ -56,9 +56,11 @@ export class MorelinkPage implements OnInit {
     await this.loading.present();
     let book_cmk = await this.wishlistService.getWishlistData();
     pro_array.forEach(element => {
+      if(book_cmk != null){
       if (book_cmk.some(obj => element.id == obj.id)) {
         element['isBookMark'] = true;
       }
+    }
     });
     this.products = pro_array;
     this.loading.dismiss();

@@ -145,10 +145,11 @@ export class HomePage implements OnInit {
       setTimeout(() => {
         document.getElementById("defaultOpen").click();
         // this.openCity(event, 'AllContent');
+        this.getProductWithCategory();
       }, 50);
     }
 
-    this.getProductWithCategory();
+    
 
   }
 
@@ -184,10 +185,11 @@ export class HomePage implements OnInit {
       this.pro_array = res;
 
       this.pro_array.forEach(element => {
-
+        if(this.book_cmk != null){
         if (this.book_cmk.some(obj => element.id == obj.id)) {
           element['isBookMark'] = true;
         }
+      }
       });
       let product = { 'category_id': id, 'category_name': name, product: this.pro_array };
       this.combine_array_data.push(product);
