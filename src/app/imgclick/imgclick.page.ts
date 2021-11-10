@@ -113,8 +113,7 @@ export class ImgclickPage implements OnInit {
       let index_author = this.data.meta_data.findIndex(p => p.key == "book_author");
       this.author_name = this.data.meta_data[index_author].value;
       this.book_publisher = this.data.meta_data[index_publisher].value;
-      //  console.log(this.author_name);
-      //  console.log(this.book_publisher)
+
     })
   }
 
@@ -225,7 +224,7 @@ export class ImgclickPage implements OnInit {
     await alert.present();
   }
 
-  addAndFetchWishlist(){
+  addAndFetchWishlist() {
 
     this.wishlistService.getWishlistData().then(val => {
       console.log(val)
