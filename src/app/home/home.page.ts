@@ -49,6 +49,14 @@ export class HomePage implements OnInit {
       this.token = val.value;
     });
 
+    if (this.getProductCategory()) {
+      setTimeout(() => {
+        document.getElementById("defaultOpen").click();
+        // this.openCity(event, 'AllContent');
+        this.getProductWithCategory();
+      }, 50);
+    }
+
     Network.getStatus().then(val => {
       if (val.connected == false) {
         this.networkstatus = false;
@@ -141,13 +149,7 @@ export class HomePage implements OnInit {
 
 
 
-    if (this.getProductCategory()) {
-      setTimeout(() => {
-        document.getElementById("defaultOpen").click();
-        // this.openCity(event, 'AllContent');
-        this.getProductWithCategory();
-      }, 50);
-    }
+
 
     
 
