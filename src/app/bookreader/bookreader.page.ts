@@ -207,11 +207,11 @@ export class BookreaderPage implements OnInit {
 
 
       let bkdata = val[index_book].book_location;
-      // this.epubFileReader(bkdata);
+      this.epubFileReader(bkdata);
 
     })
 
-    this.epubFileReader(this.book_id);
+    // this.epubFileReader(this.book_id);
 
     // this.epubFileReader();
 
@@ -219,10 +219,10 @@ export class BookreaderPage implements OnInit {
   }
   epubFileReader(urlbook) {
 
-    // let newPath = this.win.Ionic.WebView.convertFileSrc(this.file.externalRootDirectory+"UniversalApp/"+urlbook);
-    //      console.log("this new url"+ newPath);
-    // this.book = Epub(newPath, { replacements: "blobUrl" });
-    this.book = Epub('https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub');
+    let newPath = this.win.Ionic.WebView.convertFileSrc(this.file.cacheDirectory+"UniversalApp/"+urlbook);
+         console.log("this new url"+ newPath);
+    this.book = Epub(newPath, { replacements: "blobUrl" });
+    // this.book = Epub('https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub');
     //       //          // "https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub"
 
     this.rendition = this.book.renderTo('viewer', {

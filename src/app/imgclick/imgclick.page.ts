@@ -78,11 +78,11 @@ export class ImgclickPage implements OnInit {
 
     this.platform.ready().then(() => {
       if (this.platform.is('android')) {
-        this.file.checkDir(this.file.externalRootDirectory, 'UniversalApp').then(response => {
+        this.file.checkDir(this.file.cacheDirectory, 'UniversalApp').then(response => {
           console.log('Directory exists' + response);
         }).catch(err => {
           console.log('Directory doesn\'t exist' + JSON.stringify(err));
-          this.file.createDir(this.file.externalRootDirectory, 'UniversalApp', false).then(response => {
+          this.file.createDir(this.file.cacheDirectory, 'UniversalApp', false).then(response => {
             console.log('Directory create' + response);
           }).catch(err => {
             console.log('Directory no create' + JSON.stringify(err));
@@ -170,7 +170,7 @@ export class ImgclickPage implements OnInit {
     const fileTransfer: FileTransferObject = this.transfer.create();
 
     // console.log(this.file)
-    let fileexternalurl = this.file.externalRootDirectory + "UniversalApp/";
+    let fileexternalurl = this.file.cacheDirectory + "UniversalApp/";
 
     // this.file.createDir(this.file.externalRootDirectory, 'UniversalBook',true);
 
