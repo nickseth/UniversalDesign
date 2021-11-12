@@ -212,7 +212,7 @@ ion-content{
     /* For iPhone portrait layouts only */
     @media only screen and (max-device-width: 480px) and (orientation: portrait) {
       #viewer {
-        width: 256px;
+        width: 284px;
         height: 432px;
       }
       #viewer iframe {
@@ -223,7 +223,7 @@ ion-content{
     /* For iPhone landscape layouts only */
     @media only screen and (max-device-width: 480px) and (orientation: landscape) {
       #viewer iframe {
-        width: 256px;
+        width: 284px;
         height: 124px;
       }
     }
@@ -281,7 +281,7 @@ ion-content{
     .color-theme
     {
       box-shadow: var(--box-shadow2);
-      border: 1px solid var(--gray);
+      border: 1px solid #ccc;
       width: 40px;
       height: 40px;
       border-radius: 50%;
