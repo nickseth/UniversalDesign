@@ -50,7 +50,7 @@
         <h2>{{item.category_name}}</h2>
         <a (click)="movemorePage(item.category_id,item.category_name)">More<ion-icon name="chevron-forward"></ion-icon></a>
       </div>
-      <div class="home_ion-slides ion-margin-top"  [options]="option">
+      <div class="home_ion-slides ion-margin-top"  >
         <div class="home_ion-slide" *ngFor="let item2 of item.product">
           <ion-card href="javascript:void(0)" >
             <img src={{item2.images[0].src}} alt=" " (click)="imgclick(item2.id)">
@@ -83,7 +83,7 @@
         <h2>{{item.category_name}}</h2>
         <a href="javascript:void(0)" (click)="movemorePage(item.category_id,item.category_name)">More <ion-icon name="chevron-forward"></ion-icon></a>
       </div>
-      <div class="home_ion-slides ion-margin-top" [options]="option">
+      <div class="home_ion-slides ion-margin-top">
         <div class="home_ion-slide" *ngFor="let item2 of item.product">
         
           <ion-card>

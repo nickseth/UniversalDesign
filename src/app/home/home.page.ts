@@ -96,14 +96,14 @@ export class HomePage implements OnInit {
 
     this.getbannerData();
   }
-  option = {
-    slidesPerView: 1.5,
-    centeredSlides: true,
-    loop: true,
-    spaceBetween: 10,
+  // option = {
+  //   slidesPerView: 1.5,
+  //   centeredSlides: true,
+  //   loop: true,
+  //   spaceBetween: 10,
 
-    // autoplay:true,
-  }
+  //   // autoplay:true,
+  // }
   segmentChanged(event: any) {
     // console.log(event.target.value);
   }

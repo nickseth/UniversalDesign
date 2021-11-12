@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
 import Epub from 'epubjs';
@@ -63,7 +63,6 @@ export class BookreaderPage implements OnInit {
     public alertController: AlertController
     , public notesService: NotesService,
     private authenticationService: AuthenticationService,
-    // public sqdatabaseService: SqdatabaseService,
     public modalController: ModalController,
     public file: File,
     private androidPermissions: AndroidPermissions,
@@ -196,26 +195,26 @@ export class BookreaderPage implements OnInit {
 
     this.book_id = this.route.snapshot.paramMap.get('id');
 
-   
-      // this.productdata.getBookone(this.book_id).subscribe(val=>{
-      //   this.product_ones = val;
-      //   // this.product_ones.downloads[0].file
-      //   this.epubFileReader(this.product_ones.downloads[0].file);
-        
-      // })
+
+    // this.productdata.getBookone(this.book_id).subscribe(val=>{
+    //   this.product_ones = val;
+    //   // this.product_ones.downloads[0].file
+    //   this.epubFileReader(this.product_ones.downloads[0].file);
+
+    // })
     //     this.localdownload.getDownloadedBookLocation().then(val => {
     //      let index_book = val.findIndex(p => p.id == this.book_id);
 
 
     //      let bkdata = val[index_book].book_location;
     //      this.epubFileReader(bkdata);
-      
+
     // })
-      
-       this.epubFileReader(this.book_id);
-    
-      // this.epubFileReader();
-   
+
+    this.epubFileReader(this.book_id);
+
+    // this.epubFileReader();
+
 
   }
 
@@ -224,7 +223,7 @@ export class BookreaderPage implements OnInit {
     // let newPath = this.win.Ionic.WebView.convertFileSrc(this.file.cacheDirectory + "UniversalApp/" + urlbook);
     // console.log("this new url" + newPath);
     // this.book = Epub(newPath, { replacements: "blobUrl" });
-     this.book = Epub('https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub');
+    this.book = Epub('https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub');
 
     //       //          // "https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub"
 
@@ -235,12 +234,12 @@ export class BookreaderPage implements OnInit {
     });
     let current_location2 = this.storage.get('current_location' + this.book_id);
     current_location2.then(val => {
-      if (val != null) {
+      if (val.location != null) {
         setTimeout(() => {
-         
-  document.getElementById(val).click();
-           
-          
+
+          document.getElementById(val.href).click();
+
+
           // this.rendition.display(val);
         }, 1000);
 
@@ -276,16 +275,9 @@ export class BookreaderPage implements OnInit {
 
 
     this.rendition.hooks.content.register((contents) => {
-      contents.addScript("https://code.jquery.com/jquery-2.1.4.min.js"),
+      // contents.addScript("../../assets/js/jquery.min.js"),
         contents.addStylesheet("../../assets/css/theme.css")
-      // var loaded = Promise.all([
-      //   contents.addScript("https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"),
-      //   // contents.addScript("../../assets/js/swipedetector.js"),
 
-      //   contents.addStylesheet('../../assets/css/theme.css')
-      // ]);
-
-      // return loaded;
     });
     this.rendition.on('relocated', (location) => {
 
@@ -297,8 +289,9 @@ export class BookreaderPage implements OnInit {
 
 
     this.storage.get('dark2').then((ev) => {
+
       if (ev == null) {
-        this.storage.set('dark2', 'light');
+        // this.storage.set('dark2', 'light');
         this.rendition.themes.select("light1");
         document.querySelector('#main-book-section').classList.remove('lite_dark');
         document.querySelector('#main-book-section').classList.remove('dark2');
@@ -312,11 +305,6 @@ export class BookreaderPage implements OnInit {
         document.querySelector('#main-book-section2').classList.remove('lite_white');
         document.querySelector('#main-book-section2').classList.remove('lite_blue');
 
-        document.querySelector('#main-book-section3').classList.remove('lite_dark');
-        document.querySelector('#main-book-section3').classList.remove('dark2');
-        document.querySelector('#main-book-section3').classList.remove('blue');
-        document.querySelector('#main-book-section3').classList.remove('lite_white');
-        document.querySelector('#main-book-section3').classList.remove('lite_blue');
       } else {
         if (ev == 'dark') {
           this.rendition.themes.select("dark1");
@@ -333,11 +321,7 @@ export class BookreaderPage implements OnInit {
           document.querySelector('#main-book-section2').classList.remove('lite_white');
           document.querySelector('#main-book-section2').classList.remove('lite_dark');
 
-          document.querySelector('#main-book-section3').classList.add('dark2');
-          document.querySelector('#main-book-section3').classList.remove('lite_blue');
-          document.querySelector('#main-book-section3').classList.remove('blue');
-          document.querySelector('#main-book-section3').classList.remove('lite_white');
-          document.querySelector('#main-book-section3').classList.remove('lite_dark');
+
 
         } else if (ev == 'lite_blue') {
           this.rendition.themes.select("lite_blue");
@@ -353,11 +337,7 @@ export class BookreaderPage implements OnInit {
           document.querySelector('#main-book-section2').classList.remove('lite_white');
           document.querySelector('#main-book-section2').classList.remove('lite_dark');
 
-          document.querySelector('#main-book-section3').classList.add('lite_blue');
-          document.querySelector('#main-book-section3').classList.remove('dark2');
-          document.querySelector('#main-book-section3').classList.remove('blue');
-          document.querySelector('#main-book-section3').classList.remove('lite_white');
-          document.querySelector('#main-book-section3').classList.remove('lite_dark');
+
 
         } else if (ev == 'blue1') {
           this.rendition.themes.select("blue");
@@ -373,11 +353,6 @@ export class BookreaderPage implements OnInit {
           document.querySelector('#main-book-section2').classList.remove('lite_white');
           document.querySelector('#main-book-section2').classList.remove('lite_dark');
 
-          document.querySelector('#main-book-section3').classList.add('blue');
-          document.querySelector('#main-book-section3').classList.remove('dark2');
-          document.querySelector('#main-book-section3').classList.remove('lite_blue');
-          document.querySelector('#main-book-section3').classList.remove('lite_white');
-          document.querySelector('#main-book-section3').classList.remove('lite_dark');
 
         } else if (ev == 'lite_white') {
           this.rendition.themes.select("lite_white");
@@ -392,12 +367,8 @@ export class BookreaderPage implements OnInit {
           document.querySelector('#main-book-section2').classList.remove('lite_blue');
           document.querySelector('#main-book-section2').classList.remove('blue');
           document.querySelector('#main-book-section2').classList.remove('lite_dark');
-          
-          document.querySelector('#main-book-section3').classList.add('lite_white');
-          document.querySelector('#main-book-section3').classList.remove('dark2');
-          document.querySelector('#main-book-section3').classList.remove('lite_blue');
-          document.querySelector('#main-book-section3').classList.remove('blue');
-          document.querySelector('#main-book-section3').classList.remove('lite_dark');
+
+
 
         } else if (ev == 'lite_dark') {
           this.rendition.themes.select("lite_dark");
@@ -414,11 +385,6 @@ export class BookreaderPage implements OnInit {
           document.querySelector('#main-book-section2').classList.remove('lite_white');
 
 
-          document.querySelector('#main-book-section3').classList.add('lite_dark');
-          document.querySelector('#main-book-section3').classList.remove('dark2');
-          document.querySelector('#main-book-section3').classList.remove('lite_blue');
-          document.querySelector('#main-book-section3').classList.remove('blue');
-          document.querySelector('#main-book-section3').classList.remove('lite_white');
 
         } else {
           this.rendition.themes.select("light1");
@@ -434,11 +400,7 @@ export class BookreaderPage implements OnInit {
           document.querySelector('#main-book-section2').classList.remove('lite_white');
           document.querySelector('#main-book-section2').classList.remove('lite_blue');
 
-          document.querySelector('#main-book-section3').classList.remove('lite_dark');
-          document.querySelector('#main-book-section3').classList.remove('dark2');
-          document.querySelector('#main-book-section3').classList.remove('blue');
-          document.querySelector('#main-book-section3').classList.remove('lite_white');
-          document.querySelector('#main-book-section3').classList.remove('lite_blue');
+
         }
       }
 
@@ -505,7 +467,7 @@ export class BookreaderPage implements OnInit {
             ion_item1.onclick = () => {
               this.chapterTitle = current.label;
               this.storage.set('current_location' + this.book_id, item.href);
-              this.displayChapterOne(event,item.href);
+              this.displayChapterOne(event, item.href);
             }
             var cpt = document.querySelector('#chapter');
             cpt.append(ion_item1);
@@ -530,39 +492,14 @@ export class BookreaderPage implements OnInit {
       this.book.getRange(cfiRange).then(range => {
 
         if (range.toString()) {
-          console.log(range.toString())
+          // console.log(range.toString())
           this.book_highlight(cfiRange, range.toString());
         }
       });
       contents.window.getSelection().removeAllRanges();
 
     });
-    // window.oncontextmenu = (event) => {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    //   alert('hi');
-    //   return false;
-    // };
-    //    this.rendition.on("rendered", (e,i) => {;
-    //   i.document.documentElement.addEventListener('contextmenu', (cfiRange, contents) => {
-    //       alert('hey');
-    //   })
-    // });
-    // this.rendition.on("rendered", () => {
-    //   const contents = this.rendition.getContents()
-    //   contents.document.addEventListener('contextmenu', (event) => {
-    //     event.preventDefault();
-    //     alert('hello')
-    //   }, false);
-    // });
 
-    // this.rendition.on('rendered', (rendition: Rendition, iframe: Window) => {
-    //   alert('Rendition rendered');
-    //   iframe.document.documentElement.addEventListener('contextmenu', (event: TouchEvent) => {
-    //       alert('Stopping contextual menu coming from epubjs iframe');
-    //       event.preventDefault();
-    //   });
-    // });
 
     ///theme background change------------------------------------------
     this.rendition.themes.register("dark1",
@@ -612,51 +549,41 @@ export class BookreaderPage implements OnInit {
     });
 
     this.storage.get('bookmark' + this.book_id).then((val) => {
-      var result = val.filter((item) => {
-        return item.type == 'highlight';
-      });
-      result.forEach((element, index) => {
+      if (val != null) {
+        var result = val.filter((item) => {
+          return item.type == 'highlight';
+        });
 
-        this.rendition.annotations.add('highlight', element.location, {}, (e) => {
+        result.forEach((element, index) => {
 
-          this.presentActionSheet(element.location, element.text, index);
+          this.rendition.annotations.add('highlight', element.location, {}, (e) => {
+
+            this.presentActionSheet(element.location, element.text, index);
 
 
-        }, "hl", { "fill": "yellow", "fill-opacity": "0.3", "mix-blend-mode": "multiply" });
-      });
+          }, "hl", { "fill": "yellow", "fill-opacity": "0.3", "mix-blend-mode": "multiply" });
+        });
+      }
     })
   }
 
-  displayChapterOne(env,item){
-    let current_location = this.rendition.currentLocation();
-    console.log(env.currentTarget.className)
-// if(current_location.start.href == item)
-// {
-//   alert('hello')
-//   document.getElementsByClassName(env.currentTarget.className).className.replace("chapters", " active_item");
-// } else{
-//   document.getElementsByClassName(env.currentTarget.className).className.replace("active_item", "chapters");
-// }
-let i;
-let tablinks = document.getElementsByClassName("chapters");
-for (i = 0; i < tablinks.length; i++) {
-  tablinks[i].className = tablinks[i].className.replace(" item_active", "");
-}
+  displayChapterOne(env, item) {
+    // let current_location = this.rendition.currentLocation();
+    let i;
+    let tablinks = document.getElementsByClassName("chapters");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" item_active", "");
+    }
 
-
-env.currentTarget.className += " item_active";
-
-    // document.getElementById(env.currentTarget.id).style.background ='red';
-    // // console.log(env.currentTarget='--background-activated:red')
+    env.currentTarget.className += " item_active";
     this.rendition.display(item)
 
   }
 
   setbookmark() {
     let current_location = this.rendition.currentLocation();
-    // current_location.bookmark_chapter = this.currentChapter;
     this.book_bookmark_highlight = this.storage.get('bookmark' + this.book_id);
-    let list_bookmarks = { book_id: 12, type: "bookmark", location: current_location.start.cfi, bookChapter: this.currentChapter.label }
+    let list_bookmarks = { book_id: this.book_id, type: "bookmark", location: current_location.start.cfi, bookChapter: this.currentChapter.label }
 
     this.book_bookmark_highlight.then(val => {
 
@@ -728,24 +655,28 @@ env.currentTarget.className += " item_active";
   }
 
 
-
-
   showNext() {
+
     this.rendition.on('relocated', (location) => {
 
-      this.storage.set('current_location' + this.book_id, location.start.cfi);
+      this.storage.set('current_location' + this.book_id, { location: location.start.cfi, href: location.start.href });
+
     });
+
     this.rendition.next();
+
   }
 
 
 
   showPrev() {
+
     this.rendition.on('relocated', (location) => {
 
-      this.storage.set('current_location' + this.book_id, location.start.cfi);
+      this.storage.set('current_location' + this.book_id, { location: location.start.cfi, href: location.start.href });
+      this.rendition.prev();
     });
-    this.rendition.prev();
+
   }
   toggleNav() {
     this.navOpen = !this.navOpen;
@@ -779,7 +710,6 @@ env.currentTarget.className += " item_active";
       } else {
         document.getElementById("fsize" + val).classList.remove("fsizecol");
         document.getElementById("fsize" + item).classList.add("fsizecol");
-        // document.getElementById('item-description').style.setProperty(`font-size`, item+'px');
         this.rendition.themes.fontSize(item + "pt");
       }
 
@@ -802,9 +732,6 @@ env.currentTarget.className += " item_active";
         console.log("click se" + family_item)
         document.getElementById("ffamily_" + val).classList.remove("ion-activated");
         document.getElementById("ffamily_" + family_item).classList.add("ion-activated");
-        // alert(family_item);
-        // this.rendition.themes.default({ "body": { "font-family": family_item}});
-        // document.getElementById('item-description').style.setProperty(`font-family`, family_item);
         this.font_family = family_item;
         this.rendition.themes.font(family_item);
       }
@@ -834,7 +761,7 @@ env.currentTarget.className += " item_active";
   }
   openCity(evt, cityName) {
 
-  // console.log(evt)
+    // console.log(evt)
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
@@ -867,11 +794,7 @@ env.currentTarget.className += " item_active";
       document.querySelector('#main-book-section2').classList.remove('lite_white');
       document.querySelector('#main-book-section2').classList.remove('lite_dark');
 
-      document.querySelector('#main-book-section3').classList.add('dark2');
-      document.querySelector('#main-book-section3').classList.remove('lite_blue');
-      document.querySelector('#main-book-section3').classList.remove('blue');
-      document.querySelector('#main-book-section3').classList.remove('lite_white');
-      document.querySelector('#main-book-section3').classList.remove('lite_dark');
+
 
     } if (ev == 'lite_blue') {
       this.rendition.themes.select("lite_blue");
@@ -886,12 +809,7 @@ env.currentTarget.className += " item_active";
       document.querySelector('#main-book-section2').classList.remove('blue');
       document.querySelector('#main-book-section2').classList.remove('lite_white');
       document.querySelector('#main-book-section2').classList.remove('lite_dark');
-      
-      document.querySelector('#main-book-section3').classList.add('lite_blue');
-      document.querySelector('#main-book-section3').classList.remove('dark2');
-      document.querySelector('#main-book-section3').classList.remove('blue');
-      document.querySelector('#main-book-section3').classList.remove('lite_white');
-      document.querySelector('#main-book-section3').classList.remove('lite_dark');
+
 
     } if (ev == 'blue') {
       this.rendition.themes.select("blue1");
@@ -907,11 +825,7 @@ env.currentTarget.className += " item_active";
       document.querySelector('#main-book-section2').classList.remove('lite_white');
       document.querySelector('#main-book-section2').classList.remove('lite_dark');
 
-      document.querySelector('#main-book-section3').classList.add('blue');
-      document.querySelector('#main-book-section3').classList.remove('dark2');
-      document.querySelector('#main-book-section3').classList.remove('lite_blue');
-      document.querySelector('#main-book-section3').classList.remove('lite_white');
-      document.querySelector('#main-book-section3').classList.remove('lite_dark');
+
 
     } if (ev == 'lite_white') {
       this.rendition.themes.select("lite_white");
@@ -928,11 +842,7 @@ env.currentTarget.className += " item_active";
       document.querySelector('#main-book-section2').classList.remove('blue');
       document.querySelector('#main-book-section2').classList.remove('lite_dark');
 
-      document.querySelector('#main-book-section3').classList.add('lite_white');
-      document.querySelector('#main-book-section3').classList.remove('dark2');
-      document.querySelector('#main-book-section3').classList.remove('lite_blue');
-      document.querySelector('#main-book-section3').classList.remove('blue');
-      document.querySelector('#main-book-section3').classList.remove('lite_dark');
+
 
     } if (ev == 'lite_dark') {
       this.rendition.themes.select("lite_dark");
@@ -949,11 +859,6 @@ env.currentTarget.className += " item_active";
       document.querySelector('#main-book-section2').classList.remove('blue');
       document.querySelector('#main-book-section2').classList.remove('lite_white');
 
-      document.querySelector('#main-book-section3').classList.add('lite_dark');
-      document.querySelector('#main-book-section3').classList.remove('dark2');
-      document.querySelector('#main-book-section3').classList.remove('lite_blue');
-      document.querySelector('#main-book-section3').classList.remove('blue');
-      document.querySelector('#main-book-section3').classList.remove('lite_white');
     }
     if (ev == 'light') {
       this.rendition.themes.select("light1");
@@ -963,11 +868,6 @@ env.currentTarget.className += " item_active";
       document.querySelector('#main-book-section').classList.remove('lite_white');
       document.querySelector('#main-book-section').classList.remove('lite_blue');
 
-      document.querySelector('#main-book-section3').classList.remove('lite_dark');
-      document.querySelector('#main-book-section3').classList.remove('dark2');
-      document.querySelector('#main-book-section3').classList.remove('blue');
-      document.querySelector('#main-book-section3').classList.remove('lite_white');
-      document.querySelector('#main-book-section3').classList.remove('lite_blue');
     }
 
     localStorage.test = ev;
