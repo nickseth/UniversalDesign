@@ -1,13 +1,13 @@
-<div class="ion-header app-bg">
-    <ion-buttons slot="start">
-      <ion-back-button>
-        <ion-icon name="arrow-back"></ion-icon>
-      </ion-back-button>
-    </ion-buttons>
-    <h2>Downloads</h2>
-  </div>
+<ion-header class="ion-header app-bg">
+  <ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button defaultHref="home"></ion-back-button>
+  </ion-buttons>
+    <ion-title>Downloads</ion-title>
+</ion-toolbar>
+  </ion-header>
 
-<div class="ion-content app-bg">
+<ion-content class="app-bg">
   <ion-refresher slot="fixed" (ionRefresh)="getUsersList($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -24,4 +24,4 @@
         </ion-col> 
     </ion-row>
     </ion-grid>
-  </div>
+  </ion-content>

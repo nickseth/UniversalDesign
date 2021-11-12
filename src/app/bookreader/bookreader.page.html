@@ -165,8 +165,8 @@
 <ion-content id="main-book-section">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>,
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
     <!-- <ion-button (click)="sethilightData()">Add highlight</ion-button> -->
     <ion-buttons slot="end">
       <ion-icon *ngIf="bookmarkData; else nobookmarkData" [style.color]="'#EF3B51'" name="bookmark"

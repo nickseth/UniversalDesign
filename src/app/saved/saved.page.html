@@ -1,31 +1,25 @@
 <ion-header [translucent]="true" class="app-bg">
-
-  <ion-toolbar>
-
-    <ion-segment 
-    value="all" 
-    color="" 
-    scrollable="true"
-    mode="ios"
-    [(ngModel)]="segmentModel" 
-    (ionChange)="segmentChanged($event)">
-
-      <ion-segment-button value="wishlist">
-        <ion-label>Wish List</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="Notebook">
-        <ion-label>Notebook</ion-label>
-      </ion-segment-button>
-    </ion-segment>
+  <ion-header  class="app-bg">
+    <ion-toolbar >
+      <ion-title>Saved Products</ion-title>
   </ion-toolbar>
-
    </ion-header>
-
-
-
-
-
 <ion-content [fullscreen]="true" class="ion-padding app-bg">
+  <ion-segment 
+  value="all" 
+  color="" 
+  scrollable="true"
+  mode="ios"
+  [(ngModel)]="segmentModel" 
+  (ionChange)="segmentChanged($event)">
+
+    <ion-segment-button value="wishlist">
+      <ion-label>Wish List</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Notebook">
+      <ion-label>Notebook</ion-label>
+    </ion-segment-button>
+  </ion-segment>
   <div *ngIf="segmentModel === 'wishlist'">
     <ion-refresher slot="fixed" (ionRefresh)="getUsersList($event)">
       <ion-refresher-content></ion-refresher-content>

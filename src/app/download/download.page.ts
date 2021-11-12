@@ -28,7 +28,6 @@ export class DownloadPage implements OnInit {
 getUsersList(event) {
   return  this.downloadedfile.getDownloadedBookLocation().then(val=>{
     this.bookData = val;
-
       if (event)
         event.target.complete();
     }, error => {

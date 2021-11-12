@@ -52,11 +52,11 @@
       </div>
       <div class="home_ion-slides ion-margin-top"  [options]="option">
         <div class="home_ion-slide" *ngFor="let item2 of item.product">
-          <ion-card href="javascript:void(0)" (click)="imgclick(item2.id)">
-            <img src={{item2.images[0].src}} alt=" ">
-            <div class="audio-books_wrap">
+          <ion-card href="javascript:void(0)" >
+            <img src={{item2.images[0].src}} alt=" " (click)="imgclick(item2.id)">
+            <div class="audio-books_wrap" (click)="imgclick(item2.id)">
               <h3 class="books-name">{{item2.name}}</h3>
-              <p class="author-name">Lucy Foley</p>
+              <!-- <p class="author-name">Lucy Foley</p> -->
             </div>
             <div class="icon-wrap">
               <div class="review-icons">
@@ -67,7 +67,7 @@
                 <ion-icon name="star-half-outline"></ion-icon>
               </div>
               <div class="saved-icon">
-                <ion-icon name="bookmark-outline"></ion-icon>
+                <ion-icon [style.color]="item2['isBookMark'] ? '#EF3B51' : ''" name="bookmark" (click)="setwishlist(item2)"></ion-icon>
               </div>
             </div>
           </ion-card>
@@ -86,9 +86,9 @@
       <div class="home_ion-slides ion-margin-top" [options]="option">
         <div class="home_ion-slide" *ngFor="let item2 of item.product">
         
-          <ion-card href="javascript:void(0)" (click)="imgclick(item2.id)">
-            <img src={{item2.images[0].src}} alt=" ">
-            <div class="audio-books_wrap">
+          <ion-card>
+            <img src={{item2.images[0].src}} alt=" " (click)="imgclick(item2.id)" />
+            <div class="audio-books_wrap" (click)="imgclick(item2.id)">
               <h3 class="books-name">{{item2.name}}</h3>
               <!-- <p class="author-name">Lucy Foley</p> -->
             </div>
@@ -101,7 +101,7 @@
                 <ion-icon name="star-half-outline"></ion-icon>
               </div>
               <div class="saved-icon">
-                <ion-icon name="bookmark-outline"></ion-icon>
+                <ion-icon [style.color]="item2['isBookMark'] ? '#EF3B51' : ''" name="bookmark" (click)="setwishlist(item2)"></ion-icon>
               </div>
             </div>
           </ion-card>
