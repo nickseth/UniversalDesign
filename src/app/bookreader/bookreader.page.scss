@@ -90,6 +90,11 @@ ion-content{
       border: none;
       
     }
+    ::ng-deep .item_active{
+  --background:gray;
+  color: #ddd;
+}
+  
     
     
     #prev {
@@ -269,6 +274,10 @@ ion-content{
     /* Change background color of buttons on hover */
     .tab button:hover {
       background-color: #ddd;
+    }
+    .active{
+      background-color: #002C42;
+      color: #ddd;
     }
     
     /* Create an active/current tablink class */
