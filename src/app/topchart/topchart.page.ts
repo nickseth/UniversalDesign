@@ -91,10 +91,14 @@ export class TopchartPage implements OnInit {
       //   this.router.navigate(['/login']);
       // }
     } else { /// adding the bbookmark
+      if (this.token != null){
       product['isBookMark'] = true;
       console.log(product.id)
       this.wishlistService.addBookWishlist(product.id, this.token, product.name, product.images[0].src);
       console.log(product);
+    } else {
+      this.router.navigate(['/login']);
+    }
 
     }
 

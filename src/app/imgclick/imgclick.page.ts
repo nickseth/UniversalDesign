@@ -50,23 +50,9 @@ export class ImgclickPage implements OnInit {
 
     this.authenticationService.getToken().then(val => {
       this.token = val.value;
+      console.log(this.token)
     });
 
-
-    //  this.platform.ready().then(() =>{
-    //   if(this.platform.is('android')) {
-    //     this.file.checkDir(this.file.externalRootDirectory, 'Event').then(response => {
-    //       console.log('Directory exists'+response);
-    //     }).catch(err => {
-    //       console.log('Directory doesn\'t exist'+JSON.stringify(err));
-    //       this.file.createDir(this.file.externalRootDirectory, 'Event', false).then(response => {
-    //         console.log('Directory create'+response);
-    //       }).catch(err => {
-    //         console.log('Directory no create'+JSON.stringify(err));
-    //       }); 
-    //     });
-    //   }
-    // });
 
   }
 
@@ -90,6 +76,8 @@ export class ImgclickPage implements OnInit {
         });
 
 
+      } else{
+        
       }
     });
 
@@ -166,7 +154,7 @@ export class ImgclickPage implements OnInit {
 
 
   async downloadFileone(fileurl) {
-
+  if (this.token != null){
     const fileTransfer: FileTransferObject = this.transfer.create();
 
     // console.log(this.file)
@@ -205,7 +193,9 @@ export class ImgclickPage implements OnInit {
     // fileTransfer.onProgress((progressEvent) => {
     //         this.progress = perc;
     // });
-
+  } else {
+    this.router.navigate(['/login']);
+  }
 
   }
 

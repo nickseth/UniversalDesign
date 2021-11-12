@@ -35,7 +35,7 @@ export class HomePage implements OnInit {
   loading: any;
   fullonePro: any;
   networkstatus: any;
-  token: any;
+  token1: any;
   pro_array: any;
   book_cmk: any;
   constructor(private router: Router,
@@ -46,7 +46,7 @@ export class HomePage implements OnInit {
     private modalController: ModalController
   ) {
     this.authenticationService.getToken().then(val => {
-      this.token = val.value;
+      this.token1 = val.value;
     });
 
     if (this.getProductCategory()) {
@@ -81,18 +81,18 @@ export class HomePage implements OnInit {
       }
     });
 
-    const logCurrentNetworkStatus = async () => {
-      const status = await Network.getStatus();
-      if (status.connected == false) {
-        this.networkstatus = false;
-        this.router.navigate(['/account']);
-        this.loading.dismiss();
-      } else {
-        this.networkstatus = true;
-        console.log(this.networkstatus);
-        this.getbannerData();
-      }
-    };
+    // const logCurrentNetworkStatus = async () => {
+    //   const status = await Network.getStatus();
+    //   if (status.connected == false) {
+    //     this.networkstatus = false;
+    //     this.router.navigate(['/account']);
+    //     this.loading.dismiss();
+    //   } else {
+    //     this.networkstatus = true;
+    //     console.log(this.networkstatus);
+    //     this.getbannerData();
+    //   }
+    // };
 
     this.getbannerData();
   }
@@ -257,10 +257,14 @@ export class HomePage implements OnInit {
       product['isBookMark'] = false;
 
     } else { /// adding the bbookmark
+      if (this.token1 != null){
       product['isBookMark'] = true;
       console.log(product.id)
-      this.wishlistService.addBookWishlist(product.id, this.token, product.name, product.images[0].src);
+      this.wishlistService.addBookWishlist(product.id, this.token1, product.name, product.images[0].src);
       console.log(product);
+    } else {
+      this.router.navigate(['/login']);
+    }
 
     }
 

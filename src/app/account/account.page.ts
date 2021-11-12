@@ -4,6 +4,8 @@ import { AlertController } from '@ionic/angular';
 import { AuthenticationService } from './../services/authentication.service';
 import { UserdetailsService } from './../services/userdetails.service';
 import { LoadingController } from '@ionic/angular';
+import { Network } from '@capacitor/network';
+
 @Component({
   selector: 'app-account',
   templateUrl: './account.page.html',
@@ -14,40 +16,69 @@ export class AccountPage implements OnInit {
   token:any;
   user:any;
   loading:any;
+  networkstatus: boolean;
   constructor(public router: Router,
      public alertController: AlertController,
      public authenticationService:AuthenticationService,
      public userdetailsService:UserdetailsService,
      public loadingController: LoadingController,
      ) { 
-      this.authenticationService.getToken().then(val => {
-        this.token = val.value;
     
+    Network.addListener('networkStatusChange', status => {
+      if (status.connected == false) {
+        this.networkstatus = false;
+        this.user = "Guest";
+        
+        // console.log(this.networkstatus+'false1');
+      } else {
+        this.networkstatus = true;
+        // console.log(this.networkstatus+'true1');
+        this.router.navigate(['/tabs/account']);
+     
+       
+      }
     });
-    this.getData();
+  
      }
 
   ngOnInit() {
-
+  
   }
-  async getData(){
-    this.loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
-      backdropDismiss: true,
-      translucent: true,
-    });
-    await this.loading.present();
-    let data = {'token':this.token};
+  async getData(token){
+    
+
+    // const logCurrentNetworkStatus = async () => {
+    //   const status = await Network.getStatus();
+    //   if (status.connected == false) {
+    //     this.networkstatus = false;
+    //     this.router.navigate(['/account']);
+    //     this.loading.dismiss();
+    //   } else {
+    //     this.networkstatus = true;
+    //     console.log(this.networkstatus);
+
+    //   }
+    // };
+    // this.loading = await this.loadingController.create({
+    //   cssClass: 'my-custom-class',
+    //   backdropDismiss: true,
+    //   translucent: true,
+    // });
+    // await this.loading.present();
+    let data = {'token':token};
+    console.log(token)
     this.userdetailsService.getUserDeatils(data).subscribe(val=>{
       this.userdetails = val;
       this.loading.dismiss();
+      console.log(val)
       if(this.userdetails.fname == undefined){
         this.user = "Guest";
       } else{
         this.user = this.userdetails.fname +" " +this.userdetails.lname;
       }
      
-    })
+    });
+    
   }
   accinfo() {
     this.router.navigateByUrl('/accinformation');
