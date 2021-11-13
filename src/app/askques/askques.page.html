@@ -1,11 +1,12 @@
-<div class="ion-header">
-    <div class="askques-close">
-      <ion-icon name="close-outline" (click)="closebtn()"></ion-icon>
-    </div>
-    <h2>ASk Question</h2>
-</div>
+<ion-header class="app-bg">
+  <ion-toolbar>
+    <ion-title>ASk Question</ion-title>
+      <ion-icon slot="end" name="close-outline" (click)="closebtn()"></ion-icon>
+  </ion-toolbar>
+    
+</ion-header>
 
-<div class="ion-content">
+<ion-content class="app-bg">
 <div class="askques-wrapper">
 <h2>Hello, how can we help?</h2>
 <button (click)="updatecta()">Updating Your Payment Information</button>
@@ -14,4 +15,4 @@
   <ion-searchbar></ion-searchbar>
   <ion-icon name="rocket-outline"></ion-icon>
 </div>
-</div>
+</ion-content>

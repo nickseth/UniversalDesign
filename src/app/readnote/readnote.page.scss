@@ -1,3 +1,21 @@
+.app-bg{
+    --background:#002C42;
+    --ion-toolbar-background:#002C42;
+    
+    ion-back-button{
+        color:#f4f4f4;
+    }
+    ion-button{
+     color:#f4f4f4;
+    }
+    ion-title{
+        color:#f4f4f4;
+    }
+    div{
+        color:#f4f4f4;
+       
+    }
+}
 .progress-outer {
     width: 96%;
     margin: 10px 2%;

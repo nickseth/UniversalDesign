@@ -1,11 +1,13 @@
-<div class="ion-header">
-    <ion-buttons slot="start">
-      <ion-back-button><ion-icon name="arrow-back"></ion-icon></ion-back-button>
-    </ion-buttons>
-    <h2>My Ticket</h2>
-</div>
+<ion-header class="app-bg">
+  <ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+  </ion-buttons>
+    <ion-title>My Ticket</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-<div class="ion-content">
+<ion-content class="app-bg">
 <div class="ticket-wrapper">
   <div class="ticket-content">
     <img src="../assets/business-book.jpg" alt=" ">
@@ -13,4 +15,4 @@
     <button (click)="contactpage()">Start Conversation</button>
   </div>
 </div>
-</div>
+</ion-content>

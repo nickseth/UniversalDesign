@@ -60,7 +60,7 @@ export class HomePage implements OnInit {
     Network.getStatus().then(val => {
       if (val.connected == false) {
         this.networkstatus = false;
-        this.router.navigate(['/account']);
+        this.router.navigate(['/download']);
         this.loading.dismiss();
       } else {
         this.networkstatus = true;
@@ -72,7 +72,7 @@ export class HomePage implements OnInit {
     Network.addListener('networkStatusChange', status => {
       if (status.connected == false) {
         this.networkstatus = false;
-        this.router.navigate(['/account']);
+        this.router.navigate(['/download']);
         this.loading.dismiss();
       } else {
         this.networkstatus = true;

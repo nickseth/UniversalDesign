@@ -1,7 +1,7 @@
-<ion-header>
+<ion-header class="app-bg">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
     </ion-buttons>
     <ion-title style="text-align: center;">Notes</ion-title>
     <ion-buttons slot="end" >
@@ -10,7 +10,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="app-bg">
   <ion-refresher slot="fixed" (ionRefresh)="getUsersList($event,this.token)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>

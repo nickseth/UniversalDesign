@@ -37,9 +37,13 @@ div.ion-content {
 ::ng-deep .ion-page {
     display: block !important;
 }
-// .ion-header {
-//     background-color: #05151b;
-//     h2 {
-//         color: #fff;
-//     }
-// }
+.app-bg{--background:#002C42;
+    --ion-toolbar-background:#002C42;
+    --color:#fff;
+    ion-title{
+        color:#fff
+    }
+    ion-back-button{
+        color:#fff;
+    }
+}

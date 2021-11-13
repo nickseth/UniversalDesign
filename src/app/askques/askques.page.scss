@@ -14,7 +14,7 @@ ion-icon {
         padding: 10px 20px;
         border-radius: 25px;
         background-color: transparent;
-        color: #fff;
+        color: rgb(107, 104, 104);
         font-size: 12px;
         text-transform: uppercase;
         box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
@@ -70,4 +70,14 @@ div.ion-content {
 }
 ::ng-deep .ion-page {
     display: block !important;
+}
+.app-bg{--background:#002C42;
+    --ion-toolbar-background:#002C42;
+   
+    ion-title{
+        color:white;
+    }
+    ion-icon{
+        color:white;   
+    }
 }

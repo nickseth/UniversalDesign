@@ -24,29 +24,52 @@ export class AccountPage implements OnInit {
      public loadingController: LoadingController,
      ) { 
     
-    Network.addListener('networkStatusChange', status => {
-      if (status.connected == false) {
-        this.networkstatus = false;
-        this.user = "Guest";
-        
-        // console.log(this.networkstatus+'false1');
-      } else {
-        this.networkstatus = true;
-        // console.log(this.networkstatus+'true1');
-        this.router.navigate(['/tabs/account']);
+    // Network.addListener('networkStatusChange', status => {
+    //   if (status.connected == false) {
+    //     this.networkstatus = false;
      
+    //     this.loading.dismiss();
+    //     console.log(this.networkstatus+'false1');
+    //   } else {
+    //     this.networkstatus = true;
+    //     this.authenticationService.getToken().then(val => {
+    //       this.token = val.value;
+    //       this.getData(this.token);
+    //     });
+
+    //     this.router.navigate(['/tabs/account']);
        
-      }
+    //   }
+    // });
+
+    // const logCurrentNetworkStatus = async () => {
+    //   const status = await Network.getStatus();
+    //   if (status.connected == false) {
+    //     this.networkstatus = false;
+    //     this.router.navigate(['/account']);
+    //     this.loading.dismiss();
+    //   } else {
+    //     this.networkstatus = true;
+    //     console.log(this.networkstatus);
+      
+    //   }
+    // };
+    // console.log(logCurrentNetworkStatus)
+
+    this.authenticationService.getToken().then(val => {
+      this.token = val.value;
+      this.getData(this.token);
     });
   
+
      }
 
   ngOnInit() {
-  
+ 
   }
   async getData(token){
     
-
+// console.log(token)
     // const logCurrentNetworkStatus = async () => {
     //   const status = await Network.getStatus();
     //   if (status.connected == false) {
@@ -59,15 +82,15 @@ export class AccountPage implements OnInit {
 
     //   }
     // };
-    // this.loading = await this.loadingController.create({
-    //   cssClass: 'my-custom-class',
-    //   backdropDismiss: true,
-    //   translucent: true,
-    // });
-    // await this.loading.present();
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      backdropDismiss: true,
+      translucent: true,
+    });
+    await this.loading.present();
     let data = {'token':token};
     console.log(token)
-    this.userdetailsService.getUserDeatils(data).subscribe(val=>{
+    await this.userdetailsService.getUserDeatils(data).subscribe(val=>{
       this.userdetails = val;
       this.loading.dismiss();
       console.log(val)

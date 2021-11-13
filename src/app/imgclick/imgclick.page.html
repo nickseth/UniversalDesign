@@ -1,10 +1,13 @@
- <div class="ion-header app-bg">
+ <ion-header class="ion-header app-bg">
+  <ion-toolbar>
       <ion-buttons slot="start" class="back-btn">
         <ion-back-button defaultHref="home"></ion-back-button>
       </ion-buttons>
-      <h2 class="img-title">{{this.title}}</h2>
-      <ion-icon class="sharing-icon" name="share-social"></ion-icon>
-    </div>
+      <ion-title class="img-title">{{this.title}}</ion-title>
+      <!-- class="sharing-icon"  -->
+      <ion-icon slot="end" name="share-social"></ion-icon>
+      </ion-toolbar>
+    </ion-header>
 <ion-content class="app-bg">
   <div class="imgclick_wrapper">
     <div class="imgclick-container">

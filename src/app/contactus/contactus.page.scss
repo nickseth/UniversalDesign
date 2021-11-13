@@ -9,7 +9,7 @@
     right: 0;
     width: 280px;
     left: 0;
-    bottom: 24px;
+    bottom: 100px;
     margin: 0 auto;
     font-weight: 600;
     text-transform: uppercase;
@@ -105,4 +105,15 @@ ion-icon {
 }
 h2 {
     color: #fff;
+}
+.app-bg{--background:#002C42;
+  --ion-toolbar-background:#002C42;
+ 
+  ion-title{
+      color:white;
+  }
+  ion-back-button{
+      color:#fff;
+  }
+
 }

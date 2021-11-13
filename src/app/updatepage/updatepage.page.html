@@ -1,9 +1,9 @@
-<div class="ion-header">
-    <div class="update-close">
-      <ion-icon name="close-outline" (click)="closebtn()"></ion-icon>
-    </div>
-</div>
-<div class="ion-content">
+<ion-header class="app-bg">
+    <ion-toolbar>
+      <ion-icon slot="start" name="close-outline" (click)="closebtn()"></ion-icon>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="app-bg">
   <div class="updatepayment-container">
     <div class="update-wrap">
       <h2>Hello, how can we help?</h2>
@@ -22,4 +22,4 @@
         <ion-icon name="rocket-outline"></ion-icon>
       </div>  
   </div>
-</div>
+</ion-content>

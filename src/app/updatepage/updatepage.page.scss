@@ -88,3 +88,14 @@ div.ion-header {
 ion-icon {
     color: #fff;
 }
+
+.app-bg{--background:#002C42;
+    --ion-toolbar-background:#002C42;
+   
+    ion-title{
+        color:white;
+    }
+    ion-icon{
+        color:white;   
+    }
+}

@@ -1,9 +1,6 @@
 .app-bg{--background:#002C42;
     --ion-toolbar-background:#002C42;
-    div{
-        ion-title{
-            color:#fff;
-        }
+    
        
         ion-buttons{
             color:#fff; 
@@ -11,7 +8,9 @@
         ion-icon{
             color:#fff;  
         }
-    }
+        ion-title{
+            color:#fff;
+        }
  
 
 }
