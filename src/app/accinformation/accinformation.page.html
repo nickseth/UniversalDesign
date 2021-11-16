@@ -1,27 +1,25 @@
 <ion-header class="app-bg">
   <ion-toolbar>
-    
       <ion-buttons slot="start">
         <ion-back-button defaultHref="/tabs/home"></ion-back-button>
       </ion-buttons>
       <ion-title>Account</ion-title>
-      <a (click)="presentAlertPrompt()">Sign Out</a>
-  
-    <div class="accinfo-content">
-      <div class="accinfo-txt">
-        <h4>Account</h4>
-        <p>{{user_email}}</p>
-      </div>
-      <div class="accinfo-txt">
-        <h4>Membership</h4>
-        <p>None</p>
-        <a class="accinfo-link" (click)="paymentmethod()">Become a Subscriber</a>
-      </div>
-     
-    </div>
+    <a slot="end" (click)="presentAlertPrompt()">Sign Out</a>
+   
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="app-bg">
-
+  <div class="accinfo-content">
+    <div class="accinfo-txt">
+      <h4>Account</h4>
+      <p>{{user_email}}</p>
+    </div>
+    <div class="accinfo-txt">
+      <h4>Membership</h4>
+      <p>None</p>
+      <a class="accinfo-link" (click)="paymentmethod()">Become a Subscriber</a>
+    </div>
+   
+  </div>
 </ion-content>

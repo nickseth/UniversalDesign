@@ -1,7 +1,7 @@
 <ion-header class="app-bg">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
     </ion-buttons>
     <ion-title class="ion-title">Account</ion-title>
   </ion-toolbar>
@@ -12,9 +12,9 @@
 
 <section class="faq">
   <ul>
-    <li><a (click)="supportpage()">FAQ's</a></li>
-    <li><a (click)="askquespage()">Ask a Question</a></li>
-    <li><a (click)="ticketpage()">My Tickets</a></li>
+    <li><a [routerLink]="['/support']">FAQ's</a></li>
+    <li><a [routerLink]="['/askques']">Ask a Question</a></li>
+    <li><a [routerLink]="['/tickets']">My Tickets</a></li>
   </ul>
 </section>
 </ion-content>

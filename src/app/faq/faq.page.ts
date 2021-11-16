@@ -10,13 +10,16 @@ export class FaqPage implements OnInit {
 
   ngOnInit() {
   }
-  supportpage() {
-    this.router.navigateByUrl('/support');
-  }
-  askquespage(){
-    this.router.navigateByUrl('/askques');
-  }
-  ticketpage() {
-    this.router.navigateByUrl('/tickets');
-  }
+
+  // supportpage() {
+  //   this.router.navigateByUrl('/support');
+  // }
+
+  // askquespage(){
+  //   this.router.navigateByUrl('/askques');
+  // }
+
+  // ticketpage() {
+  //   this.router.navigateByUrl('/tickets');
+  // }
 }

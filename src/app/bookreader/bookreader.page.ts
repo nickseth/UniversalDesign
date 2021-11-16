@@ -223,7 +223,7 @@ export class BookreaderPage implements OnInit {
     let newPath = this.win.Ionic.WebView.convertFileSrc(this.file.cacheDirectory + "UniversalApp/" + urlbook);
     console.log("this new url" + newPath);
     this.book = Epub(newPath, { replacements: "blobUrl" });
-    // this.book = Epub('https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub');
+    //  this.book = Epub('https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub');
 
     //       //          // "https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub"
 
@@ -237,10 +237,10 @@ export class BookreaderPage implements OnInit {
       if (val.location != null) {
         setTimeout(() => {
 
-          document.getElementById(val.href).click();
+          // document.getElementById(val.href).click();
 
 
-          // this.rendition.display(val);
+          this.rendition.display(val);
         }, 1000);
 
       } else {
@@ -868,6 +868,11 @@ export class BookreaderPage implements OnInit {
       document.querySelector('#main-book-section').classList.remove('lite_white');
       document.querySelector('#main-book-section').classList.remove('lite_blue');
 
+      document.querySelector('#main-book-section2').classList.remove('lite_dark');
+      document.querySelector('#main-book-section2').classList.remove('dark2');
+      document.querySelector('#main-book-section2').classList.remove('blue');
+      document.querySelector('#main-book-section2').classList.remove('lite_white');
+      document.querySelector('#main-book-section2').classList.remove('lite_blue');
     }
 
     localStorage.test = ev;

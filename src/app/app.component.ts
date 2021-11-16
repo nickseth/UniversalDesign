@@ -14,29 +14,36 @@ export class AppComponent {
   constructor(private platform: Platform, private _location: Location,
     public alertController: AlertController,private router:Router) {
 
-      Network.addListener('networkStatusChange', status => {
-        if (status.connected == false) {
-          this.networkstatus = false;
+      // Network.addListener('networkStatusChange', status => {
+      //   if (status.connected == false) {
+      //     this.networkstatus = false;
        
          
-          console.log(this.networkstatus+'false1');
-        } else {
-          this.networkstatus = true;
+      //     console.log(this.networkstatus+'false1');
+      //   } else {
+      //     this.networkstatus = true;
         
   
-          this.router.navigate(['/download']);
+      //     this.router.navigate(['/download']);
          
-        }
-      });
+      //   }
+      // });
       this.backButtonEvent();
 
     }
     backButtonEvent(){
       this.platform.backButton.subscribeWithPriority(10,()=>{
-     console.log(this._location.isCurrentPathEqualTo('/tabs/home'));
-        if(!this.routerOutlet.canGoBack()){
+    //  console.log(this._location.isCurrentPathEqualTo('/tabs/home'));
+        // if(!this.routerOutlet.canGoBack()){
         
-          this.backButtonAlert();
+        //   this.backButtonAlert();
+        // } else{
+        //   this._location.back();
+        // }
+        const path = window.location.pathname;
+        if(path === '/tabs/home'){
+          navigator['app'].exitApp();
+          // this.backButtonAlert();
         } else{
           this._location.back();
         }
