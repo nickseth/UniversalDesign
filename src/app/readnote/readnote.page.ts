@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage-angular';
 // import { LocalstorageService } from './../services/localstorage.service';
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { NotesService } from './../services/notes.service';
-import { LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { AuthenticationService } from './../services/authentication.service';
 // import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 // import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
@@ -35,7 +35,8 @@ export class ReadnotePage implements OnInit {
     public router: Router,
     // public sqdatabaseService: LocalstorageService,
     public authenticationService: AuthenticationService,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    public alertController:AlertController
   ) {
 
 
@@ -111,7 +112,7 @@ export class ReadnotePage implements OnInit {
     let data = { 'token': token, 'notes_id': id, 'title': title, 'description': description };
     this.notesService.updateNotes(data).subscribe(val => {
       this.updationReturn = val;
-      alert(this.updationReturn.success);
+      this.showAlert('Alert',this.updationReturn.success);
       this.router.navigate(['/notes']);
     });
   }
@@ -119,8 +120,19 @@ export class ReadnotePage implements OnInit {
     let data = { 'token': token, 'notes_id': id };
     this.notesService.deleteNotes(data).subscribe(val => {
       this.datarecieve = val;
-      alert(this.datarecieve.success);
+      this.showAlert('Alert',this.datarecieve.success);
       this.router.navigate(['/notes']);
     })
+  }
+
+  async showAlert(title,mess) {
+    const alert = await this.alertController.create({
+      header: title,
+      // subHeader: 'Subtitle for alert',
+      message: mess,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }

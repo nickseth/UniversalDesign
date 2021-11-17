@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-registration',
@@ -11,7 +13,11 @@ import { Router } from '@angular/router';
 export class RegistrationPage implements OnInit {
   ionicForm: FormGroup;
   requestOptions: any;
-  constructor(public formBuilder: FormBuilder, public http: HttpClient, private router: Router) {
+  constructor(public formBuilder: FormBuilder, 
+    public http: HttpClient, 
+    private router: Router,
+    public alertController:AlertController
+    ) {
     this.ionicForm = this.formBuilder.group({
       fname: [''],
       lname: [''],
@@ -38,14 +44,25 @@ export class RegistrationPage implements OnInit {
     await this.http.post(`https://universalbooks.wpengine.com/wp-json/mobileapi/v1/register`, JSON.stringify(this.ionicForm.value), options)
       .subscribe(data => {
         this.ionicForm.reset();
+        this.showAlert('Alert','User Successfully Saved.');
         this.router.navigate(['/login']);
       }, error => {
-        console.log(error.error.message);
+        this.showAlert('Alert',error)
         this.ionicForm.reset();
 
       });
 
 
+  }
+  async showAlert(title,mess) {
+    const alert = await this.alertController.create({
+      header: title,
+      // subHeader: 'Subtitle for alert',
+      message: mess,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
 }

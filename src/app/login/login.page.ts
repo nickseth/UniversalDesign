@@ -39,6 +39,7 @@ export class LoginPage implements OnInit {
       async (res) => {
         await loading.dismiss();
         const alert = await this.alertController.create({
+          cssClass:'error_mess',
           header: 'Login failed',
           message: res.error.error,
           buttons: ['OK'],
@@ -57,5 +58,7 @@ export class LoginPage implements OnInit {
   get password() {
     return this.credentials.get('password');
   }
+
+
 
 }
