@@ -1,66 +1,68 @@
 .app-bg{--background:#002C42;
     --ion-toolbar-background:#002C42;
+   color:#fff;
     ion-title{
+        color:#fff
+    }
+    ion-buttons{
         color:#fff;
-    }  
+    }
+    div {
+        color:#fff; 
+      
+      
+    }
+
 }
-.interest-conatiner {
-    background-color: #e6f1f5;
-    padding: 20px;
-    .interset-cta {
+
+
+ion-item {
+    width: 100%;
+}
+
+
+.more_wrapper {
+    .moreLink-container {
         display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-        button {
-            background-color: #fff;
-            padding: 10px 20px;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            border-radius: 25px;
-            color: #000;
-            font-weight: 600;
-            font-size: 14px;
+        align-items: center;
+        justify-content: space-between;
+        margin: 10px;
+    }
+    .more-img {
+        width: 35%;
+        img {
+            width: 100%;
+            display: block;
         }
     }
-    h2 {
-        font-size: 20px;
-    }
-    p {
-        font-size: 13px;
-        color: #808080;
-    }
-}
-.browse-category__wrapper {
-    padding: 20px;
-    h2 {
-        font-size: 20px;
-        font-weight: bold;
-        margin: 0;
-    }
-    ul {
-        list-style-type: none;
-        padding-left: 0;
-        li {
-            padding: 10px 0;
-            border-bottom: 1px solid #dfdada;
-            a {
-                text-decoration: none;
-                color: #000;
-                font-size: 14px;
-                font-weight: 500;
-            }
+    .more-content {
+        width: 60%;
+        div {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+             justify-content: space-between;
+        }
+        p {
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: #fff;
+            font-weight: 100;
+        }
+        span {
+            font-size: 12px;
         }
     }
 }
-::ng-deep .toolbar-container {
-    background-color: #002C42 !important;
-}
-div.ion-header {
+.more-title {
     background-color: #05151b;
+    display: flex;
+    align-items: center;
+    h2 {
+        color: #fff;
+    }
 }
-div.ion-content {
-    background-color: #002C42;
-}
-::ng-deep .ion-app {
-    display: block;
+ion-icon {
+    color: #fff;
+    font-size: 25px;
 }

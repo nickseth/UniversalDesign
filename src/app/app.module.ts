@@ -18,7 +18,8 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     File,
     AndroidPermissions,
-    FileTransfer
+    FileTransfer,
+  
   ],
   bootstrap: [AppComponent],
 })

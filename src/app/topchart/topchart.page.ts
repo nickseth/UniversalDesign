@@ -86,7 +86,7 @@ export class TopchartPage implements OnInit {
       product['isBookMark'] = false;
 
 
-      this.wishlistData = true;
+      // this.wishlistData = true;
       // } else {
       //   this.router.navigate(['/login']);
       // }

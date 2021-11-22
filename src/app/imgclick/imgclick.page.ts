@@ -33,6 +33,7 @@ export class ImgclickPage implements OnInit {
   loading: any;
   author_name: any;
   book_publisher: any;
+  extenstion:any;
   constructor(private router: Router,
     private rec_router: ActivatedRoute,
     public alertController: AlertController,
@@ -50,7 +51,7 @@ export class ImgclickPage implements OnInit {
 
     this.authenticationService.getToken().then(val => {
       this.token = val.value;
-      console.log(this.token)
+      // console.log(this.token)
     });
 
 
@@ -101,7 +102,8 @@ export class ImgclickPage implements OnInit {
       let index_author = this.data.meta_data.findIndex(p => p.key == "book_author");
       this.author_name = this.data.meta_data[index_author].value;
       this.book_publisher = this.data.meta_data[index_publisher].value;
-
+     this.extenstion = this.file_url_download.substring(this.file_url_download.lastIndexOf('.') + 1);
+      
     })
   }
 
@@ -156,9 +158,9 @@ export class ImgclickPage implements OnInit {
   async downloadFileone(fileurl) {
   if (this.token != null){
     const fileTransfer: FileTransferObject = this.transfer.create();
-
+    
     // console.log(this.file)
-    let fileexternalurl = this.file.cacheDirectory + "UniversalApp/";
+    let fileexternalurl = this.platform.is('android') ? this.file.cacheDirectory + "UniversalApp/":this.file.documentsDirectory + "UniversalApp/";
 
     // this.file.createDir(this.file.externalRootDirectory, 'UniversalBook',true);
 
@@ -175,14 +177,14 @@ export class ImgclickPage implements OnInit {
     });
     await this.loading.present();
     fileTransfer.download(geturlfinal, fileexternalurl + filename1).then((entry) => {
-      this.downloadedfile.addBookDownload(this.product_id, this.token, this.title, this.imagescr, filename1);
+      this.downloadedfile.addBookDownload(this.product_id, this.token, this.title, this.imagescr, filename1,this.extenstion);
       this.showToast('Downloading Complete');
       this.loading.dismiss();
       setTimeout(() => {
         this.HideToast();
       }, 3000);
     }, (error) => {
-      console.log(error)
+      // console.log(error)
       this.loading.dismiss();
       this.showToast('Downloading Failed');
       setTimeout(() => {
@@ -217,7 +219,7 @@ export class ImgclickPage implements OnInit {
   addAndFetchWishlist() {
 
     this.wishlistService.getWishlistData().then(val => {
-      console.log(val)
+      // console.log(val)
       if (val != null) {
         val.forEach((element, index) => {
           if (element.id == this.product_id) {

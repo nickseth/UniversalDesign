@@ -1,27 +1,109 @@
 <ion-header class="ion-header app-bg">
   <ion-toolbar>
-  <ion-buttons slot="start">
-    <ion-back-button defaultHref="home"></ion-back-button>
-  </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
     <ion-title>Downloads</ion-title>
-</ion-toolbar>
-  </ion-header>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content class="app-bg">
   <ion-refresher slot="fixed" (ionRefresh)="getUsersList($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-grid >
-    <ion-row *ngFor="let item of bookData" (click)="viewItem(item.id)">
+  <ion-grid>
+    <ion-row *ngFor="let item of bookData">
       <ion-col size="4" size-sm>
-        <div style ="width:100px;margin:10px">
+        <div style="width:100px;margin:10px">
           <img src="{{item.image_url}}" style="width: 100px;">
         </div>
       </ion-col>
       <ion-col size="8" size-sm>
-        <h6 >{{item.book_name}}</h6>
+        <h6 style="color:white">{{item.book_name}}</h6>
+        <div *ngIf="item.extenstion == 'epub' else MusicFiles" style="color:burlywood">
+          <strong (click)="viewItem(item.id)"><small>Open And Read</small></strong>
+        </div>
+        <ng-template #MusicFiles>
+          <div style="color:burlywood">
+            <ion-icon slot="icon-only" [name]="item['isplay'] ? 'pause' : 'play'" (click)="playCurrent(item)">
+            </ion-icon>
+            <!-- <ion-range
+            #range
+            [(ngModel)]="progress"
+            size="small"
+            max="100"
+            color="success"
+            (touchend)="seek()"
+            (mouseup)="seek()"
+          >
+            <ion-icon slot="start" size="small" name="musical-note"></ion-icon>
+            <ion-icon slot="end" name="musical-note"></ion-icon>
+          </ion-range> -->
+          </div>
+        </ng-template>
         <!-- <div class="comment_des" [innerHTML]="item.short_description"></div> -->
-        </ion-col> 
+      </ion-col>
     </ion-row>
-    </ion-grid>
-  </ion-content>
+  </ion-grid>
+</ion-content>
+
+<!-- 
+  <ion-content class="app-bg">
+    <ion-list>
+      <ion-item button *ngFor="let track of playlist" (click)="start(track)">
+        <ion-label [color]="track == activeTrack ? 'success' : 'red'">
+          {{ track.name }}
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content> -->
+<!--   
+  <ion-content *ngIf="activeTrack" class="app-bg">
+    <ion-toolbar color="dark">
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">
+          {{ activeTrack.name }}
+        </ion-col>
+        <ion-col size="12">
+          <ion-range
+            #range
+            [(ngModel)]="progress"
+            size="small"
+            max="100"
+            color="success"
+            (touchend)="seek()"
+            (mouseup)="seek()"
+          >
+            <ion-icon slot="start" size="small" name="musical-note"></ion-icon>
+            <ion-icon slot="end" name="musical-note"></ion-icon>
+          </ion-range>
+        </ion-col>
+        <ion-col size="12" class="ion-text-center">
+          <ion-button fill="clear" (click)="prev()" color="light">
+            <ion-icon slot="icon-only" name="play-skip-back-outline"></ion-icon>
+          </ion-button>
+  
+          <ion-button
+            fill="clear"
+            (click)="togglePlayer(false)"
+            *ngIf="!isPlaying"
+            color="light">
+            <ion-icon slot="icon-only" name="play"></ion-icon>
+          </ion-button>
+  
+          <ion-button
+            fill="clear"
+            (click)="togglePlayer(true)"
+            *ngIf="isPlaying"
+            color="light"
+          >
+            <ion-icon slot="icon-only" name="pause"></ion-icon>
+          </ion-button>
+  
+          <ion-button fill="clear" (click)="next()" color="light">
+            <ion-icon slot="icon-only" name="play-skip-forward-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  </ion-content> -->
