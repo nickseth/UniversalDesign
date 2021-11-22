@@ -58,4 +58,7 @@
     font-weight: normal;
     src: url('../../assets/font/Spectral-Regular.ttf');
   }
+body{
+  overflow-x:hidden;
+}
   

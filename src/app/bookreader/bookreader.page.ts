@@ -4,8 +4,9 @@ import { Storage } from '@ionic/storage-angular';
 import Epub from 'epubjs';
 import Book from 'epubjs/src/book';
 import Rendition from 'epubjs/src/rendition';
+import { EpubCFI } from 'epubjs'
 import { NavItem } from 'epubjs/src/navigation';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, Platform } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { NotesService } from './../services/notes.service';
 import { AuthenticationService } from './../services/authentication.service';
@@ -67,7 +68,8 @@ export class BookreaderPage implements OnInit {
     public file: File,
     private androidPermissions: AndroidPermissions,
     public productdata: ProductService,
-    private localdownload: DownloadedfileService
+    private localdownload: DownloadedfileService,
+    public platform: Platform
   ) {
 
 
@@ -75,11 +77,10 @@ export class BookreaderPage implements OnInit {
     this.authenticationService.getToken().then(val => {
       this.token = val.value;
     })
+
     setTimeout(() => {
-      document.getElementById("defaultOpen").click();
-      // this.openCity(event, 'AllContent');
-    }, 50);
-    // this.epubFileReader();
+      document.getElementById("defaultOpen2").click();
+    }, 1000);
 
   }
 
@@ -193,6 +194,7 @@ export class BookreaderPage implements OnInit {
 
   ngOnInit() {
 
+    document.getElementById("defaultOpen2").click();
     this.book_id = this.route.snapshot.paramMap.get('id');
 
 
@@ -202,58 +204,56 @@ export class BookreaderPage implements OnInit {
     //   this.epubFileReader(this.product_ones.downloads[0].file);
 
     // })
-        this.localdownload.getDownloadedBookLocation().then(val => {
-         let index_book = val.findIndex(p => p.id == this.book_id);
+    //     this.localdownload.getDownloadedBookLocation().then(val => {
+    //       if(val != null){
+    //         let index_book = val.findIndex(p => p.id == this.book_id);
+    //         let bkdata = val[index_book].book_location;
+    //        this.epubFileReader(bkdata);
+    //       }
 
 
-         let bkdata = val[index_book].book_location;
-        // this.epubFileReader(bkdata);
+    // })
 
-    })
-
-     this.epubFileReader(this.book_id);
+    this.epubFileReader(this.book_id);
 
     // this.epubFileReader();
 
-
+ 
   }
 
-  epubFileReader(urlbook) {
-
-    let newPath = this.win.Ionic.WebView.convertFileSrc(this.file.cacheDirectory + "UniversalApp/" + urlbook);
-    console.log("this new url" + newPath);
-    this.book = Epub(newPath, { replacements: "blobUrl" });
-    //  this.book = Epub('https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub');
+  async epubFileReader(urlbook) {
+    //  let urls_for_read = this.platform.is('android') ? this.file.cacheDirectory + "UniversalApp/" + urlbook:this.file.documentsDirectory + "UniversalApp/" + urlbook;
+    //   let newPath = this.win.Ionic.WebView.convertFileSrc(urls_for_read);
+    //   console.log("this new url" + newPath);
+    //   this.book = await Epub(newPath, { replacements: "blobUrl" });
+    this.book = Epub('https://s3.amazonaws.com/moby-dick/moby-dick.epub');
 
     // "https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub"
 
-    this.rendition = this.book.renderTo('viewer', {
+    this.rendition = await this.book.renderTo('viewer', {
       flow: 'auto', width: '100%',
-      ignoreClass: 'annotator-hl', height: '100%',
+      height: '100%',
       manager: "continuous", allowScriptedContent: true
     });
-    let current_location2 = this.storage.get('current_location' + this.book_id);
-    current_location2.then(val => {
-      if (val.location != null) {
-        setTimeout(() => {
-
-          // document.getElementById(val.href).click();
-
-
-          this.rendition.display(val);
-        }, 1000);
-
+    let current_location222 =  this.storage.get('current_location' + this.book_id);
+   
+     current_location222.then(val => {
+      console.log(val)
+      if (val != null) {
+        this.rendition.display(val.location);
       } else {
         this.rendition.display();
       }
     });
-    this.rendition.display();
+    await this.rendition.display();
     this.navOpen = false;
 
 
-    this.rendition.on('rendered', (section) => {
+    await this.rendition.on('rendered', (section) => {
       this.currentChapter = this.book.navigation.get(section.href);
     });
+
+
 
     // let touchStart = 0;
     // let touchEnd = 0;
@@ -274,21 +274,25 @@ export class BookreaderPage implements OnInit {
     // });
 
 
-    this.rendition.hooks.content.register((contents) => {
+
+    await this.rendition.hooks.content.register((contents) => {
       // contents.addScript("../../assets/js/jquery.min.js"),
-        contents.addStylesheet("../../assets/css/theme.css")
+      contents.addStylesheet("../../assets/css/theme.css")
 
     });
-    this.rendition.on('relocated', (location) => {
+    await this.rendition.on('relocated', (location) => {
 
       let locationCfi = location.start.cfi;
       let spineItem = this.book.spine.get(locationCfi);
       let navItem = this.book.navigation.get(spineItem.href);
-      this.chapterTitle = navItem.label;
+      if(navItem != undefined){
+        this.chapterTitle = navItem.label; 
+      }
+      
     });
 
 
-    this.storage.get('dark2').then((ev) => {
+    await this.storage.get('dark2').then((ev) => {
 
       if (ev == null) {
         // this.storage.set('dark2', 'light');
@@ -450,32 +454,50 @@ export class BookreaderPage implements OnInit {
         this.rendition.themes.default({ "body": { "line-height": 1 } });
       }
     });
-    this.book.loaded.spine.then(spine => {
+    await this.book.loaded.spine.then(spine => {
       // console.log(spine);
+      // let i=1;
       spine.each(item => {
-
-        let i: any = "1";
-        this.rendition.on("rendered", section => {
-          var current = this.book.navigation.get(item.href);
-          // console.log(current)
-          if (i <= 1) {
+        // console.log(item)
+        // let i: any = "1";
+        // this.rendition.on("rendered", section => {
+        // console.log(item.href)
+     
+        var current = this.book.navigation.get(item.href);
+        
+         if(current != undefined){
             var ion_item1 = document.createElement("ion-item");
-            ion_item1.innerHTML = current.label;
-            ion_item1.className = 'chapters';
-            ion_item1.id = item.href;
-            ion_item1.style.padding = "5px";
-            ion_item1.onclick = () => {
-              this.chapterTitle = current.label;
-              this.storage.set('current_location' + this.book_id, item.href);
-              this.displayChapterOne(event, item.href);
-            }
-            var cpt = document.querySelector('#chapter');
-            cpt.append(ion_item1);
-            i++;
-          } else {
-          }
+        ion_item1.innerHTML = current.label;
+        ion_item1.className = 'chapters';
+        ion_item1.id = item.href;
+        ion_item1.style.padding = "5px";
+        ion_item1.onclick = () => {
+          this.chapterTitle = current.label;
+          this.storage.set('current_location' + this.book_id, item.href);
+          this.displayChapterOne(event, item.href);
+        }
+        var cpt = document.querySelector('#chapter');
+        cpt.append(ion_item1);
+         }
+  
+        // if (i <= 1) {
+        // var ion_item1 = document.createElement("ion-item");
+        // ion_item1.innerHTML = current.label;
+        // ion_item1.className = 'chapters';
+        // ion_item1.id = item.href;
+        // ion_item1.style.padding = "5px";
+        // ion_item1.onclick = () => {
+        //   this.chapterTitle = current.label;
+        //   this.storage.set('current_location' + this.book_id, item.href);
+        //   this.displayChapterOne(event, item.href);
+        // }
+        // var cpt = document.querySelector('#chapter');
+        // cpt.append(ion_item1);
+        //   i++;
+        // } else {
+        // }
 
-        });
+        // });
 
       });
     });
@@ -487,7 +509,35 @@ export class BookreaderPage implements OnInit {
 
     });
 
-    this.rendition.on("selected", (cfiRange, contents) => {
+
+
+
+    // var keyListener = function(e){
+
+    //   // Left Key
+    //   if ((e.keyCode || e.which) == 37) {
+    //     // this.rendition.prev();
+    //   }
+
+    //   // Right Key
+    //   if ((e.keyCode || e.which) == 39) {
+    //     // this.rendition.next();
+    //   }
+
+    // };
+
+    // this.rendition.on("keyup", keyListener);
+    // document.addEventListener("keyup", keyListener, false);
+
+    // this.rendition.on("relocated", function(location){
+    //   // console.log(location);
+    // });
+
+
+
+
+
+    await this.rendition.on("selected", (cfiRange, contents) => {
 
       this.book.getRange(cfiRange).then(range => {
 
@@ -532,7 +582,7 @@ export class BookreaderPage implements OnInit {
         "body": { "background-color": "#ffffff", "color": "#000000" }
       });
 
-    this.rendition.on('relocated', (location) => {
+    await this.rendition.on('relocated', (location) => {
       this.storage.get('bookmark' + this.book_id).then((val) => {
 
         if (val != null) {
@@ -565,6 +615,10 @@ export class BookreaderPage implements OnInit {
         });
       }
     })
+
+    window.addEventListener("unload",()=> {
+      this.book.destroy();
+    });
   }
 
   displayChapterOne(env, item) {
@@ -616,6 +670,7 @@ export class BookreaderPage implements OnInit {
 
     this.book_bookmark_highlight = this.storage.get('bookmark' + this.book_id);
     this.book_bookmark_highlight.then(val => {
+
       let index = val.findIndex((rank, index) => rank.location === item && rank.type === "highlight");
 
       if (index >= 0) {
@@ -656,12 +711,13 @@ export class BookreaderPage implements OnInit {
 
 
   showNext() {
+  // console.log()
+    // this.rendition.on('relocated', (location) => {
+let loca = this.rendition.currentLocation();
 
-    this.rendition.on('relocated', (location) => {
+      this.storage.set('current_location' + this.book_id, { location: loca.start.cfi });
 
-      this.storage.set('current_location' + this.book_id, { location: location.start.cfi, href: location.start.href });
-
-    });
+    // });
 
     this.rendition.next();
 
@@ -671,13 +727,17 @@ export class BookreaderPage implements OnInit {
 
   showPrev() {
 
-    this.rendition.on('relocated', (location) => {
+    // this.rendition.on('relocated', (location) => {
+      let loca = this.rendition.currentLocation();
+      this.storage.set('current_location' + this.book_id, { location: loca.start.cfi });
 
-      this.storage.set('current_location' + this.book_id, { location: location.start.cfi, href: location.start.href });
-      this.rendition.prev();
-    });
+    // });
+    this.rendition.prev();
 
   }
+
+
+
   toggleNav() {
     this.navOpen = !this.navOpen;
     console.log(this.navOpen);
@@ -729,7 +789,7 @@ export class BookreaderPage implements OnInit {
         document.getElementById("ffamily_" + family_item).classList.add("ion-activated");
         this.rendition.themes.font(this.font_family);
       } else {
-        console.log("click se" + family_item)
+        // console.log("click se" + family_item)
         document.getElementById("ffamily_" + val).classList.remove("ion-activated");
         document.getElementById("ffamily_" + family_item).classList.add("ion-activated");
         this.font_family = family_item;
@@ -946,13 +1006,8 @@ export class BookreaderPage implements OnInit {
       cssClass: 'my-custom-class',
       componentProps: {
         'wikitext': txt,
-
-
       }
     });
     return await modal.present();
   }
-
-
-
 }

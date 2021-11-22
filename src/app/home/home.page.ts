@@ -108,7 +108,7 @@ export class HomePage implements OnInit {
     // console.log(event.target.value);
   }
   ngOnInit() {
-
+    document.getElementById("defaultOpen").click();
     // Request permission to use push notifications
     // iOS will prompt user and return if they granted permission or not
     // Android will just grant without prompting
@@ -143,12 +143,6 @@ export class HomePage implements OnInit {
         alert('Push action performed: ' + JSON.stringify(notification));
       },
     );
-
-
-
-
-
-    
 
   }
 
@@ -192,6 +186,7 @@ export class HomePage implements OnInit {
       });
       let product = { 'category_id': id, 'category_name': name, product: this.pro_array };
       this.combine_array_data.push(product);
+      // console.log(product)
     });
   }
 

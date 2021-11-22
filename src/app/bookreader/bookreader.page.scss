@@ -523,4 +523,8 @@ ion-content{
     src: url('../../assets/font/Spectral-Regular.ttf');
   }
 
+  ng::deep .my-custom-class{
+    background-color: #ddd;
+  }
+
 

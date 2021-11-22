@@ -1,6 +1,5 @@
 <ion-header class="ion-header app-bg">
   <ion-toolbar>
-
     <ion-title class="ion-title logo-title">UniversalBook</ion-title>
   </ion-toolbar>
   </ion-header>
@@ -9,14 +8,7 @@
  <div class="top-slider">
   <button class="tablinks" (click)="openCity($event, 'AllContent')" id='defaultOpen'>All</button>
   <div  *ngFor="let item22 of categoryid;let inx3 = index">
-     
     <button class="tablinks" (click)='openCity($event, item22.id)' >{{item22.name}}</button>
-    <!-- <button (click)="openCity(event, 'audiobook')">Audiobooks</button>
-    <button (click)="openCity(event, 'magazine')">Magazine</button>
-    <button (click)="openCity(event, 'podcast')">Podcast</button>
-    <button (click)="openCity(event, 'sheetmusic')">SheetMusic</button>
-    <button (click)="openCity(event, 'snap')">Snapshots</button>
-    <button (click)="openCity(event, 'docs')">Documents</button> -->
   </div>
 </div>
 
@@ -32,9 +24,6 @@
       <br>
       <button class="cancel-btn">{{button_tagline}}</button>
     </div>
-
- 
-
     <div class="best-sell_wrap">
       <h2>Recommended categories</h2>
       <!-- <a>All Interest<ion-icon name="chevron-forward"></ion-icon></a> -->
