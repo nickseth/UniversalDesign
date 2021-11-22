@@ -550,6 +550,7 @@ export class BookreaderPage implements OnInit {
 
     });
 
+
     ///theme background change------------------------------------------
     this.rendition.themes.register("dark1",
       {
