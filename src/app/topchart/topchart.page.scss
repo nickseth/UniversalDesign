@@ -45,7 +45,7 @@
             display: flex;
             margin: 0;
             align-items: center;
-            color: #fff;
+            color: #fff;width:100%; justify-content:space-between;
             ion-icon {
                 font-size: 25px;
                 color: #fff;
@@ -68,3 +68,7 @@ ion-icon {
     --background:#ebf1f500e7;
     --spinner-color: #fff
 }
+.chart-category svg {width:12px}
+.chart-category ul li span{width:100%}
+.bookmark_bk.active path{fill:#fff}
+
