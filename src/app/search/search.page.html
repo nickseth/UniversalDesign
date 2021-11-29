@@ -11,8 +11,7 @@
             <img src={{item.images[0].src}} alt=" " (click)="imgclick(item.id)">
           </div>
           <div class="more-content">
-            <div>{{item.name}}<ion-icon [style.color]="item['isBookMark'] ? '#EF3B51' : ''" name="bookmark"
-                (click)="setwishlist(item)"></ion-icon>
+            <div>{{item.name}} <ion-icon  [name]="item['isBookMark'] ? 'bookmark-outline' : 'bookmark'" (click)="setwishlist(item)"></ion-icon>
             </div>
             <p [innerHTML]="item.short_description"></p>
     

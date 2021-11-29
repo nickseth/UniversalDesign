@@ -27,7 +27,7 @@
     <!-- <button class="pay-cta">Play Sample</button> -->
     <div class="imgclick-icons">
     <span><ion-icon name="arrow-down-circle-outline" (click)="downloadFileone(file_url_download)"></ion-icon>Download</span>  
-   <span><ion-icon *ngIf="wishlistData; else noWishlist" [style.color]="'#EF3B51'" name="bookmark" (click)="deletewishlist()"></ion-icon> <ng-template #noWishlist>
+   <span><ion-icon *ngIf="wishlistData; else noWishlist" name="bookmark" (click)="deletewishlist()"></ion-icon> <ng-template #noWishlist>
     <ion-icon name="bookmark-outline" (click)="setwishlist()" 
      ></ion-icon>
     </ng-template>Save</span>   
