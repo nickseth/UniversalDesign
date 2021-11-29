@@ -174,10 +174,12 @@ export class HomePage implements OnInit {
   }
   async products(id, name) {
     this.book_cmk = await this.wishlistService.getWishlistData();
+    console.log(this.book_cmk)
     this.productService.getCategoryOnes(id).subscribe(res => {
       this.pro_array = res;
 
       this.pro_array.forEach(element => {
+       
         if(this.book_cmk != null){
         if (this.book_cmk.some(obj => element.id == obj.id)) {
           element['isBookMark'] = true;
