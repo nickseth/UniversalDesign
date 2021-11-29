@@ -49,9 +49,9 @@ export class ImgclickPage implements OnInit {
     public toast: ToastController
   ) {
 
-    this.authenticationService.getToken().then(val => {
+    this.authenticationService.getToken().then( val=> {
       this.token = val.value;
-      // console.log(this.token)
+      console.log(this.token)
     });
 
 

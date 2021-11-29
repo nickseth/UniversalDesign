@@ -41,7 +41,7 @@ export class RegistrationPage implements OnInit {
       headers: headers
     }
 
-    await this.http.post(`https://universalbooks.wpengine.com/wp-json/mobileapi/v1/register`, JSON.stringify(this.ionicForm.value), options)
+    await this.http.post(`https://94d.2a4.myftpupload.com/wp-json/mobileapi/v1/register`, JSON.stringify(this.ionicForm.value), options)
       .subscribe(data => {
         this.ionicForm.reset();
         this.showAlert('Alert','User Successfully Saved.');

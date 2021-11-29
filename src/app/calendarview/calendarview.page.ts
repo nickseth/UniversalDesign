@@ -84,7 +84,7 @@ export class CalendarviewPage implements OnInit {
   // Create the right event format and reload source
   addEvent() {
     let eventCopy = {
-      token: this.token,
+      // token: this.token,
       title: this.event.title,
       startTime: new Date(this.event.startTime),
       endTime: new Date(this.event.endTime),
