@@ -7,13 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { BookreaderPageRoutingModule } from './bookreader-routing.module';
 
 import { BookreaderPage } from './bookreader.page';
-
+import {DragDropModule} from '@angular/cdk/drag-drop';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    BookreaderPageRoutingModule
+    BookreaderPageRoutingModule,
+    DragDropModule
   ],
   declarations: [BookreaderPage]
 })

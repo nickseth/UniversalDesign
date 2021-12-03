@@ -89,7 +89,7 @@ export class AccountPage implements OnInit {
     });
     await this.loading.present();
     let data = {'token':token};
-    console.log(token)
+    // console.log(token)
     await this.userdetailsService.getUserDeatils(data).subscribe(val=>{
       this.userdetails = val;
       this.loading.dismiss();

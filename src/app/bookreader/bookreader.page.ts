@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit,ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
 import Epub from 'epubjs';
@@ -6,7 +6,7 @@ import Book from 'epubjs/src/book';
 import Rendition from 'epubjs/src/rendition';
 import { EpubCFI } from 'epubjs'
 import { NavItem } from 'epubjs/src/navigation';
-import { ActionSheetController, Platform } from '@ionic/angular';
+import { ActionSheetController, Platform , IonContent } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { NotesService } from './../services/notes.service';
 import { AuthenticationService } from './../services/authentication.service';
@@ -18,12 +18,21 @@ import { DownloadedfileService } from '../services/localstorage/downloadedfile.s
 import { File } from '@ionic-native/file/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { ProductService } from '../services/product.service';
+
+
 @Component({
   selector: 'app-bookreader',
   templateUrl: './bookreader.page.html',
   styleUrls: ['./bookreader.page.scss'],
 })
 export class BookreaderPage implements OnInit {
+  @ViewChild(IonContent) private content: IonContent;
+
+  dragPosition:any = {x: 0, y: 0};
+
+  changePosition() {
+    this.dragPosition = {x: this.dragPosition.x + 50, y: this.dragPosition.y + 50};
+  }
   book_id: any;
   data: any;
   darkValue: any;
@@ -191,7 +200,9 @@ export class BookreaderPage implements OnInit {
   //     console.log(res); // res = {hasPermission: false}
   //   });
   // }
-
+  ionViewWillEnter() {
+    console.log(this.content.scrollToTop());
+  }
   ngOnInit() {
 
     document.getElementById("defaultOpen2").click();

@@ -71,8 +71,8 @@ ion-content{
     }
     
     #viewer {
-      width: calc(80vw - 125px);
-      height: calc(80vh - 96px);
+      width: 100%;
+      height: 100%;
       margin: 0 auto;
       margin-right: auto;
       max-width: 1250px;
@@ -83,7 +83,7 @@ ion-content{
     }
     
     .nav-open #viewer {
-      margin-right: 50px;
+      margin-right: 0px;
     }
     
     #viewer iframe{
@@ -174,7 +174,7 @@ ion-content{
     
     @media only screen and (max-width: 1040px) {
       #viewer{
-        width: 50%;
+        width: 100%;
       }
       
       #divider,
@@ -203,33 +203,33 @@ ion-content{
     /* For iPad portrait layouts only */
     @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation: portrait) {
       #viewer iframe {
-        width: 460px;
+        width: 200px;
         height: 740px;
       }
     }
     /*For iPad landscape layouts only */
     @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation: landscape) {
       #viewer iframe {
-        width: 460px;
+        width: 400px;
         height: 415px;
       }
     }
     /* For iPhone portrait layouts only */
     @media only screen and (max-device-width: 480px) and (orientation: portrait) {
       #viewer {
-        width: 284px;
-        height: 432px;
+        width: 304px;
+        height: 532px;
       }
       #viewer iframe {
-        width: 256px;
-        height: 432px;
+        width: 306px;
+        height: 632px;
       }
     }
     /* For iPhone landscape layouts only */
     @media only screen and (max-device-width: 480px) and (orientation: landscape) {
       #viewer iframe {
-        width: 284px;
-        height: 124px;
+        width: 404px;
+        height: 304px;
       }
     }
     
@@ -526,5 +526,4 @@ ion-content{
   ng::deep .my-custom-class{
     background-color: #ddd;
   }
-
 

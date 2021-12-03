@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
-
+import { AuthGuard } from '../guards/auth.guard';
+import { AutoLoginGuard } from '../guards/auto-login.guard';
 const routes: Routes = [
   {
     path: 'tabs',
@@ -21,7 +22,8 @@ const routes: Routes = [
       },
       {
         path: 'saved',
-        loadChildren: () => import('../saved/saved.module').then(m => m.SavedPageModule)
+        loadChildren: () => import('../saved/saved.module').then(m => m.SavedPageModule),
+        canLoad: [AuthGuard] // Secure all child pages
       },
       {
         path: 'search',

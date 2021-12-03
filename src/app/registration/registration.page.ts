@@ -47,7 +47,7 @@ export class RegistrationPage implements OnInit {
         this.showAlert('Alert','User Successfully Saved.');
         this.router.navigate(['/login']);
       }, error => {
-        this.showAlert('Alert',error)
+      console.log('Alert',error)
         this.ionicForm.reset();
 
       });

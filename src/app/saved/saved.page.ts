@@ -27,19 +27,21 @@ export class SavedPage implements OnInit {
     private authenticationService: AuthenticationService,
     public loadingController: LoadingController,
     
-    ) { }
+    ) { 
+      this.storagewishlistService.getWishlistData().then(val=>{
+        this.wishlistData = val;
+        console.log(this.wishlistData)
+        this.authenticationService.getToken().then(val => {
+        this.dataRetrieve(val.value);
+        this.token = val.value;
+       
+      });
+       
+      });
+    }
 
   ngOnInit() {
-    this.storagewishlistService.getWishlistData().then(val=>{
-      this.wishlistData = val;
-      console.log(this.wishlistData)
-    this.authenticationService.getToken().then(val => {
-      this.dataRetrieve(val.value);
-      this.token = val.value;
-     
-    });
-     
-    });
+  
    
   }
 
