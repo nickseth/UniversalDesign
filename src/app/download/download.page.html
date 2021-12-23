@@ -25,7 +25,7 @@
         </div>
         <ng-template #MusicFiles>
           <div style="color:burlywood">
-            <ion-icon slot="icon-only" [name]="item['isplay'] ? 'pause' : 'play'" (click)="playCurrent(item)">
+            <ion-icon slot="icon-only" [name]="item['isplay'] ? 'pause' : 'play'" (click)="playCurrent(item.book_location)">
             </ion-icon>
             <!-- <ion-range
             #range

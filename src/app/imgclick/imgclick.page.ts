@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { AlertController, Platform } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../services/product.service';
-// import { ConditionalExpr } from '@angular/compiler';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
@@ -33,7 +32,9 @@ export class ImgclickPage implements OnInit {
   loading: any;
   author_name: any;
   book_publisher: any;
-  extenstion:any;
+  extenstion: any;
+  related_pro: any;
+  upselling_pro: any;
   constructor(private router: Router,
     private rec_router: ActivatedRoute,
     public alertController: AlertController,
@@ -49,12 +50,10 @@ export class ImgclickPage implements OnInit {
     public toast: ToastController
   ) {
 
-    this.authenticationService.getToken().then( val=> {
+    this.authenticationService.getToken().then(val => {
       this.token = val.value;
       console.log(this.token)
     });
-
-
   }
 
   ngOnInit() {
@@ -77,8 +76,8 @@ export class ImgclickPage implements OnInit {
         });
 
 
-      } else{
-        
+      } else {
+
       }
     });
 
@@ -88,22 +87,50 @@ export class ImgclickPage implements OnInit {
       cssClass: 'my-custom-class',
       backdropDismiss: true,
       translucent: true,
+      spinner: 'bubbles',
+      animated: true,
     });
     await this.loading.present();
     this.productService.getBookone(id).subscribe(res => {
+      console.log(res)
       this.data = res;
       this.title = this.data.name;
       this.imagescr = this.data.images[0].src;
       this.short_desc = this.data.short_description;
       this.file_url_download = this.data.downloads[0].file;
+
+      this.related_pro = [];
+      this.upselling_pro = [];
+      if (this.data.related_ids && this.data.related_ids.length > 0) {
+        this.data.related_ids.forEach(element22 => {
+          this.productService.getBookone(element22).subscribe(val2 => {
+            this.related_pro.push(val2);
+          });
+        });
+      }
+
+      if (this.data.upsell_ids && this.data.upsell_ids.length > 0) {
+        this.data.upsell_ids.forEach(element22 => {
+          this.productService.getBookone(element22).subscribe(async val3 => {
+            this.upselling_pro.push(val3);
+            await this.loading.dismiss();
+          }, error => {
+            this.loading.dismiss();
+          }
+          );
+
+        });
+      }
+
+
       this.loading.dismiss();
 
       let index_publisher = this.data.meta_data.findIndex(p => p.key == "book_publisher");
       let index_author = this.data.meta_data.findIndex(p => p.key == "book_author");
       this.author_name = this.data.meta_data[index_author].value;
       this.book_publisher = this.data.meta_data[index_publisher].value;
-     this.extenstion = this.file_url_download.substring(this.file_url_download.lastIndexOf('.') + 1);
-      
+      this.extenstion = this.file_url_download.substring(this.file_url_download.lastIndexOf('.') + 1);
+
     })
   }
 
@@ -156,48 +183,45 @@ export class ImgclickPage implements OnInit {
 
 
   async downloadFileone(fileurl) {
-  if (this.token != null){
-    const fileTransfer: FileTransferObject = this.transfer.create();
-    
-    // console.log(this.file)
-    let fileexternalurl = this.platform.is('android') ? this.file.cacheDirectory + "UniversalApp/":this.file.documentsDirectory + "UniversalApp/";
+    if (this.token != null) {
+      const fileTransfer: FileTransferObject = this.transfer.create();
 
-    // this.file.createDir(this.file.externalRootDirectory, 'UniversalBook',true);
+      // console.log(this.file)
+      let fileexternalurl = this.platform.is('android') ? this.file.cacheDirectory + "UniversalApp/" : this.file.documentsDirectory + "UniversalApp/";
 
-    // let url = "https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub";
-    let url = fileurl;
-    let filename1 = url.substring(url.lastIndexOf('/') + 1);
+      // this.file.createDir(this.file.externalRootDirectory, 'UniversalBook',true);
 
-    let geturlfinal = encodeURI(url);
+      // let url = "https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub";
+      let url = fileurl;
+      let filename1 = url.substring(url.lastIndexOf('/') + 1);
 
-    this.loading = await this.loadingController.create({
-      cssClass: 'my-custom-class2',
-      message: 'Downloading...',
+      let geturlfinal = encodeURI(url);
 
-    });
-    await this.loading.present();
-    fileTransfer.download(geturlfinal, fileexternalurl + filename1).then((entry) => {
-      this.downloadedfile.addBookDownload(this.product_id, this.token, this.title, this.imagescr, filename1,this.extenstion);
-      this.showToast('Downloading Complete');
-      this.loading.dismiss();
-      setTimeout(() => {
-        this.HideToast();
-      }, 3000);
-    }, (error) => {
-      // console.log(error)
-      this.loading.dismiss();
-      this.showToast('Downloading Failed');
-      setTimeout(() => {
-        this.HideToast();
-      }, 3000);
+      this.loading = await this.loadingController.create({
+        cssClass: 'my-custom-class2',
+        message: 'Downloading...',
 
-    });
-    // fileTransfer.onProgress((progressEvent) => {
-    //         this.progress = perc;
-    // });
-  } else {
-    this.router.navigate(['/login']);
-  }
+      });
+      await this.loading.present();
+      fileTransfer.download(geturlfinal, fileexternalurl + filename1).then((entry) => {
+        this.downloadedfile.addBookDownload(this.product_id, this.token, this.title, this.imagescr, filename1, this.extenstion);
+        this.showToast('Downloading Complete');
+        this.loading.dismiss();
+        setTimeout(() => {
+          this.HideToast();
+        }, 3000);
+      }, (error) => {
+        // console.log(error)
+        this.loading.dismiss();
+        this.showToast('Downloading Failed');
+        setTimeout(() => {
+          this.HideToast();
+        }, 3000);
+
+      });
+    } else {
+      this.router.navigate(['/login']);
+    }
 
   }
 
@@ -263,5 +287,9 @@ export class ImgclickPage implements OnInit {
   HideToast() {
     this.toast.dismiss();
   }
+  imgclick(item_id) {
+    this.router.navigate(['imgclick', { id: item_id }]);
+  }
+
 
 }

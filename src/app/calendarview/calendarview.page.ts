@@ -5,6 +5,7 @@ import { CalendarComponent } from 'ionic2-calendar';
 import { ScheduleService } from '../services/schedule.service';
 import { AuthenticationService } from '../services/authentication.service';
 import * as moment from 'moment';
+import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-calendarview',
   templateUrl: 'calendarview.page.html',
@@ -35,10 +36,12 @@ export class CalendarviewPage implements OnInit {
   token: any;
   constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,
     public schedule: ScheduleService,
-    private authentication: AuthenticationService
+    private authentication: AuthenticationService,
+    public toast: ToastController
   ) {
     this.authentication.getToken().then(val => {
       this.token = val.value;
+      
       this.getScheduleData(this.token);
     });
   }
@@ -49,7 +52,7 @@ export class CalendarviewPage implements OnInit {
     let stoken = { token: token1 }
     this.schedule.getSchedule(stoken).subscribe(res => {
       this.getscheduleData = res;
-
+console.log(res)
       const newArray = this.getscheduleData.map(item => {
         let newallDate;
         if (item.all_day == 0) {
@@ -102,14 +105,13 @@ export class CalendarviewPage implements OnInit {
     }
     //  alert(eventCopy.start_time);
     this.schedule.addSchedulefun(eventCopy).subscribe(val => {
-      alert('Schedule Saved');
-
+      this.showToast('Set Schedule Successfully');
+      // this.getScheduleData(this.token);
+     
     })
 
-    // this.redhat.push(eventCopy);
     this.myCal.loadEvents();
     this.resetEvent();
-    // console.log(this.redhat)
     this.getScheduleData(this.token)
   }
 
@@ -161,4 +163,16 @@ export class CalendarviewPage implements OnInit {
     selected.setHours(selected.getHours() + 1);
     this.event.endTime = (selected.toISOString());
   }
+
+  showToast(message) {
+    this.toast.create({
+      message: message,
+      position: 'middle',
+      duration: 2000,
+    }).then((toastData) => {
+
+      toastData.present();
+    });
+  }
+
 }

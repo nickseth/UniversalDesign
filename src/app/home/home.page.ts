@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {  ModalController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { WishlistService } from '../services/localstorage/wishlist.service';
 import { AuthenticationService } from './../services/authentication.service';
 import { LinkshowPage } from './../linkshow/linkshow.page';
+
 import {
   ActionPerformed,
   PushNotificationSchema,
@@ -34,7 +35,8 @@ export class HomePage implements OnInit {
   getData: any;
   loading: any;
   fullonePro: any;
-  networkstatus: any;
+  // networkstatus: any;
+  connected_net:any;
   token1: any;
   pro_array: any;
   book_cmk: any;
@@ -43,75 +45,43 @@ export class HomePage implements OnInit {
     private wishlistService: WishlistService,
     private authenticationService: AuthenticationService,
     public loadingController: LoadingController,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private activatedRoute: ActivatedRoute,
   ) {
-    this.authenticationService.getToken().then(val => {
-      this.token1 = val.value;
-    });
 
-    if (this.getProductCategory()) {
-      setTimeout(() => {
-        document.getElementById("defaultOpen").click();
-        // this.openCity(event, 'AllContent');
-        this.getProductWithCategory();
-      }, 50);
-    }
-
-    Network.getStatus().then(val => {
-      if (val.connected == false) {
-        this.networkstatus = false;
-        this.router.navigate(['/download']);
-        this.loading.dismiss();
-      } else {
-        this.networkstatus = true;
-
+      activatedRoute.params.subscribe(async val => {
+        this.authenticationService.getToken().then(val => {
+          this.token1 = val.value;
+        });
+       let connection = await  Network.getStatus();
+       this.connected_net = connection.connected;
+      if(connection.connected == true){
         this.getbannerData();
+        if (this.getProductCategory()) {
+                this.getProductWithCategory();
+              }
       }
-    })
-
+      });
     Network.addListener('networkStatusChange', status => {
       if (status.connected == false) {
-        this.networkstatus = false;
+        this.connected_net = false;
         this.router.navigate(['/download']);
         this.loading.dismiss();
       } else {
-        this.networkstatus = true;
-        console.log(this.networkstatus);
+        this.connected_net = true;
         this.getbannerData();
+        if (this.getProductCategory()) {
+          this.getProductWithCategory();
+        }
       }
     });
-
-    // const logCurrentNetworkStatus = async () => {
-    //   const status = await Network.getStatus();
-    //   if (status.connected == false) {
-    //     this.networkstatus = false;
-    //     this.router.navigate(['/account']);
-    //     this.loading.dismiss();
-    //   } else {
-    //     this.networkstatus = true;
-    //     console.log(this.networkstatus);
-    //     this.getbannerData();
-    //   }
-    // };
-
-    this.getbannerData();
   }
-  // option = {
-  //   slidesPerView: 1.5,
-  //   centeredSlides: true,
-  //   loop: true,
-  //   spaceBetween: 10,
-
-  //   // autoplay:true,
-  // }
   segmentChanged(event: any) {
-    // console.log(event.target.value);
+
   }
   ngOnInit() {
-    document.getElementById("defaultOpen").click();
-    // Request permission to use push notifications
-    // iOS will prompt user and return if they granted permission or not
-    // Android will just grant without prompting
+
+
     PushNotifications.requestPermissions().then(result => {
       if (result.receive === 'granted') {
         // Register with Apple / Google to receive push via APNS/FCM
@@ -151,11 +121,13 @@ export class HomePage implements OnInit {
       cssClass: 'my-custom-class',
       backdropDismiss: true,
       translucent: true,
+      spinner: 'bubbles',
+      animated: true,
     });
     await this.loading.present();
     await this.productService.getCategory().subscribe((res) => {
       this.produtCategoryData = res;
-      this.loading.dismiss();
+      
     })
     return true;
   }
@@ -174,21 +146,24 @@ export class HomePage implements OnInit {
   }
   async products(id, name) {
     this.book_cmk = await this.wishlistService.getWishlistData();
-    console.log(this.book_cmk)
+    // console.log(this.book_cmk)
     this.productService.getCategoryOnes(id).subscribe(res => {
       this.pro_array = res;
 
       this.pro_array.forEach(element => {
-       
-        if(this.book_cmk != null){
-        if (this.book_cmk.some(obj => element.id == obj.id)) {
-          element['isBookMark'] = true;
+
+        if (this.book_cmk != null) {
+          if (this.book_cmk.some(obj => element.id == obj.id)) {
+            element['isBookMark'] = true;
+          }
         }
-      }
       });
       let product = { 'category_id': id, 'category_name': name, product: this.pro_array };
       this.combine_array_data.push(product);
-      // console.log(product)
+      this.loading.dismiss();
+      let clickDoc = document.getElementById("defaultOpen");
+        clickDoc.click();
+
     });
   }
 
@@ -251,14 +226,14 @@ export class HomePage implements OnInit {
       product['isBookMark'] = false;
 
     } else { /// adding the bbookmark
-      if (this.token1 != null){
-      product['isBookMark'] = true;
-      console.log(product.id)
-      this.wishlistService.addBookWishlist(product.id, this.token1, product.name, product.images[0].src);
-      console.log(product);
-    } else {
-      this.router.navigate(['/login']);
-    }
+      if (this.token1 != null) {
+        product['isBookMark'] = true;
+        console.log(product.id)
+        this.wishlistService.addBookWishlist(product.id, this.token1, product.name, product.images[0].src);
+        console.log(product);
+      } else {
+        this.router.navigate(['/login']);
+      }
 
     }
 

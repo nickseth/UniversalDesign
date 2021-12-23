@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { WishlistService } from './../services/localstorage/wishlist.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { NotesService } from './../services/notes.service';
 import { AuthenticationService } from './../services/authentication.service';
 import { LoadingController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
+import { Network } from '@capacitor/network';
 
 @Component({
   selector: 'app-saved',
@@ -14,39 +15,62 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class SavedPage implements OnInit {
   segmentModel = "wishlist";
-  wishlistData:any;
+  wishlistData: any;
   notes_data: any;
   token: any;
   data1: any;
-  loading:any;
-  constructor(private storagewishlistService:WishlistService,private activatedRouter: Router,
+  loading: any;
+  connected_net: boolean;
+  constructor(private storagewishlistService: WishlistService, private activatedRouter: Router,
     private storage: Storage,
     private route: Router,
     private alertController: AlertController,
     public notesService: NotesService,
     private authenticationService: AuthenticationService,
     public loadingController: LoadingController,
+    private activatedRoute: ActivatedRoute
+  ) {
     
-    ) { 
-      this.storagewishlistService.getWishlistData().then(val=>{
+    activatedRoute.params.subscribe(async val => {
+      this.storagewishlistService.getWishlistData().then(val => {
         this.wishlistData = val;
-        console.log(this.wishlistData)
+      });
+      let connection = await Network.getStatus();
+      this.connected_net = connection.connected;
+      if (connection.connected == true) {
         this.authenticationService.getToken().then(val => {
-        this.dataRetrieve(val.value);
-        this.token = val.value;
-       
-      });
-       
-      });
-    }
+          this.dataRetrieve(val.value);
+          this.token = val.value;
+  
+        });
+      }
+    });
+
+    Network.addListener('networkStatusChange', status => {
+      if (status.connected == false) {
+        this.route.navigate(['/download']);
+        this.connected_net = false;
+      } else {
+        this.connected_net = true;
+        this.storagewishlistService.getWishlistData().then(val => {
+          this.wishlistData = val;
+        });
+        this.authenticationService.getToken().then(val => {
+          this.dataRetrieve(val.value);
+          this.token = val.value;
+        });
+      }
+    });
+
+  }
 
   ngOnInit() {
-  
-   
+
+
   }
 
   segmentChanged(ev: any) {
-  
+
   }
 
   viewItem(item_id) {
@@ -54,31 +78,33 @@ export class SavedPage implements OnInit {
 
   }
   getUsersList(event) {
-    return  this.storagewishlistService.getWishlistData().then(val=>{
+    return this.storagewishlistService.getWishlistData().then(val => {
       this.wishlistData = val;
 
-        if (event)
-          event.target.complete();
-      }, error => {
-        console.log(error);
-        if (event)
-          event.target.complete();
-      })
+      if (event)
+        event.target.complete();
+    }, error => {
+      console.log(error);
+      if (event)
+        event.target.complete();
+    })
   }
   async dataRetrieve(token_val) {
-   
+
     let token1 = { 'token': token_val };
     // console.log()
-     this.loading = await this.loadingController.create({
+    this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
+      spinner: 'bubbles',
+      animated: true,
       backdropDismiss: true,
       translucent: true,
-        });
-        await this.loading.present();
+    });
+    await this.loading.present();
     this.notesService.getNotes(token1).subscribe(data => {
       this.notes_data = data;
       console.log(this.notes_data)
-     this.loading.dismiss();
+      this.loading.dismiss();
     }, error => {
     });
 
@@ -88,20 +114,17 @@ export class SavedPage implements OnInit {
     // })
   }
 
-   getUsersList2(event,token1) {
-     
+  getUsersList2(event, token1) {
     var token2 = { 'token': token1 };
-    return  this.notesService.getNotes(token2).subscribe(data => {
+    return this.notesService.getNotes(token2).subscribe(data => {
       this.notes_data = data;
-        if (event)
-          event.target.complete();
-      }, error => {
-        console.log(error);
-        if (event)
-          event.target.complete();
-      })
+      if (event)
+        event.target.complete();
+    }, error => {
+      event.target.complete();
+    })
   }
-  deleteItem(index,id) {
+  deleteItem(index, id) {
     let notes_array = this.storage.get('notes');
     notes_array.then(val => {
       val.splice(index, 1);
@@ -157,10 +180,18 @@ export class SavedPage implements OnInit {
       this.dataRetrieve(this.token)
     }, 1000);
   }
-  viewNotes(index,id) {
+  viewNotes(index, id) {
 
-    this.route.navigate(['/readnote', { index: index,notes_id:id }]);
+    this.route.navigate(['/readnote', { index: index, notes_id: id }]);
 
+  }
+  async createNew(token) {
+
+    let title = document.getElementById('newtitle').innerHTML;
+    let description = document.getElementById('newcontent').innerHTML;
+    var notesData = { 'token': token, 'title': title, 'description': description };
+    await this.notesService.addNotes(notesData);
+    
   }
 
 }

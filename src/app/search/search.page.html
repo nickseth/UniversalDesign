@@ -4,7 +4,7 @@
 </ion-toolbar>
 </ion-header>
 <ion-content class="app-bg">
-  <ion-searchbar placeholder="Search..." [(ngModel)]="filterTerm" animated="true"></ion-searchbar>
+  <ion-searchbar debounce="500" placeholder="Search..." [(ngModel)]="filterTerm" (ionChange)="onChangeSearch($event)" animated="true"></ion-searchbar>
       <div class="more_wrapper" *ngFor="let item of userRecords | filter:filterTerm">
         <div class="moreLink-container">
           <div class="more-img">

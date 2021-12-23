@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { NotesService } from './../services/notes.service';
 import { AuthenticationService } from './../services/authentication.service';
 import { LoadingController } from '@ionic/angular';
-
+import { Location } from "@angular/common";
 // NotesService
 @Component({
   selector: 'app-notes',
@@ -22,25 +22,30 @@ export class NotesPage implements OnInit {
     private alertController: AlertController,
     public notesService: NotesService,
     private authenticationService: AuthenticationService,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    private activatedRoute:ActivatedRoute,
+    private location:Location
     ) { 
-
+      activatedRoute.params.subscribe(async val => {
+        this.authenticationService.getToken().then(val => {
+          this.dataRetrieve(val.value);
+          this.token = val.value;
+        });
+      });
     
     }
 
   ngOnInit() {
 
-    this.authenticationService.getToken().then(val => {
-      this.dataRetrieve(val.value);
-      this.token = val.value;
-    });
+  
   }
  async dataRetrieve(token_val) {
    
     let token1 = { 'token': token_val };
      this.loading = await this.loadingController.create({
           cssClass: 'my-custom-class',
-          message: 'Please wait...',
+          spinner: 'bubbles',
+          animated: true,
         });
         await this.loading.present();
     this.notesService.getNotes(token1).subscribe(data => {
@@ -129,6 +134,9 @@ export class NotesPage implements OnInit {
     setTimeout(() => {
       this.dataRetrieve(this.token)
     }, 1000);
+  }
+  myBackButton(){
+    this.location.back();
   }
 
 }

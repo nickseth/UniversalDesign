@@ -1,13 +1,13 @@
- <ion-header class="ion-header app-bg">
+<ion-header class="ion-header app-bg">
   <ion-toolbar>
-      <ion-buttons slot="start" class="back-btn">
-        <ion-back-button defaultHref="/tabs/home"></ion-back-button>
-      </ion-buttons>
-      <ion-title class="img-title">{{this.title}}</ion-title>
-      <!-- class="sharing-icon"  -->
-      <ion-icon slot="end" name="share-social"></ion-icon>
-      </ion-toolbar>
-    </ion-header>
+    <ion-buttons slot="start" class="back-btn">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="img-title">{{this.title}}</ion-title>
+    <!-- class="sharing-icon"  -->
+    <ion-icon slot="end" name="share-social"></ion-icon>
+  </ion-toolbar>
+</ion-header>
 <ion-content class="app-bg">
   <div class="imgclick_wrapper">
     <div class="imgclick-container">
@@ -15,39 +15,76 @@
         <img src={{this.imagescr}} alt=" ">
       </div>
       <div class="imgclick-text">
-        <p class="auther-imgclick">{{this.book_publisher}}</p>
-        <h2>{{this.title}}</h2>
-        By <span>{{this.author_name}}</span>
+        <!-- <p class="auther-imgclick">{{this.book_publisher}}</p> -->
+        <h1>{{this.title}}</h1>
+       <p> By <span>{{this.author_name}}</span></p>
         <div [innerHTML]="short_desc">
         </div>
-        
+
       </div>
     </div>
     <button class="read-cta" (click)="readBook(this.product_id)">Buy Now</button>
     <!-- <button class="pay-cta">Play Sample</button> -->
     <div class="imgclick-icons">
-    <span><ion-icon name="arrow-down-circle-outline" (click)="downloadFileone(file_url_download)"></ion-icon>Download</span>  
-   <span><ion-icon *ngIf="wishlistData; else noWishlist" name="bookmark" (click)="deletewishlist()"></ion-icon> <ng-template #noWishlist>
-    <ion-icon name="bookmark-outline" (click)="setwishlist()" 
-     ></ion-icon>
-    </ng-template>Save</span>   
-     <!-- <span><ion-icon name="list-outline" (click)="presentAlertPrompt()"></ion-icon>Add to List</span>  -->
-  </div>
-     <div class="rating-wrap">
+      <span>
+        <ion-icon name="arrow-down-circle-outline" (click)="downloadFileone(file_url_download)"></ion-icon>Download
+      </span>
+      <span>
+        <ion-icon *ngIf="wishlistData; else noWishlist" name="bookmark" (click)="deletewishlist()"></ion-icon>
+        <ng-template #noWishlist>
+          <ion-icon name="bookmark-outline" (click)="setwishlist()"></ion-icon>
+        </ng-template>Save
+      </span>
+      <!-- <span><ion-icon name="list-outline" (click)="presentAlertPrompt()"></ion-icon>Add to List</span>  -->
+    </div>
+    <div class="rating-wrap">
       <ul>
-        <li><span class="lbl">Rating</span> <a>
-            <ion-icon name="thumbs-up"  (click)="like()" id="like-icon"></ion-icon>94
-          </a><a>
-            <ion-icon name="thumbs-down"  (click)="dislike()" id="dislike-icon"></ion-icon>3
+        <li><span class="lbl">Rating</span> <a href="javascript:void(0)">
+            <ion-icon name="thumbs-up" (click)="like()" id="like-icon"></ion-icon>94
+          </a><a href="javascript:void(0)">
+            <ion-icon name="thumbs-down" (click)="dislike()" id="dislike-icon"></ion-icon>3
           </a></li>
         <li><span class="lbl">Length</span> <a>7 min read</a></li>
         <li><span class="lbl">Language</span><a>English</a></li>
         <li><span class="lbl">Format</span><a>Snapshot</a></li>
-        <li><span class="lbl">Publisher</span> <a href="">{{this.book_publisher}}</a>
+        <li><span class="lbl">Publisher</span> <a href="javascript:void(0)">{{this.book_publisher}}</a>
         </li>
-        <li><span class="lbl">Released</span> <a href="">24 september 2021</a></li>
+        <li><span class="lbl">Released</span> <a href="javascript:void(0)">24 september 2021</a></li>
       </ul>
     </div>
+
+    <!-- <div class="upselling-pro-body">
+      <h4>You may also like…</h4>
+      <div class="top-slider">
+        <div *ngFor="let item33 of upselling_pro;">
+          <ion-card (click)="openProducts(item33.id)" class="card2-body">
+            <ion-card-content>
+              <div class="product_img2" *ngIf="item33.images[0] !=null">
+                <img style="height: 100%;" src={{item33.images[0].src}} />
+              </div>
+              <p class="pro_name">{{item33.name}}</p>
+              <strong><small [innerHTML]="item33.price_html"></small></strong>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+    </div> -->
+    <div class="relative-pro-body">
+      <h4>Related products</h4>
+      <div class="top-slider">
+        <div *ngFor="let item22 of related_pro;">
+
+          <ion-card (click)="imgclick(item22.id)" class="card2-body">
+            <ion-card-content>
+              <div class="product_img2" *ngIf="item22.images[0] !=null">
+                <img style="height: 100%;" src={{item22.images[0].src}} />
+              </div>
+              <p class="pro_name">{{item22.name}}</p>
+              <strong><small [innerHTML]="item22.price_html"></small></strong>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
     </div>
-  </ion-content>
- 
+  </div>
+</ion-content>

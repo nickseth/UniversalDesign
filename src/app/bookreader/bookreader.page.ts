@@ -1,12 +1,11 @@
-import { Component, ComponentFactoryResolver, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
 import Epub from 'epubjs';
 import Book from 'epubjs/src/book';
 import Rendition from 'epubjs/src/rendition';
-import { EpubCFI } from 'epubjs'
 import { NavItem } from 'epubjs/src/navigation';
-import { ActionSheetController, Platform , IonContent } from '@ionic/angular';
+import { ActionSheetController, Platform, IonContent } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { NotesService } from './../services/notes.service';
 import { AuthenticationService } from './../services/authentication.service';
@@ -18,8 +17,8 @@ import { DownloadedfileService } from '../services/localstorage/downloadedfile.s
 import { File } from '@ionic-native/file/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { ProductService } from '../services/product.service';
-
-
+import { Location } from "@angular/common";
+import { MenuController } from '@ionic/angular';
 @Component({
   selector: 'app-bookreader',
   templateUrl: './bookreader.page.html',
@@ -28,11 +27,9 @@ import { ProductService } from '../services/product.service';
 export class BookreaderPage implements OnInit {
   @ViewChild(IonContent) private content: IonContent;
 
-  dragPosition:any = {x: 0, y: 0};
+  dragPosition: any = { x: 0, y: -50 };
+  popup: any = true;
 
-  changePosition() {
-    this.dragPosition = {x: this.dragPosition.x + 50, y: this.dragPosition.y + 50};
-  }
   book_id: any;
   data: any;
   darkValue: any;
@@ -62,10 +59,12 @@ export class BookreaderPage implements OnInit {
   bookmarks_index: any;
   bookmark_highlightData: any;
   token: any;
+  sele_Range: any;
   selctedtext: any = '';
 
   list22: string[];
   private win: any = window;
+  selected_txt: any;
   constructor(private route: ActivatedRoute,
     private router: Router,
     private storage: Storage
@@ -78,7 +77,9 @@ export class BookreaderPage implements OnInit {
     private androidPermissions: AndroidPermissions,
     public productdata: ProductService,
     private localdownload: DownloadedfileService,
-    public platform: Platform
+    public platform: Platform,
+    private location: Location,
+    private menu: MenuController
   ) {
 
 
@@ -96,11 +97,14 @@ export class BookreaderPage implements OnInit {
   async presentActionSheet(cfiurl, text, index) {
     const actionSheet = await this.actionSheetController.create({
       header: 'Action',
-      cssClass: 'my-custom-class',
+      cssClass: 'my-custom-class32',
       buttons: [{
         text: 'Add Highlight',
         icon: 'add',
         handler: () => {
+          this.rendition.annotations.add('highlight', cfiurl, {}, (e) => {
+
+          }, "hl", { "fill": "yellow", "fill-opacity": "0.3", "mix-blend-mode": "multiply" });
           this.book_bookmark_highlight = this.storage.get('bookmark' + this.book_id);
           let list_bookmarks = { book_id: 12, type: "highlight", location: cfiurl, bookChapter: this.currentChapter.label, text: text }
 
@@ -183,23 +187,9 @@ export class BookreaderPage implements OnInit {
   }
   book_highlight(cfiRange, text) {
     this.presentActionSheet(cfiRange, text, null);
-    this.rendition.annotations.add('highlight', cfiRange, {}, (e) => {
-      this.presentActionSheet(cfiRange, text, null);
 
-
-    }, "hl", { "fill": "yellow", "fill-opacity": "0.3", "mix-blend-mode": "multiply" });
   }
 
-  // getPermission(){
-  //   let list: string[] = [
-  //     this.androidPermissions.PERMISSION.MANAGE_EXTERNAL_STORAGE,
-  //     this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE,
-  //     this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE
-  //   ]
-  //   return this.androidPermissions.requestPermissions(list).then(res => {
-  //     console.log(res); // res = {hasPermission: false}
-  //   });
-  // }
   ionViewWillEnter() {
     console.log(this.content.scrollToTop());
   }
@@ -209,18 +199,12 @@ export class BookreaderPage implements OnInit {
     this.book_id = this.route.snapshot.paramMap.get('id');
 
 
-    // this.productdata.getBookone(this.book_id).subscribe(val=>{
-    //   this.product_ones = val;
-    //   // this.product_ones.downloads[0].file
-    //   this.epubFileReader(this.product_ones.downloads[0].file);
-
-    // })
-    //     this.localdownload.getDownloadedBookLocation().then(val => {
-    //       if(val != null){
-    //         let index_book = val.findIndex(p => p.id == this.book_id);
-    //         let bkdata = val[index_book].book_location;
-    //        this.epubFileReader(bkdata);
-    //       }
+    // this.localdownload.getDownloadedBookLocation().then(val => {
+    //   if (val != null) {
+    //     let index_book = val.findIndex(p => p.id == this.book_id);
+    //     let bkdata = val[index_book].book_location;
+    //     this.epubFileReader(bkdata);
+    //   }
 
 
     // })
@@ -229,15 +213,15 @@ export class BookreaderPage implements OnInit {
 
     // this.epubFileReader();
 
- 
+
   }
 
   async epubFileReader(urlbook) {
-    //  let urls_for_read = this.platform.is('android') ? this.file.cacheDirectory + "UniversalApp/" + urlbook:this.file.documentsDirectory + "UniversalApp/" + urlbook;
-    //   let newPath = this.win.Ionic.WebView.convertFileSrc(urls_for_read);
-    //   console.log("this new url" + newPath);
-    //   this.book = await Epub(newPath, { replacements: "blobUrl" });
-    this.book = Epub('https://s3.amazonaws.com/moby-dick/moby-dick.epub');
+    // let urls_for_read = this.platform.is('android') ? this.file.cacheDirectory + "UniversalApp/" + urlbook : this.file.documentsDirectory + "UniversalApp/" + urlbook;
+    // let newPath = this.win.Ionic.WebView.convertFileSrc(urls_for_read);
+    // console.log("this new url" + newPath);
+    // this.book = await Epub(newPath, { replacements: "blobUrl" });
+    this.book = Epub('https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub');
 
     // "https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub"
 
@@ -246,9 +230,9 @@ export class BookreaderPage implements OnInit {
       height: '100%',
       manager: "continuous", allowScriptedContent: true
     });
-    let current_location222 =  this.storage.get('current_location' + this.book_id);
-   
-     current_location222.then(val => {
+    let current_location222 = this.storage.get('current_location' + this.book_id);
+
+    current_location222.then(val => {
       console.log(val)
       if (val != null) {
         this.rendition.display(val.location);
@@ -266,23 +250,23 @@ export class BookreaderPage implements OnInit {
 
 
 
-    // let touchStart = 0;
-    // let touchEnd = 0;
+    let touchStart = 0;
+    let touchEnd = 0;
 
-    // this.rendition.on('touchstart', event => {
-    //   touchStart = event.changedTouches[0].screenX;
-    // });
+    this.rendition.on('touchstart', event => {
+      touchStart = event.changedTouches[0].screenX;
+    });
 
-    // this.rendition.on('touchend', event => {
-    //   touchEnd = event.changedTouches[0].screenX;
-    //   if (touchStart < touchEnd) {
+    this.rendition.on('touchend', event => {
+      touchEnd = event.changedTouches[0].screenX;
+      if (touchStart < touchEnd) {
 
-    //     this.showPrev();
-    //   }
-    //   if (touchStart > touchEnd) {
-    //     this.showNext();
-    //   }
-    // });
+        this.showPrev();
+      }
+      if (touchStart > touchEnd) {
+        this.showNext();
+      }
+    });
 
 
 
@@ -296,16 +280,18 @@ export class BookreaderPage implements OnInit {
       let locationCfi = location.start.cfi;
       let spineItem = this.book.spine.get(locationCfi);
       let navItem = this.book.navigation.get(spineItem.href);
-      if(navItem != undefined){
-        this.chapterTitle = navItem.label; 
+      if (navItem != undefined) {
+        this.chapterTitle = navItem.label;
       }
-      
+
     });
 
 
     await this.storage.get('dark2').then((ev) => {
 
       if (ev == null) {
+
+        document.querySelector(`#light`).classList.add('active_theme_btn');
         // this.storage.set('dark2', 'light');
         this.rendition.themes.select("light1");
         document.querySelector('#main-book-section').classList.remove('lite_dark');
@@ -321,6 +307,7 @@ export class BookreaderPage implements OnInit {
         document.querySelector('#main-book-section2').classList.remove('lite_blue');
 
       } else {
+        document.querySelector(`#${ev}`).classList.add('active_theme_btn');
         if (ev == 'dark') {
           this.rendition.themes.select("dark1");
 
@@ -336,9 +323,8 @@ export class BookreaderPage implements OnInit {
           document.querySelector('#main-book-section2').classList.remove('lite_white');
           document.querySelector('#main-book-section2').classList.remove('lite_dark');
 
-
-
-        } else if (ev == 'lite_blue') {
+        }
+        if (ev == 'lite_blue') {
           this.rendition.themes.select("lite_blue");
           document.querySelector('#main-book-section').classList.add('lite_blue');
           document.querySelector('#main-book-section').classList.remove('dark2');
@@ -352,9 +338,8 @@ export class BookreaderPage implements OnInit {
           document.querySelector('#main-book-section2').classList.remove('lite_white');
           document.querySelector('#main-book-section2').classList.remove('lite_dark');
 
-
-
-        } else if (ev == 'blue1') {
+        }
+        if (ev == 'blue') {
           this.rendition.themes.select("blue");
           document.querySelector('#main-book-section').classList.add('blue');
           document.querySelector('#main-book-section').classList.remove('dark2');
@@ -368,8 +353,8 @@ export class BookreaderPage implements OnInit {
           document.querySelector('#main-book-section2').classList.remove('lite_white');
           document.querySelector('#main-book-section2').classList.remove('lite_dark');
 
-
-        } else if (ev == 'lite_white') {
+        }
+        if (ev == 'lite_white') {
           this.rendition.themes.select("lite_white");
           document.querySelector('#main-book-section').classList.add('lite_white');
           document.querySelector('#main-book-section').classList.remove('dark2');
@@ -383,9 +368,8 @@ export class BookreaderPage implements OnInit {
           document.querySelector('#main-book-section2').classList.remove('blue');
           document.querySelector('#main-book-section2').classList.remove('lite_dark');
 
-
-
-        } else if (ev == 'lite_dark') {
+        }
+        if (ev == 'lite_dark') {
           this.rendition.themes.select("lite_dark");
           document.querySelector('#main-book-section').classList.add('lite_dark');
           document.querySelector('#main-book-section').classList.remove('dark2');
@@ -399,9 +383,8 @@ export class BookreaderPage implements OnInit {
           document.querySelector('#main-book-section2').classList.remove('blue');
           document.querySelector('#main-book-section2').classList.remove('lite_white');
 
-
-
-        } else {
+        }
+        if (ev == 'light') {
           this.rendition.themes.select("light1");
           document.querySelector('#main-book-section').classList.remove('lite_dark');
           document.querySelector('#main-book-section').classList.remove('dark2');
@@ -423,7 +406,9 @@ export class BookreaderPage implements OnInit {
 
 
     this.storage.get('fontSizefor').then((val) => {
+
       if (val != null) {
+        document.querySelector(`#fsize${val}`).classList.add('active_theme_btn');
         this.fontSize = val;
         setTimeout(() => {
           document.getElementById("fsize" + this.fontSize).classList.add("fsizecol");
@@ -433,19 +418,23 @@ export class BookreaderPage implements OnInit {
         }, 1000);
       } else {
         this.storage.set('fontSizefor', 8);
+        document.querySelector(`#fsize8`).classList.add('active_theme_btn');
         document.getElementById("fsize8").classList.add("fsizecol");
         this.rendition.themes.fontSize(8 + "pt");
       }
     });
     this.storage.get('font_family').then((val) => {
+
       if (val != null) {
         this.font_family = val;
+        document.querySelector(`#ffamily_${val}`).classList.add('active_theme_btn');
         setTimeout(() => {
           document.getElementById("ffamily_" + this.font_family).classList.add("fsizecol");
           this.rendition.themes.font(this.font_family);
         }, 1000);
       } else {
         this.storage.set('font_family', 'times_new_roman');
+        document.querySelector(`#ffamily_times_new_roman`).classList.add('active_theme_btn');
         document.getElementById("ffamily_Arial").classList.add("fsizecol");
         this.rendition.themes.font("times_new_roman");
         this.font_family = "times_new_roman";
@@ -455,60 +444,39 @@ export class BookreaderPage implements OnInit {
     this.storage.get('line_height').then((val) => {
       if (val != null) {
         this.line_height = val;
+        document.getElementById(`linespacing${val}`).classList.add('active_theme_btn');
         setTimeout(() => {
           document.getElementById("linespacing" + this.line_height).classList.add("fsizecol");
           this.rendition.themes.default({ "body": { "line-height": this.line_height } });
         }, 1000);
       } else {
         this.storage.set('line_height', 1);
+        document.getElementById(`linespacing1`).classList.add('active_theme_btn');
         document.getElementById("linespacing1").classList.add("fsizecol");
         this.rendition.themes.default({ "body": { "line-height": 1 } });
       }
     });
     await this.book.loaded.spine.then(spine => {
-      // console.log(spine);
-      // let i=1;
-      spine.each(item => {
-        // console.log(item)
-        // let i: any = "1";
-        // this.rendition.on("rendered", section => {
-        // console.log(item.href)
-     
-        var current = this.book.navigation.get(item.href);
-        
-         if(current != undefined){
-            var ion_item1 = document.createElement("ion-item");
-        ion_item1.innerHTML = current.label;
-        ion_item1.className = 'chapters';
-        ion_item1.id = item.href;
-        ion_item1.style.padding = "5px";
-        ion_item1.onclick = () => {
-          this.chapterTitle = current.label;
-          this.storage.set('current_location' + this.book_id, item.href);
-          this.displayChapterOne(event, item.href);
-        }
-        var cpt = document.querySelector('#chapter');
-        cpt.append(ion_item1);
-         }
-  
-        // if (i <= 1) {
-        // var ion_item1 = document.createElement("ion-item");
-        // ion_item1.innerHTML = current.label;
-        // ion_item1.className = 'chapters';
-        // ion_item1.id = item.href;
-        // ion_item1.style.padding = "5px";
-        // ion_item1.onclick = () => {
-        //   this.chapterTitle = current.label;
-        //   this.storage.set('current_location' + this.book_id, item.href);
-        //   this.displayChapterOne(event, item.href);
-        // }
-        // var cpt = document.querySelector('#chapter');
-        // cpt.append(ion_item1);
-        //   i++;
-        // } else {
-        // }
 
-        // });
+      spine.each(item => {
+
+        var current = this.book.navigation.get(item.href);
+
+        if (current != undefined) {
+          var ion_item1 = document.createElement("ion-item");
+          ion_item1.innerHTML = current.label;
+          ion_item1.className = 'chapters';
+          ion_item1.id = item.href;
+          ion_item1.style.padding = "5px";
+          ion_item1.onclick = () => {
+            this.chapterTitle = current.label;
+            this.storage.set('current_location' + this.book_id, item.href);
+            this.displayChapterOne(event, item.href);
+            this.menu.close();
+          }
+          var cpt = document.querySelector('#chapter');
+          cpt.append(ion_item1);
+        }
 
       });
     });
@@ -520,47 +488,44 @@ export class BookreaderPage implements OnInit {
 
     });
 
-
-
-
-    // var keyListener = function(e){
-
-    //   // Left Key
-    //   if ((e.keyCode || e.which) == 37) {
-    //     // this.rendition.prev();
-    //   }
-
-    //   // Right Key
-    //   if ((e.keyCode || e.which) == 39) {
-    //     // this.rendition.next();
-    //   }
-
-    // };
-
-    // this.rendition.on("keyup", keyListener);
-    // document.addEventListener("keyup", keyListener, false);
-
-    // this.rendition.on("relocated", function(location){
-    //   // console.log(location);
-    // });
-
-
-
-
-
-    await this.rendition.on("selected", (cfiRange, contents) => {
-
-      this.book.getRange(cfiRange).then(range => {
-
-        if (range.toString()) {
-          // console.log(range.toString())
-          this.book_highlight(cfiRange, range.toString());
-        }
+    this.rendition.on("rendered", (e, i) => {
+      this.rendition.on('selected', (cfiRange, contents) => {
+        this.sele_Range = cfiRange;
+        //   contents.window.getSelection().removeAllRanges();
       });
-      contents.window.getSelection().removeAllRanges();
+
+      i.document.documentElement.addEventListener('contextmenu', (event: MouseEvent) => {
+        event.preventDefault();
+        this.selected_txt = i.window.getSelection().toString();
+
+        setTimeout(() => {
+          let selector_menu = document.getElementById("selected_text_menu");
+          selector_menu.style.display = "block"
+        }, 1000);
+      })
+      i.document.documentElement.addEventListener('click', () => {
+        let selector_menu = document.getElementById("selected_text_menu");
+        selector_menu.style.display = "none";
+        // document.getElementById("prev").style.display = "block";
+        // document.getElementById("next").style.display = "block";
+        // setTimeout(() => {
+        //   document.getElementById("prev").style.display = "none";
+        //   document.getElementById("next").style.display = "none";
+        // }, 6000);
+      })
+      window.addEventListener('click', () => {
+        let selector_menu = document.getElementById("selected_text_menu");
+        selector_menu.style.display = "none";
+        // document.getElementById("prev").style.display = "block";
+        // document.getElementById("next").style.display = "block";
+        // setTimeout(() => {
+        //   document.getElementById("prev").style.display = "none";
+        //   document.getElementById("next").style.display = "none";
+        // }, 6000);
+      });
+
 
     });
-
 
     ///theme background change------------------------------------------
     this.rendition.themes.register("dark1",
@@ -627,7 +592,7 @@ export class BookreaderPage implements OnInit {
       }
     })
 
-    window.addEventListener("unload",()=> {
+    window.addEventListener("unload", () => {
       this.book.destroy();
     });
   }
@@ -648,7 +613,14 @@ export class BookreaderPage implements OnInit {
   setbookmark() {
     let current_location = this.rendition.currentLocation();
     this.book_bookmark_highlight = this.storage.get('bookmark' + this.book_id);
-    let list_bookmarks = { book_id: this.book_id, type: "bookmark", location: current_location.start.cfi, bookChapter: this.currentChapter.label }
+    let curr_label = "";
+    if (this.currentChapter.label != undefined) {
+      curr_label = this.currentChapter.label;
+    } else {
+      curr_label = "No Title Found";
+    }
+    console.log(current_location)
+    let list_bookmarks = { book_id: this.book_id, type: "bookmark", location: current_location.start.cfi, bookChapter: curr_label }
 
     this.book_bookmark_highlight.then(val => {
 
@@ -714,36 +686,37 @@ export class BookreaderPage implements OnInit {
         }, 1000);
       } else {
         this.deletehighlight(item);
-
       }
     })
-
   }
 
+  openAction(text, range) {
+    this.book_highlight(range, text);
+    let selector_menu = document.getElementById("selected_text_menu");
+    selector_menu.style.display = "none"
+  }
 
   showNext() {
-  // console.log()
+    document.getElementById('next').classList.add("active");
+    document.getElementById('prev').classList.remove("active");
+    // console.log()
     // this.rendition.on('relocated', (location) => {
-let loca = this.rendition.currentLocation();
-
+    let loca = this.rendition.currentLocation();
+    if (loca.start) {
       this.storage.set('current_location' + this.book_id, { location: loca.start.cfi });
-
-    // });
-
-    this.rendition.next();
-
+      this.rendition.next();
+    }
   }
-
-
-
   showPrev() {
-
+    document.getElementById('next').classList.remove("active");
+    document.getElementById('prev').classList.add("active");
     // this.rendition.on('relocated', (location) => {
-      let loca = this.rendition.currentLocation();
+    let loca = this.rendition.currentLocation();
+    if (loca.start) {
       this.storage.set('current_location' + this.book_id, { location: loca.start.cfi });
+      this.rendition.prev();
+    }
 
-    // });
-    this.rendition.prev();
 
   }
 
@@ -770,6 +743,16 @@ let loca = this.rendition.currentLocation();
 
 
   setFontSize(item) {
+
+    let clls = document.getElementsByClassName("btn-cls-fsize");
+    let i;
+    for (i = 0; i < clls.length; i++) {
+      clls[i].classList.remove('active_theme_btn');
+    }
+    document.querySelector(`#fsize${item}`).classList.add('active_theme_btn');
+
+
+
     this.storage.set('fontSizefor', item);
 
     this.storage.get('fontSizefor').then((val) => {
@@ -788,6 +771,12 @@ let loca = this.rendition.currentLocation();
   }
 
   setFontFamily(family_item) {
+    let clls = document.getElementsByClassName("btn-font-cls");
+    let i;
+    for (i = 0; i < clls.length; i++) {
+      clls[i].classList.remove('active_theme_btn');
+    }
+    document.querySelector(`#ffamily_${family_item}`).classList.add('active_theme_btn');
 
     this.storage.set('font_family', family_item);
 
@@ -811,6 +800,12 @@ let loca = this.rendition.currentLocation();
   }
 
   setlineSpacing(spacing) {
+    let clls = document.getElementsByClassName("btn-spline-cls");
+    let i;
+    for (i = 0; i < clls.length; i++) {
+      clls[i].classList.remove('active_theme_btn');
+    }
+    document.getElementById(`linespacing${spacing}`).classList.add('active_theme_btn');
 
     this.storage.set('line_height', spacing);
 
@@ -849,6 +844,13 @@ let loca = this.rendition.currentLocation();
 
 
   setTheme2(ev) {
+    let clls = document.getElementsByClassName("color-theme");
+    let i;
+    for (i = 0; i < clls.length; i++) {
+      clls[i].classList.remove('active_theme_btn');
+    }
+    document.querySelector(`#${ev}`).classList.add('active_theme_btn');
+
     if (ev == 'dark') {
       this.rendition.themes.select("dark1");
 
@@ -1020,5 +1022,8 @@ let loca = this.rendition.currentLocation();
       }
     });
     return await modal.present();
+  }
+  myBackButton() {
+    this.location.back();
   }
 }

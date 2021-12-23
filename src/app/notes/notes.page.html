@@ -1,11 +1,12 @@
 <ion-header class="app-bg">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    <ion-buttons slot="start" style="color:#fff;font-size: 24px;">
+      <!-- <ion-back-button defaultHref="/tabs/home"></ion-back-button> -->
+      <ion-icon name="arrow-back-outline"  (click)="myBackButton()"></ion-icon>
     </ion-buttons>
     <ion-title style="text-align: center;">Notes</ion-title>
     <ion-buttons slot="end" >
-      <ion-button [routerLink]="['/readnote']"  >Add Notes</ion-button>
+      <!-- <ion-button [routerLink]="['/readnote']"  >Add Notes</ion-button> -->
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

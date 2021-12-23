@@ -13,6 +13,7 @@ import { AlertController } from '@ionic/angular';
 export class RegistrationPage implements OnInit {
   ionicForm: FormGroup;
   requestOptions: any;
+  showEyeVal:any = true;
   constructor(public formBuilder: FormBuilder, 
     public http: HttpClient, 
     private router: Router,
@@ -27,7 +28,6 @@ export class RegistrationPage implements OnInit {
     })
 
   }
-
   ngOnInit() { }
 
   async submitForm() {
@@ -47,7 +47,8 @@ export class RegistrationPage implements OnInit {
         this.showAlert('Alert','User Successfully Saved.');
         this.router.navigate(['/login']);
       }, error => {
-      console.log('Alert',error)
+        this.showAlert('Alert',error.error.message);
+        
         this.ionicForm.reset();
 
       });
@@ -63,6 +64,15 @@ export class RegistrationPage implements OnInit {
     });
 
     await alert.present();
+  }
+  openHideEye(){
+this.showEyeVal = false;
+document.getElementById("conpassword").setAttribute("type","text");
+
+  }
+  openEye(){
+    this.showEyeVal = true;
+    document.getElementById("conpassword").setAttribute("type","password");
   }
 
 }

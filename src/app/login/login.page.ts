@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { UserdetailsService } from '../services/userdetails.service';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +19,12 @@ export class LoginPage implements OnInit {
     private authService: AuthenticationService,
     private alertController: AlertController,
     private router: Router,
-    private loadingController: LoadingController
-  ) { }
+    private loadingController: LoadingController,
+    private userdetailsService: UserdetailsService,
+    private storage: Storage,
+  ) {
+    this.storage.create();
+  }
 
   ngOnInit() {
     this.credentials = this.fb.group({
@@ -28,18 +34,32 @@ export class LoginPage implements OnInit {
   }
   // [Validators.required, Validators.minLength(6)]
   async login() {
-    const loading = await this.loadingController.create();
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      backdropDismiss: true,
+      translucent: true,
+      spinner: 'bubbles',
+      animated: true,
+    });
     await loading.present();
 
     this.authService.login(this.credentials.value).subscribe(
       async (res) => {
-        await loading.dismiss();
-        this.router.navigateByUrl('/tabs', { replaceUrl: true });
+        this.authService.getToken().then(authe => {
+          this.userdetailsService.getUserDeatils({ token: authe['value'] }).subscribe(async (val: any) => {
+            this.storage.set('username', val['fname'] + ' ' + val['lname']);
+            await loading.dismiss();
+            this.router.navigateByUrl('/tabs', { replaceUrl: true });
+          });
+        })
+
+
+
       },
       async (res) => {
         await loading.dismiss();
         const alert = await this.alertController.create({
-          cssClass:'error_mess',
+          cssClass: 'error_mess',
           header: 'Login failed',
           message: res.error.error,
           buttons: ['OK'],

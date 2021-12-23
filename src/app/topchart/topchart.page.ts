@@ -4,6 +4,7 @@ import { ProductService } from '../services/product.service';
 import { WishlistService } from '../services/localstorage/wishlist.service';
 import { LoadingController } from '@ionic/angular';
 import { AuthenticationService } from './../services/authentication.service';
+import { Network } from '@capacitor/network';
 
 @Component({
   selector: 'app-topchart',
@@ -16,55 +17,73 @@ export class TopchartPage implements OnInit {
   token: any;
   wishlist_index: any;
   loading: any;
-  book_cmk:any;
+  book_cmk: any;
+  connected_net: boolean;
   constructor(public router: Router,
     public products: ProductService,
     private wishlistService: WishlistService,
     public loadingController: LoadingController,
     private authenticationService: AuthenticationService
   ) {
-    this.authenticationService.getToken().then(val => {
+    this.authenticationService.getToken().then(async val => {
       this.token = val.value;
+      let connection = await Network.getStatus();
+      this.connected_net = connection.connected;
+      if (connection.connected == true) {
+        this.fetData();
+      }
     });
-    this.fetData();
+
+    Network.addListener('networkStatusChange', status => {
+      if (status.connected == false) {
+        this.router.navigate(['/download']);
+        this.connected_net = false;
+      } else {
+        this.connected_net = true;
+        this.fetData();
+      }
+    });
+
   }
 
   ngOnInit() {
 
 
   }
+
+
+
   async fetData() {
-
-    this.products.getCategoryOnes(34).subscribe(res => {
-      
-        this.getBookmark(res);
-     
-    
-
-    })
-  }
-  async getBookmark(pro_array) {
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       backdropDismiss: true,
       translucent: true,
+      spinner: 'bubbles',
+      animated: true,
     });
     await this.loading.present();
+    this.products.getCategoryOnes(34).subscribe(res => {
+
+      this.getBookmark(res);
+
+    })
+  }
+  async getBookmark(pro_array) {
+  
     this.book_cmk = await this.wishlistService.getWishlistData();
     pro_array.forEach(element => {
-      
-      if(this.book_cmk != null){
-        if(this.book_cmk.some(obj => element.id == obj.id)) {
+
+      if (this.book_cmk != null) {
+        if (this.book_cmk.some(obj => element.id == obj.id)) {
           element['isBookMark'] = true;
         }
       }
-     
+
     });
     this.data = pro_array;
     this.loading.dismiss();
     console.log(pro_array)
   }
-
 
   imgclick(item_id) {
     this.router.navigate(['imgclick', { id: item_id }]);
@@ -78,27 +97,21 @@ export class TopchartPage implements OnInit {
   }
 
   setwishlist(product) {
-    // console.log(product.id)
-    if (product['isBookMark']) { //deleting the bookmark
-      this.wishlistService.deletewishlist1(product.id);
 
+    if (product['isBookMark']) {
+      this.wishlistService.deletewishlist1(product.id);
 
       product['isBookMark'] = false;
 
-
-      // this.wishlistData = true;
-      // } else {
-      //   this.router.navigate(['/login']);
-      // }
-    } else { /// adding the bbookmark
-      if (this.token != null){
-      product['isBookMark'] = true;
-      console.log(product.id)
-      this.wishlistService.addBookWishlist(product.id, this.token, product.name, product.images[0].src);
-      console.log(product);
     } else {
-      this.router.navigate(['/login']);
-    }
+      if (this.token != null) {
+        product['isBookMark'] = true;
+        console.log(product.id)
+        this.wishlistService.addBookWishlist(product.id, this.token, product.name, product.images[0].src);
+        console.log(product);
+      } else {
+        this.router.navigate(['/login']);
+      }
 
     }
 

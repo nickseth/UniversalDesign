@@ -40,5 +40,8 @@ getBannerData(){
   return this.http.get(this.baseUrl+"wp-json/mobileapi/v1/add_banner");
 }
 
+getSearch(data){
+  return this.http.get(`${this.baseUrl}wp-json/wc/v3/products?search=${data}&consumer_key=ck_97758e7f0f2e208f8cf639f7129755391f0a0e19&consumer_secret=cs_685bdd86613cb687337e13237872c831478d32bb`);
+}
 
 }

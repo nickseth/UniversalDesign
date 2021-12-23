@@ -4,60 +4,61 @@ import { AlertController } from '@ionic/angular';
 import { AuthenticationService } from './../services/authentication.service';
 import { UserdetailsService } from './../services/userdetails.service';
 import { LoadingController } from '@ionic/angular';
-
+import { Storage } from '@ionic/storage-angular';
 @Component({
   selector: 'app-accinformation',
   templateUrl: './accinformation.page.html',
   styleUrls: ['./accinformation.page.scss'],
 })
 export class AccinformationPage implements OnInit {
-  token:any;
-  userdetails:any;
-  user_email:any;
-  loading:any;
+  token: any;
+  userdetails: any;
+  user_email: any;
+  loading: any;
   constructor(public router: Router,
-      public alertController: AlertController,
-      public authenticationService:AuthenticationService,
-     public userdetailsService:UserdetailsService,
-     public loadingController: LoadingController,
-      ) {
-    
-        this.authenticationService.getToken().then(val => {
-          this.token = val.value;
-         
-      });
-      this.getData();
-   
-   }
+    public alertController: AlertController,
+    public authenticationService: AuthenticationService,
+    public userdetailsService: UserdetailsService,
+    public loadingController: LoadingController,
+    private storage: Storage
+  ) {
+
+    this.authenticationService.getToken().then(val => {
+      this.token = val.value;
+
+    });
+    this.getData();
+
+  }
 
   ngOnInit() {
   }
-  async getData(){
+  async getData() {
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       backdropDismiss: true,
       translucent: true,
+      spinner: 'bubbles',
+      animated: true,
     });
     await this.loading.present();
-    let data = {'token':this.token};
-    this.userdetailsService.getUserDeatils(data).subscribe(val=>{
+    let data = { 'token': this.token };
+    this.userdetailsService.getUserDeatils(data).subscribe(val => {
       this.userdetails = val;
-      this.user_email = this.userdetails.email; 
+      this.user_email = this.userdetails.email;
       this.loading.dismiss();
-      // if(this.userdetails.fname == undefined){
-      //   this.user = "Guest";
-      // } else{
-      //   this.user = this.userdetails.fname +" " +this.userdetails.lname;
-      // }
-     
     })
   }
   paymentmethod() {
     this.router.navigateByUrl('/payment');
   }
   async logout() {
-    await this.authenticationService.logout();
-    this.router.navigateByUrl('/', { replaceUrl: true });
+    if (this.authenticationService.logout()) {
+      this.storage.remove('username');
+      this.router.navigateByUrl('/', { replaceUrl: true });
+    }
+
+
   }
   async presentAlertPrompt() {
     const alert = await this.alertController.create({
@@ -80,12 +81,10 @@ export class AccinformationPage implements OnInit {
         }
       ]
     });
-  
+
     await alert.present();
   }
 
 }
-function presentAlertPrompt() {
-  throw new Error('Function not implemented.');
-}
+
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from "@angular/common";
 @Component({
   selector: 'app-support',
   templateUrl: './support.page.html',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SupportPage implements OnInit {
 
-  constructor() { 
+  constructor(private location: Location) { 
 
   }
 
@@ -19,5 +20,8 @@ export class SupportPage implements OnInit {
     } else { 
       x.className = x.className.replace(" w3-show", "");
     }
+  }
+  myBackButton(){
+    this.location.back();
   }
 }

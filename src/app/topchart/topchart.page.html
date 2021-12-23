@@ -1,48 +1,35 @@
-<ion-header  class="app-bg">
+<ion-header class="app-bg">
   <ion-toolbar>
     <ion-title>Top Charts</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="app-bg">
-<div class="chart-wrapper">
-  <!-- <div class="chart-heading">
-    <h3>Top Charts</h3>
-    <span (click)="filetrpage()"><ion-icon name="options-outline"></ion-icon> Filter</span>
-  </div>
-  <p>The most popular books and audiobbook generating buzz from critics, NYT, and more.</p> -->
-
-  <div class='chart-category' *ngFor="let item of data;">
-    
-    <ul>
-      <li>
-        <img src={{item.images[0].src}}  (click)="imgclick(item.id)"/>
-        <!-- {{*ngIf="addAndFetchWishlist(item.id)}} -->
-        <span>
-          <!--  -->
-          <!-- <ion-icon [style.color]="item['isBookMark'] ? '#EF3B51' : ''" name="bookmark" (click)="setwishlist(item)"></ion-icon>  -->
-          <h3 >{{item.name}}
-<!-- <svg version="1.1" id="Layer_1" [class]="item['isBookMark'] ? 'bookmark_bk active' : 'bookmark_bk'" (click)="setwishlist(item)" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 29.5 40.4" enable-background="new 0 0 29.5 40.4" xml:space="preserve">
-<path fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
-	M28.2,0H1.4C0.6,0,0,0.6,0,1.4V39c0,1.2,1.4,1.8,2.3,1l11.5-10.5c0.5-0.5,1.3-0.5,1.9,0l11.5,10.5c0.9,0.8,2.3,0.2,2.3-1V1.4
-	C29.5,0.6,28.9,0,28.2,0z"  />
-</svg> -->
-                <ion-icon [name]="item['isBookMark'] ? 'bookmark' : 'bookmark-outline'" (click)="setwishlist(item)"></ion-icon>
-            <!-- <ng-template #noWishlist>
-            <ion-icon name="bookmark-outline"  (click)="deletewishlist()" 
-             ></ion-icon></ng-template> -->
+<ion-content class="app-bg" >
+  <div class="chart-wrapper" *ngIf="connected_net else netproblem">
+    <div class='chart-category' *ngFor="let item of data;">
+      <ul>
+        <li>
+          <img src={{item.images[0].src}} (click)="imgclick(item.id)" />
+          <span>
+            <h3>{{item.name}}
+              <ion-icon [name]="item['isBookMark'] ? 'bookmark' : 'bookmark-outline'" (click)="setwishlist(item)">
+              </ion-icon>
             </h3>
-          <p>Mark Manson</p>
-          <div class="icon-wrap">
-            <ion-icon name="star-outline"></ion-icon>
-            <ion-icon name="star-outline"></ion-icon>
-            <ion-icon name="star-outline"></ion-icon>
-            <ion-icon name="star-outline"></ion-icon>
-          </div>
-        </span>
-      </li>
-    </ul>
+            <p>Mark Manson</p>
+            <div class="icon-wrap">
+              <ion-icon name="star-outline"></ion-icon>
+              <ion-icon name="star-outline"></ion-icon>
+              <ion-icon name="star-outline"></ion-icon>
+              <ion-icon name="star-outline"></ion-icon>
+            </div>
+          </span>
+        </li>
+      </ul>
+    </div>
   </div>
-</div>
+  <ng-template #netproblem>
+    <div style="text-align: center; padding-top:20%;color:#fff">
+      <p>Internet Connection Problem</p>
+    </div>
+  </ng-template>
 </ion-content>

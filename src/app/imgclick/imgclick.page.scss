@@ -173,7 +173,7 @@ button {
 ::ng-deep .my-custom-class{
     --background:#ebf1f500e7;
     --spinner-color: #fff
-=======
+}
 
 ::ng-deep .ion-page {
     display: block !important;
@@ -186,7 +186,7 @@ h2 {
     margin: 0;
 
 }
-}
+
 
 .ion-header {
     display: flex;
@@ -216,3 +216,51 @@ p.auther-imgclick {
     font-size: 21px!important;
     font-weight: 900;
 }
+.relative-pro-body{
+
+    margin-bottom: 50px;
+    .top-slider {
+        display: flex;
+        overflow-x: scroll;
+        // background-color: #fff;
+        .pro_name{
+            font-size: 12px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .card2-body{
+            // background: #adb3b6;
+            // color:white;
+            width:120px;
+            height: 180px;
+            p{
+                margin-top: 20px
+            }
+        }
+      }
+}
+// .upselling-pro-body{
+  
+//     .top-slider {
+//         display: flex;
+//         overflow-x: scroll;
+//         // background-color: #fff;
+//         .pro_name{
+//             font-size: 12px;
+//             text-overflow: ellipsis;
+//             overflow: hidden;
+//             white-space: nowrap;
+//         }
+//         .card2-body{
+//             width:150px;
+//             height: 200px;
+//         }
+//       }
+// }
+.product_img2{
+    text-align: center;
+    height:75px;
+    // padding: 10px;
+}
+

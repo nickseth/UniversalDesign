@@ -1,6 +1,9 @@
-.app-bg{--background:#002C42;
+.app-bg{
+    --background:#002C42;
     --ion-toolbar-background:#002C42;
-   
+    a{
+    padding-right:20px;
+    }
     ion-title{
         color:white;
     }
@@ -41,4 +44,8 @@
 ::ng-deep .my-custom-class22{
     --background: #002C42;
     --color:white;
+}
+::ng-deep .alert-sub-title.sc-ion-alert-md,
+::ng-deep div#alert-2-msg {
+color:#fff;
 }

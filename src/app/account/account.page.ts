@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AuthenticationService } from './../services/authentication.service';
 import { UserdetailsService } from './../services/userdetails.service';
 import { LoadingController } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 import { Network } from '@capacitor/network';
 
 @Component({
@@ -12,97 +13,63 @@ import { Network } from '@capacitor/network';
   styleUrls: ['./account.page.scss'],
 })
 export class AccountPage implements OnInit {
-  userdetails:any;
-  token:any;
-  user:any;
-  loading:any;
+  userdetails: any;
+  token: any;
+  user: any;
+  loading: any;
   networkstatus: boolean;
-  constructor(public router: Router,
-     public alertController: AlertController,
-     public authenticationService:AuthenticationService,
-     public userdetailsService:UserdetailsService,
-     public loadingController: LoadingController,
-     ) { 
-    
-    // Network.addListener('networkStatusChange', status => {
-    //   if (status.connected == false) {
-    //     this.networkstatus = false;
-     
-    //     this.loading.dismiss();
-    //     console.log(this.networkstatus+'false1');
-    //   } else {
-    //     this.networkstatus = true;
-    //     this.authenticationService.getToken().then(val => {
-    //       this.token = val.value;
-    //       this.getData(this.token);
-    //     });
+  connected_net: boolean;
+  constructor(
+    public router: Router,
+    public alertController: AlertController,
+    public authenticationService: AuthenticationService,
+    public userdetailsService: UserdetailsService,
+    public loadingController: LoadingController,
+    private storage:Storage,
+    private activatedRoute:ActivatedRoute
+  ) {
+ 
+activatedRoute.params.subscribe(async val => {
+  this.storage.create();
+  this.authenticationService.getToken().then(val => {
+    this.token = val.value;
+  });
+this.storage.get('username').then(val=>{
+if(val != undefined){
+  this.user = val;
+} else{
+  this.user = "Guest";
+}
+})
 
-    //     this.router.navigate(['/tabs/account']);
-       
-    //   }
-    // });
+  let connection = await  Network.getStatus();
+  this.connected_net = connection.connected;
+ });
+ Network.addListener('networkStatusChange', status => {
+  if (status.connected == false) {
+    this.router.navigate(['/download']);
+    this.connected_net = false;
+  } else {
+    this.connected_net = true;
+  }
+});
 
-    // const logCurrentNetworkStatus = async () => {
-    //   const status = await Network.getStatus();
-    //   if (status.connected == false) {
-    //     this.networkstatus = false;
-    //     this.router.navigate(['/account']);
-    //     this.loading.dismiss();
-    //   } else {
-    //     this.networkstatus = true;
-    //     console.log(this.networkstatus);
-      
-    //   }
-    // };
-    // console.log(logCurrentNetworkStatus)
-
-    this.authenticationService.getToken().then(val => {
-      this.token = val.value;
-      this.getData(this.token);
-    });
-  
-
-     }
+  }
 
   ngOnInit() {
- 
-  }
-  async getData(token){
-    
-// console.log(token)
-    // const logCurrentNetworkStatus = async () => {
-    //   const status = await Network.getStatus();
-    //   if (status.connected == false) {
-    //     this.networkstatus = false;
-    //     this.router.navigate(['/account']);
-    //     this.loading.dismiss();
-    //   } else {
-    //     this.networkstatus = true;
-    //     console.log(this.networkstatus);
 
-    //   }
-    // };
-    this.loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
-      backdropDismiss: true,
-      translucent: true,
-    });
-    await this.loading.present();
-    let data = {'token':token};
-    // console.log(token)
-    await this.userdetailsService.getUserDeatils(data).subscribe(val=>{
-      this.userdetails = val;
-      this.loading.dismiss();
-      console.log(val)
-      if(this.userdetails.fname == undefined){
-        this.user = "Guest";
-      } else{
-        this.user = this.userdetails.fname +" " +this.userdetails.lname;
-      }
-     
-    });
-    
   }
+  // async getData(token) {
+  //   this.loading = await this.loadingController.create({
+  //     cssClass: 'my-custom-class',
+  //     backdropDismiss: true,
+  //     translucent: true,
+  //   });
+  //   await this.loading.present();
+  //   let data = { 'token': token };
+  //   // console.log(token)
+  //   await
+  // }
   accinfo() {
     this.router.navigateByUrl('/accinformation');
   }
@@ -112,8 +79,8 @@ export class AccountPage implements OnInit {
   audiopage() {
     this.router.navigateByUrl('/audiopage');
   }
-  login(){
-    
+  login() {
+
     this.router.navigateByUrl('/login');
   }
   // prefrencepage() {

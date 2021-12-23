@@ -1,4 +1,5 @@
-.app-bg{--background:#002C42;
+.app-bg{
+    --background:#002C42;
     --ion-toolbar-background:#002C42;
    color:#fff;
     ion-title{
@@ -12,9 +13,10 @@
       
       
     }
-
+    .more_body_wrapper{
+        padding-bottom: 50px;
+    }
 }
-
 
 ion-item {
     width: 100%;

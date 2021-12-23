@@ -13,24 +13,35 @@
 
     <p>
       <label for="fname">First name</label><br>
-      <input type="text" formControlName="fname">
+      <input type="text" formControlName="fname" required>
     </p>
     <p>
       <label for="lastname">Last name</label><br>
-      <input type="text" formControlName="lname">
+      <input type="text" formControlName="lname" required>
     </p>
     <p>
       <label for="fname">Email Id</label><br>
-      <input type="email" formControlName="email">
+      <input type="email" formControlName="email" required>
     </p>
     <p>
       <label for="password">Password</label><br>
-      <input type="password" formControlName="password">
+      <input type="password" formControlName="password" required>
     </p>
-    <p>
+    <div>
       <label for="conpassword">Confirm Password</label><br>
-      <input type="password" formControlName="conpassword">
-    </p>
+     <div class="confirm-cls"> <input id = "conpassword" type="password" formControlName="conpassword" required>
+      <span class="eye-cls" *ngIf = "this.showEyeVal else hideEye">
+        <ion-icon name="eye"  (click)="openHideEye()"></ion-icon>
+      </span>
+      <ng-template #hideEye>
+        <span class="eye-cls">
+          <ion-icon name="eye-off"  (click)="openEye()"></ion-icon>
+        </span>
+       
+      </ng-template>
+    </div> 
+   
+    </div>
     <ion-row>
       <ion-col class="cta">
         <button type="submit" (click)="submitForm()" expand="block">Sign Up</button>

@@ -132,7 +132,7 @@ playCurrent(item){
     item['isplay'] = false;
   } else{
     item['isplay'] = true;
-   this.start('/assets/js/music.mp3');
+   this.start(`${item}`);
   }
 }
 

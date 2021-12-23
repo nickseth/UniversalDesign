@@ -1,46 +1,50 @@
-<ion-header [translucent]="true" class="app-bg">
-  <ion-header  class="app-bg">
-    <ion-toolbar >
-      <ion-title>Saved Products</ion-title>
+
+<ion-header class="app-bg">
+  <ion-toolbar>
+    <ion-title>Saved Products</ion-title>
   </ion-toolbar>
-   </ion-header>
-<ion-content [fullscreen]="true" class="ion-padding app-bg">
-  <ion-segment 
-  value="all" 
-  color="" 
-  scrollable="true"
-  mode="ios"
-  [(ngModel)]="segmentModel" 
-  (ionChange)="segmentChanged($event)">
+</ion-header>
+<ion-content  class="ion-padding app-bg">
+ <ion-refresher slot="fixed" (ionRefresh)="getUsersList2($event,this.token);getUsersList($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+<div *ngIf="connected_net else netproblem">
+ 
+  
+  <ion-segment value="all" color="" scrollable="true" mode="ios" [(ngModel)]="segmentModel"
+    (ionChange)="segmentChanged($event)">
 
     <ion-segment-button value="wishlist">
       <ion-label>Wish List</ion-label>
     </ion-segment-button>
+
+    <ion-segment-button value="AddNotes">
+      <ion-label>Add New Notes</ion-label>
+    </ion-segment-button>
+
     <ion-segment-button value="Notebook">
       <ion-label>Notebook</ion-label>
     </ion-segment-button>
   </ion-segment>
+  
   <div *ngIf="segmentModel === 'wishlist'">
-    <ion-refresher slot="fixed" (ionRefresh)="getUsersList($event)">
-      <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
     <ion-grid>
-      <ion-row >
+      <ion-row>
         <ion-col size="4" size-sm *ngFor="let item of wishlistData">
-          <ion-card style ="width:100px;height: 130px" (click)="viewItem(item.id)">
+          <ion-card style="width:100px;height: 130px" (click)="viewItem(item.id)">
             <img src="{{item.image_url}}" style="width: 100px; height: 130px;">
           </ion-card>
         </ion-col>
       </ion-row>
-      </ion-grid>
+    </ion-grid>
   </div>
-  
 
-  <div size="6"  *ngIf="segmentModel === 'Notebook'">
-    <ion-refresher slot="fixed" (ionRefresh)="getUsersList2($event,this.token)">
-      <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
-    <ion-grid>
+  <div size="6" *ngIf="segmentModel === 'Notebook'">
+    <ion-grid style="margin-bottom:30px ">
+      <!-- <ion-refresher slot="fixed" (ionRefresh)="getUsersList2($event,this.token)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher> -->
+ 
       <ion-row>
         <ion-col size="6" *ngFor="let item of notes_data; let i = index">
           <ion-card (click)="viewNotes(i,item.id)">
@@ -49,17 +53,32 @@
             </ion-card-header>
             <ion-card-content>
               <p> {{item.notes_desc}}</p>
-              <ion-buttons slot="start">
-                <!-- <ion-icon name="open-outline" slot="start" ></ion-icon> -->
-                <!-- <ion-icon name="create-outline" slot="end"
-                  (click)="editNotesModel(i,item.title,item.description,item.notes_id)"></ion-icon>
-                <ion-icon name="trash-outline" slot="end" (click)="deleteItem(i,item.id)"></ion-icon> -->
-              </ion-buttons>
-            </ion-card-content>
   
+            </ion-card-content>
+
           </ion-card>
         </ion-col>
       </ion-row>
     </ion-grid>
- </div>
+  </div>
+
+  <div *ngIf="segmentModel === 'AddNotes'">
+    <div contenteditable="true"
+      style="border:1px solid white;margin-top: 22px;padding: 10px;height:10%;font-size: 40px;overflow: hidden; color:white"
+      data-text="Enter Title Here" id="newtitle"></div>
+    <hr>
+    <div contenteditable="true"
+      style="border:1px solid white;padding:10px;height: 160px; width: 100%;overflow: hidden;color:white"
+      data-text="Enter Description Here" id="newcontent"></div>
+    <div style="text-align: center;margin-top: 20px;" (click)="createNew(this.token)">
+      <ion-button expend="block">Save Note</ion-button>
+    </div>
+
+  </div>
+</div>
+<ng-template #netproblem>
+  <div style="text-align: center; padding-top:20%;color:#fff">
+    <p>Internet Connection Problem</p>
+  </div>
+</ng-template>
 </ion-content>

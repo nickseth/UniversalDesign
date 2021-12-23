@@ -25,6 +25,7 @@ export class MorelinkPage implements OnInit {
     private wishlistService: WishlistService,
     public loadingController: LoadingController,
   ) {
+    activeRouter.params.subscribe(async val => {
     this.authenticationService.getToken().then(val => {
       this.token = val.value;
     });
@@ -33,6 +34,7 @@ export class MorelinkPage implements OnInit {
     this.category_name = this.activeRouter.snapshot.paramMap.get('title');
 
     this.getProductWithCategory(category_id);
+  });
   }
 
   ngOnInit() {
@@ -52,6 +54,8 @@ export class MorelinkPage implements OnInit {
       cssClass: 'my-custom-class',
       backdropDismiss: true,
       translucent: true,
+      spinner: 'bubbles',
+      animated: true,
     });
     await this.loading.present();
     let book_cmk = await this.wishlistService.getWishlistData();
@@ -83,10 +87,14 @@ export class MorelinkPage implements OnInit {
       product['isBookMark'] = false;
 
     } else { /// adding the bbookmark
+if(this.token != null){
       product['isBookMark'] = true;
       console.log(product.id)
       this.wishlistService.addBookWishlist(product.id, this.token, product.name, product.images[0].src);
       console.log(product);
+    } else {
+      this.router.navigate(['/login']);
+    }
 
     }
 

@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
-// import { LocalstorageService } from './../services/localstorage.service';
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { NotesService } from './../services/notes.service';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { ToastController,AlertController, LoadingController } from '@ionic/angular';
 import { AuthenticationService } from './../services/authentication.service';
-// import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-// import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import { Location } from "@angular/common";
+
 declare var $;
 @Component({
   selector: 'app-readnote',
@@ -29,14 +28,16 @@ export class ReadnotePage implements OnInit {
   requestOptions: any;
   token: any;
   loading: any;
+ 
   constructor(public notesService: NotesService,
     private route: ActivatedRoute,
     private storage: Storage,
     public router: Router,
-    // public sqdatabaseService: LocalstorageService,
     public authenticationService: AuthenticationService,
     public loadingController: LoadingController,
-    public alertController:AlertController
+    public alertController:AlertController,
+    public toast:ToastController,
+    private location:Location,
   ) {
 
 
@@ -47,9 +48,11 @@ export class ReadnotePage implements OnInit {
     document.addEventListener('copy', this.cutCopyHandler);
     this.authenticationService.getToken().then(val => {
       let id = this.route.snapshot.paramMap.get('index');
-      let notesid = this.route.snapshot.paramMap.get('notes_id');
-      this.dataFetch(notesid, val.value);
-      ;
+      this.notes_id = this.route.snapshot.paramMap.get('notes_id');
+      console.log(this.notes_id)
+      this.dataFetch(this.notes_id, val.value);
+    
+     
     });
   }
   async dataFetch(id, token) {
@@ -64,7 +67,8 @@ export class ReadnotePage implements OnInit {
     // })
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Please wait...',
+      spinner: 'bubbles',
+      animated: true,
     });
     await this.loading.present();
     this.notes_id = id;
@@ -106,23 +110,69 @@ export class ReadnotePage implements OnInit {
     //   }, 1000);
   }
 
-  updateNotes(token, id) {
+  async updateNotes(token, id) {
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      backdropDismiss: true,
+      translucent: true,
+      spinner: 'bubbles',
+      animated: true,
+    });
+    await this.loading.present();
     let title = document.getElementById('updatetitle').innerHTML;
     let description = document.getElementById('updatecontent').innerHTML;
     let data = { 'token': token, 'notes_id': id, 'title': title, 'description': description };
-    this.notesService.updateNotes(data).subscribe(val => {
+    this.notesService.updateNotes(data).subscribe(async val => {
       this.updationReturn = val;
-      this.showAlert('Alert',this.updationReturn.success);
-      this.router.navigate(['/notes']);
+      await this.loading.dismiss();
+      this.showToast(this.updationReturn.success);
+      // this.router.navigate(['/notes']);
+      this.location.back();
     });
   }
-  deleteNotes(token, id) {
+  async deleteNotes(token, id) {
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      backdropDismiss: true,
+      translucent: true,
+      spinner: 'bubbles',
+      animated: true,
+    });
+    await this.loading.present();
     let data = { 'token': token, 'notes_id': id };
-    this.notesService.deleteNotes(data).subscribe(val => {
+    this.notesService.deleteNotes(data).subscribe(async val => {
       this.datarecieve = val;
-      this.showAlert('Alert',this.datarecieve.success);
-      this.router.navigate(['/notes']);
+      await this.loading.dismiss()
+      this.showToast(this.datarecieve.success);
+      // this.router.navigate(['/notes']);
+      this.location.back();
     })
+  }
+  myBackButton(){
+    this.location.back();
+  }
+  async showDeleteAlert(token,id) {
+    const alert = await this.alertController.create({
+      header: "Notes",
+      // subHeader: 'Subtitle for alert',
+      message: "Are you sure you want to Delete Note",
+      buttons: [{
+        text: 'cancel',
+        handler: () => {
+          console.log('cancel');
+        }
+      },
+      {
+        text: 'continue',
+        handler: () => {
+          this.deleteNotes(token,id); 
+        }
+      }
+
+      ]
+    });
+
+    await alert.present();
   }
 
   async showAlert(title,mess) {
@@ -134,5 +184,15 @@ export class ReadnotePage implements OnInit {
     });
 
     await alert.present();
+  }
+  showToast(message) {
+    this.toast.create({
+      message: message,
+      duration: 2000,
+      position:"bottom"
+    }).then((toastData) => {
+
+      toastData.present();
+    });
   }
 }

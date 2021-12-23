@@ -12,19 +12,15 @@
     </div>
     <div class="acc-content">
       <ul>
+        <div *ngIf="this.connected_net">
         <li *ngIf="this.token !=null else loginlink"><a (click)="accinfo()">Account Information</a></li>
         <ng-template #loginlink>
             <li ><a (click)="login()">Login</a></li>
         </ng-template>
-        <li><a (click)="faqinfo()">Faqs & Support</a></li>
-        <!-- <li><a (click)="audiopage()">Audio Player Setting</a></li> -->
-        <!-- <li><a (click)="presentAlertCheckbox()">Language Prefrences</a></li> -->
-         <!-- <li><a (click)="notificationpage()">Notification Settings</a></li> -->
-        <!-- <li><a (click)="privacypage()">Privacy</a></li> -->
-        <!-- <li><a (click)="invitefrdpage()">Invite Friends</a></li> -->
-        <!-- <li><a>Open Source Licenses</a></li> -->
-        <li><a (click)="downloadpage()">Download</a></li>
-       
+      </div>
+  
+        <li *ngIf="this.connected_net"><a (click)="faqinfo()">Faqs & Support</a></li>
+        <li><a (click)="downloadpage()">Download</a></li> 
       </ul>
 
       <div class="app-logo">

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Location } from "@angular/common";
 @Component({
   selector: 'app-contactus',
   templateUrl: './contactus.page.html',
@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactusPage implements OnInit {
 
-  constructor() { }
+  constructor(
+private location:Location
+
+  ) { }
 
   ngOnInit() {
   }
@@ -17,5 +20,8 @@ export class ContactusPage implements OnInit {
   
  closeForm() {
     document.getElementById("myForm").style.display = "none";
+  }
+  myBackButton(){
+    this.location.back();
   }
 }

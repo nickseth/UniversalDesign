@@ -2,31 +2,35 @@
 <ion-content class="app-bg"  [scrollEvents]="true">
   <ion-header class="app-bg">
     <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+      <ion-buttons slot="start" style="color:#fff;font-size: 24px;">
+        <!-- <ion-back-button defaultHref="/tabs/home"></ion-back-button> -->
+        <ion-icon name="arrow-back-outline" (click)="myBackButton()"></ion-icon>
       </ion-buttons>
       <ion-title style="text-align: center;">Notes</ion-title>
-      <ion-buttons *ngIf="this.title1; else notlable" slot="end">
-        <ion-button color="danger" (click)="deleteNotes(this.token,this.notes_id)">Delete</ion-button>
+      <!-- *ngIf="this.notes_id; else notlable" -->
+      <ion-buttons  slot="end">
+        <ion-button color="danger" (click)="showDeleteAlert(this.token,this.notes_id)">Delete</ion-button>
         <ion-button (click)="updateNotes(this.token,this.notes_id)">Update</ion-button>
       </ion-buttons>
-      <ng-template #notlable>
+      <!-- <ng-template #notlable>
         <ion-buttons slot="end">
           <ion-button (click)="createNew(this.token)">Create</ion-button>
         </ion-buttons>
-      </ng-template>
+      </ng-template> -->
     </ion-toolbar>
   </ion-header>
-  <div *ngIf="this.title1; else notitle" backgroundcolor="primary">
-    <div contenteditable="true" style="padding:10px;height:10%;font-size: 40px;overflow: hidden;" data-text="Enter Title Here" id="updatetitle">{{this.title1}}
+  <!-- *ngIf="this.notes_id; else notitle" -->
+  <div class="main-note-body">
+  <div  backgroundcolor="primary">
+    <div contenteditable="true" style="padding:10px;height:10%;font-size: 40px;overflow: hidden;border:1px solid #fff" data-text="Enter Title Here" id="updatetitle" [innerHTML]="this.title1">
     </div><hr>
-    <div contenteditable="true" style="padding:10px;height: 90%; width: 100%;overflow: hidden;" data-text="Enter Description Here"
-      id="updatecontent">{{this.notes_text}}</div>
+    <div contenteditable="true" style="padding:10px;height: 90%; width: 100%;overflow: hidden;border:1px solid #fff" data-text="Enter Description Here"
+      id="updatecontent" [innerHTML]="this.notes_text"></div>
   </div>
-  <ng-template #notitle>
-    <div contenteditable="true" style="padding:10px;height:10%;font-size: 40px;overflow: hidden;" data-text="Enter Title Here" id="newtitle"></div><hr>
-    <div contenteditable="true" style="padding:10px;height: 90%; width: 100%;overflow: hidden;" data-text="Enter Description Here"
+  <!-- <ng-template class="second-body" #notitle>
+    <div contenteditable="true" style="padding:10px;height:10%;font-size: 40px;overflow: hidden;border:1px solid #fff" data-text="Enter Title Here" id="newtitle"></div><hr>
+    <div contenteditable="true" style="padding:10px;height: 90%; width: 100%;overflow: hidden;border:1px solid #fff" data-text="Enter Description Here"
       id="newcontent"></div>
-  </ng-template>
-
+  </ng-template> -->
+</div>
 </ion-content>

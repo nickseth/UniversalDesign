@@ -15,6 +15,10 @@
         color:#f4f4f4;
        
     }
+    ion-header{
+        position: sticky;
+        top: 0;
+    }
 }
 .progress-outer {
     width: 96%;
@@ -34,4 +38,9 @@
     padding: 5px;
     border-radius: 20px;
     background-color: #16A1A4;
+}
+.main-note-body{
+    margin:20px;
+    height:80%;
+ 
 }

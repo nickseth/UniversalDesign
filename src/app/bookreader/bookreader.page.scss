@@ -1,3 +1,10 @@
+ion-toolbar{
+  --background:#002C42;
+  // --ion-toolbar-background:#002C42;
+  --color:#fff;
+
+}
+
 ion-content{
     --ion-background-color:#ffffff;
     --ion-text-color:#000000;
@@ -56,7 +63,6 @@ ion-content{
       position: relative;
       color: #4f4f4f;
       font-weight: 100;
-      // font-family: Georgia, "Times New Roman", Times, serif;
       opacity: .5;
       text-align: center;
     }
@@ -130,19 +136,14 @@ ion-content{
       color: #777;
     }
     
-    .arrow:active,
-    .arrow.active {
-      color: #000;
+    .active {
+      background: #cab2b2 !important;
     }
-    
-    
-    
+  
     #title-controls {
       float: right;
     }
-    
-    
-    
+  
     #divider {
       position: absolute;
       width: 1px;
@@ -161,7 +162,6 @@ ion-content{
       display: block;
     }
     
-    
     .view {
       width: 300px;
       height: 100%;
@@ -170,13 +170,10 @@ ion-content{
       overflow-y: auto;
     }
     
-    
-    
     @media only screen and (max-width: 1040px) {
       #viewer{
         width: 100%;
       }
-      
       #divider,
       #divider.show {
         display: none;
@@ -185,51 +182,69 @@ ion-content{
     
     @media only screen and (max-width: 900px) {
       #viewer{
-        width: 60%;
+        width: 100%;
       
       }
-      
-      #prev {
-        left: 20px;
+      .reader-container{
+        position: relative;
       }
       
-      #next {
-        right: 20px;
+    #prev {
+    left: 10px;
+    position: absolute;
+    background: #002C42;
+    color: #fff;
+    z-index: 3;
+    font-size: 20px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    text-align: center;
+      }
+      
+    #next {
+    right: 10px;
+    position: absolute;
+    background: #002C42;
+    color: #fff;
+    z-index: 2;
+    font-size: 20px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    text-align: center;
       }
     }
-    
-   
-    
     /* For iPad portrait layouts only */
     @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation: portrait) {
       #viewer iframe {
-        width: 200px;
-        height: 740px;
+        width: 300px;
+        height: 640px;
       }
     }
     /*For iPad landscape layouts only */
     @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation: landscape) {
       #viewer iframe {
-        width: 400px;
-        height: 415px;
+        width: 300px;
+        height: 615px;
       }
     }
     /* For iPhone portrait layouts only */
     @media only screen and (max-device-width: 480px) and (orientation: portrait) {
       #viewer {
-        width: 304px;
-        height: 532px;
+        width: 100%;
+        height: 625px;
       }
       #viewer iframe {
-        width: 306px;
-        height: 632px;
+        width: 100%;
+        height: 100%;
       }
     }
     /* For iPhone landscape layouts only */
     @media only screen and (max-device-width: 480px) and (orientation: landscape) {
       #viewer iframe {
-        width: 404px;
-        height: 304px;
+        width: 100%;
+        height: 504px;
       }
     }
     
@@ -290,7 +305,6 @@ ion-content{
     .color-theme
     {
       box-shadow: var(--box-shadow2);
-      border: 1px solid #ccc;
       width: 40px;
       height: 40px;
       border-radius: 50%;
@@ -453,7 +467,7 @@ ion-content{
     text-decoration: none;
     width: 30px;
     height: 30px;
-    background-color: #000;
+    background: #000;
     border-radius: 50%;
     padding: 3px 10px;
     margin: 0;top:50%; transform:translateY(-50%);
@@ -526,4 +540,22 @@ ion-content{
   ng::deep .my-custom-class{
     background-color: #ddd;
   }
+  ion-fab-button{
+    --background:#002C42;
+    --color:#fff;
+  }
+ .active_theme_btn{
+   border: 2px solid rgb(40, 62, 107) !important;
+  }
+  
+  .example-boundary {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    padding-bottom: 60px;
+    // border: dotted #ccc 2px;
+  }
+#selected_text_menu{
+  display: none;
+}
 
