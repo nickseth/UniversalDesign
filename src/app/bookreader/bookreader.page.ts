@@ -27,17 +27,17 @@ import { MenuController } from '@ionic/angular';
 export class BookreaderPage implements OnInit {
   @ViewChild(IonContent) private content: IonContent;
 
-  dragPosition: any = { x: 0, y: -50 };
-  popup: any = true;
-
+  dragPosition: any = { x: 0, y: 0 };
+  // popup: any = true;
+  isClickBtn: any = false;
   book_id: any;
   data: any;
-  darkValue: any;
+  // darkValue: any;
   fontSize: any;
   font_family: any;
   line_height: any;
-  description1 = null;
-  showShortDesciption = true;
+  // description1 = null;
+  // showShortDesciption = true;
   bookTitle = '';
   chapterTitle = '';
   book: Book;
@@ -46,21 +46,21 @@ export class BookreaderPage implements OnInit {
   themes: Themes;
   navOpen: Boolean;
   currentChapter: any;
-  sessionId: string;
-  pollInterval: any;
-  theme_color: any;
-  curr_location: any;
-  bookmarkTitle: any;
+  // sessionId: string;
+  // pollInterval: any;
+  // theme_color: any;
+  // curr_location: any;
+  // bookmarkTitle: any;
   bookmarks: any;
-  spine1: any;
-  product_ones: any;
+  // spine1: any;
+  // product_ones: any;
   book_bookmark_highlight: any;
   bookmarkData: any;
   bookmarks_index: any;
   bookmark_highlightData: any;
   token: any;
   sele_Range: any;
-  selctedtext: any = '';
+  // selctedtext: any = '';
 
   list22: string[];
   private win: any = window;
@@ -242,12 +242,9 @@ export class BookreaderPage implements OnInit {
     });
     await this.rendition.display();
     this.navOpen = false;
-
-
     await this.rendition.on('rendered', (section) => {
       this.currentChapter = this.book.navigation.get(section.href);
     });
-
 
 
     let touchStart = 0;
@@ -267,9 +264,7 @@ export class BookreaderPage implements OnInit {
         this.showNext();
       }
     });
-
-
-
+ 
     await this.rendition.hooks.content.register((contents) => {
       // contents.addScript("../../assets/js/jquery.min.js"),
       contents.addStylesheet("../../assets/css/theme.css")
@@ -506,56 +501,48 @@ export class BookreaderPage implements OnInit {
       i.document.documentElement.addEventListener('click', () => {
         let selector_menu = document.getElementById("selected_text_menu");
         selector_menu.style.display = "none";
-        // document.getElementById("prev").style.display = "block";
-        // document.getElementById("next").style.display = "block";
-        // setTimeout(() => {
-        //   document.getElementById("prev").style.display = "none";
-        //   document.getElementById("next").style.display = "none";
-        // }, 6000);
-      })
-      window.addEventListener('click', () => {
-        let selector_menu = document.getElementById("selected_text_menu");
-        selector_menu.style.display = "none";
-        // document.getElementById("prev").style.display = "block";
-        // document.getElementById("next").style.display = "block";
-        // setTimeout(() => {
-        //   document.getElementById("prev").style.display = "none";
-        //   document.getElementById("next").style.display = "none";
-        // }, 6000);
-      });
 
+        this.isClickBtn = !this.isClickBtn;
+        if (this.isClickBtn) {
+          document.getElementById("prev").style.display = "block";
+          document.getElementById("next").style.display = "block";
+        } else {
+          document.getElementById("prev").style.display = "none";
+          document.getElementById("next").style.display = "none";
+        }
+      })
 
     });
 
     ///theme background change------------------------------------------
     this.rendition.themes.register("dark1",
       {
-        "body": { "background-color": "#111111", "color": "#ffffff" }
+        "body": { "background-color": "#111111", "color": "#ffffff", "overflow-x": "hidden" }
       });
 
     this.rendition.themes.register("blue1",
       {
-        "body": { "background-color": "rgb(51, 51, 51)", "color": "rgb(238, 238, 238)" }
+        "body": { "background-color": "rgb(51, 51, 51)", "color": "rgb(238, 238, 238)", "overflow-x": "hidden" }
       });
 
     this.rendition.themes.register("lite_white",
       {
-        "body": { "background-color": "rgb(245, 222, 179)", "color": "rgb(0, 0, 0)" }
+        "body": { "background-color": "rgb(245, 222, 179)", "color": "rgb(0, 0, 0)", "overflow-x": "hidden" }
       });
 
     this.rendition.themes.register("lite_dark",
       {
-        "body": { "background-color": "rgb(17, 17, 17)", "color": "rgb(245, 222, 179)" }
+        "body": { "background-color": "rgb(17, 17, 17)", "color": "rgb(245, 222, 179)", "overflow-x": "hidden" }
       });
 
     this.rendition.themes.register("lite_blue",
       {
-        "body": { "background-color": "rgb(17, 27, 33)", "color": "rgb(232, 232, 232)" }
+        "body": { "background-color": "rgb(17, 27, 33)", "color": "rgb(232, 232, 232)", "overflow-x": "hidden" }
       });
 
     this.rendition.themes.register("light1",
       {
-        "body": { "background-color": "#ffffff", "color": "#000000" }
+        "body": { "background-color": "#ffffff", "color": "#000000", "overflow-x": "hidden" }
       });
 
     await this.rendition.on('relocated', (location) => {

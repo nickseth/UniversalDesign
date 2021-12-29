@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="app-bg">
-  <div class="imgclick_wrapper">
+  <div class="imgclick_wrapper" *ngIf="data">
     <div class="imgclick-container">
       <div class="imgclick-img">
         <img src={{this.imagescr}} alt=" ">
@@ -18,11 +18,21 @@
         <!-- <p class="auther-imgclick">{{this.book_publisher}}</p> -->
         <h1>{{this.title}}</h1>
        <p> By <span>{{this.author_name}}</span></p>
-        <div [innerHTML]="short_desc">
-        </div>
+        <!-- <div [innerHTML]="short_desc">
+        </div> -->
 
       </div>
     </div>
+    <div class="btn-more">
+      <h3 *ngIf="full_desc">Description</h3>
+      <div  [innerHTML]="full_desc" [ngClass]="{'limitTextHeight': isReadMore}">
+      </div>
+      <span (click)="showText()" style="color: chocolate;">
+        {{ isReadMore ? 'Read More': 'Read Less' }}
+      </span>
+    
+    </div>
+
     <button class="read-cta" (click)="readBook(this.product_id)">Buy Now</button>
     <!-- <button class="pay-cta">Play Sample</button> -->
     <div class="imgclick-icons">

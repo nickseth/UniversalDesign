@@ -263,4 +263,14 @@ p.auther-imgclick {
     height:75px;
     // padding: 10px;
 }
+.limitTextHeight {
+    height: 50px;
+    // white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+margin-bottom: 10px;
+}
+.btn-more{
+    margin-bottom: 10px;
+}
 

@@ -25,6 +25,7 @@ export class ImgclickPage implements OnInit {
   short_desc: any;
   file_url_download: any;
   token: any;
+  full_desc:any;
   wishlistData: any;
   wishlist_index: any;
   product_id: any;
@@ -35,6 +36,7 @@ export class ImgclickPage implements OnInit {
   extenstion: any;
   related_pro: any;
   upselling_pro: any;
+  isReadMore:any = true
   constructor(private router: Router,
     private rec_router: ActivatedRoute,
     public alertController: AlertController,
@@ -77,12 +79,23 @@ export class ImgclickPage implements OnInit {
 
 
       } else {
+        this.file.checkDir(this.file.documentsDirectory, 'UniversalApp').then(response => {
+          console.log('Directory exists' + response);
+        }).catch(err => {
+          console.log('Directory doesn\'t exist' + JSON.stringify(err));
+          this.file.createDir(this.file.documentsDirectory,'UniversalApp', false).then(response => {
+            console.log('Directory create' + response);
+          }).catch(err => {
+            console.log('Directory no create' + JSON.stringify(err));
+          });
+        });
 
       }
     });
 
   }
   async getProduct(id) {
+   
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       backdropDismiss: true,
@@ -93,12 +106,13 @@ export class ImgclickPage implements OnInit {
     await this.loading.present();
     this.productService.getBookone(id).subscribe(res => {
       console.log(res)
+     
       this.data = res;
       this.title = this.data.name;
       this.imagescr = this.data.images[0].src;
       this.short_desc = this.data.short_description;
       this.file_url_download = this.data.downloads[0].file;
-
+      this.full_desc = this.data.description;
       this.related_pro = [];
       this.upselling_pro = [];
       if (this.data.related_ids && this.data.related_ids.length > 0) {
@@ -185,8 +199,6 @@ export class ImgclickPage implements OnInit {
   async downloadFileone(fileurl) {
     if (this.token != null) {
       const fileTransfer: FileTransferObject = this.transfer.create();
-
-      // console.log(this.file)
       let fileexternalurl = this.platform.is('android') ? this.file.cacheDirectory + "UniversalApp/" : this.file.documentsDirectory + "UniversalApp/";
 
       // this.file.createDir(this.file.externalRootDirectory, 'UniversalBook',true);
@@ -289,6 +301,11 @@ export class ImgclickPage implements OnInit {
   }
   imgclick(item_id) {
     this.router.navigate(['imgclick', { id: item_id }]);
+  }
+  
+
+  showText() {
+     this.isReadMore = !this.isReadMore
   }
 
 
