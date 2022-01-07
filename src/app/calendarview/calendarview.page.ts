@@ -4,7 +4,6 @@ import { formatDate } from '@angular/common';
 import { CalendarComponent } from 'ionic2-calendar';
 import { ScheduleService } from '../services/schedule.service';
 import { AuthenticationService } from '../services/authentication.service';
-import * as moment from 'moment';
 import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-calendarview',

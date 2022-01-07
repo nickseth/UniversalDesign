@@ -149,7 +149,6 @@ const routes: Routes = [
     path: 'linkshow',
     loadChildren: () => import('./linkshow/linkshow.module').then( m => m.LinkshowPageModule)
   },
-
 ];
 
 @NgModule({

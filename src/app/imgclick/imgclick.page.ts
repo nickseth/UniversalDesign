@@ -11,6 +11,8 @@ import { AuthenticationService } from './../services/authentication.service';
 import { DownloadedfileService } from '../services/localstorage/downloadedfile.service';
 import { LoadingController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
+import { Share } from '@capacitor/share';
+
 @Component({
   selector: 'app-imgclick',
   templateUrl: './imgclick.page.html',
@@ -25,7 +27,7 @@ export class ImgclickPage implements OnInit {
   short_desc: any;
   file_url_download: any;
   token: any;
-  full_desc:any;
+  full_desc: any;
   wishlistData: any;
   wishlist_index: any;
   product_id: any;
@@ -36,7 +38,8 @@ export class ImgclickPage implements OnInit {
   extenstion: any;
   related_pro: any;
   upselling_pro: any;
-  isReadMore:any = true
+  isReadMore: any = true
+  permalink1: any;
   constructor(private router: Router,
     private rec_router: ActivatedRoute,
     public alertController: AlertController,
@@ -49,7 +52,7 @@ export class ImgclickPage implements OnInit {
     private authenticationService: AuthenticationService,
     public downloadedfile: DownloadedfileService,
     public loadingController: LoadingController,
-    public toast: ToastController
+    public toast: ToastController,
   ) {
 
     this.authenticationService.getToken().then(val => {
@@ -83,7 +86,7 @@ export class ImgclickPage implements OnInit {
           console.log('Directory exists' + response);
         }).catch(err => {
           console.log('Directory doesn\'t exist' + JSON.stringify(err));
-          this.file.createDir(this.file.documentsDirectory,'UniversalApp', false).then(response => {
+          this.file.createDir(this.file.documentsDirectory, 'UniversalApp', false).then(response => {
             console.log('Directory create' + response);
           }).catch(err => {
             console.log('Directory no create' + JSON.stringify(err));
@@ -95,7 +98,7 @@ export class ImgclickPage implements OnInit {
 
   }
   async getProduct(id) {
-   
+
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       backdropDismiss: true,
@@ -106,13 +109,14 @@ export class ImgclickPage implements OnInit {
     await this.loading.present();
     this.productService.getBookone(id).subscribe(res => {
       console.log(res)
-     
+
       this.data = res;
       this.title = this.data.name;
       this.imagescr = this.data.images[0].src;
       this.short_desc = this.data.short_description;
       this.file_url_download = this.data.downloads[0].file;
       this.full_desc = this.data.description;
+      this.permalink1 = this.data.permalink;
       this.related_pro = [];
       this.upselling_pro = [];
       if (this.data.related_ids && this.data.related_ids.length > 0) {
@@ -302,11 +306,18 @@ export class ImgclickPage implements OnInit {
   imgclick(item_id) {
     this.router.navigate(['imgclick', { id: item_id }]);
   }
-  
+
 
   showText() {
-     this.isReadMore = !this.isReadMore
+    this.isReadMore = !this.isReadMore
   }
-
+  async socialSharing() {
+    await Share.share({
+      title: this.title,
+      // text: this.short_desc.innerHTML,
+      url: this.permalink1,
+      dialogTitle: 'Share with Buddies',
+    });
+  }
 
 }

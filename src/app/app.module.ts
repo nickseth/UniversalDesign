@@ -9,7 +9,7 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { HttpClientModule} from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
-
+// import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +19,7 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
     File,
     AndroidPermissions,
     FileTransfer,
-  
+    // SocialSharing
   ],
   bootstrap: [AppComponent],
 })

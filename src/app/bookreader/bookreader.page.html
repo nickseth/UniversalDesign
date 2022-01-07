@@ -3,11 +3,11 @@
     <ion-buttons slot="start" style="color:#fff;font-size: 24px;">
       <ion-icon name="arrow-back-outline" (click)="myBackButton()"></ion-icon>
       <!-- <ion-back-button defaultHref="/tabs/home"></ion-back-button> -->
-
     </ion-buttons>
     <!-- <ion-button (click)="sethilightData()">Add highlight</ion-button> -->
     <ion-buttons slot="end">
-      <ion-icon style="font-size:25px" name="pencil-outline" id="selected_text_menu" (click)="openAction(selected_txt,sele_Range)"></ion-icon>
+      <ion-icon style="font-size:25px" name="pencil-outline" id="selected_text_menu"
+        (click)="openAction(selected_txt,sele_Range)"></ion-icon>
       <ion-icon *ngIf="bookmarkData; else nobookmarkData" [style.color]="'#EF3B51'" name="bookmark"
         (click)="deletebookmark(this.bookmarks_index)" style="width:30px;height:30px;padding:10px;" slot="end"
         classs="iconFill"></ion-icon>
@@ -20,8 +20,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
-<ion-content id="main-book-section" class="example-boundary">
+<ion-content id="main-book-section" class="example-boundary" [scrollEvents]="true">
   <div class="reader-container" [ngClass]="{'nav-open' : navOpen}">
     <div id="titlebar" [style.font-family]="font_family">
       <div id="metainfo">
@@ -30,10 +29,9 @@
         <span id="chapter-title"></span>
       </div>
     </div>
-    <div id="divider"></div>
+    <!-- <div id="divider"></div> -->
     <div id="prev" class="arrow" (click)="showPrev()">‹</div>
     <div id="viewer">
-  
     </div>
     <div id="next" class="arrow" (click)="showNext()">›</div>
   </div>
@@ -62,8 +60,10 @@
     </div>
   </ng-template>
   <!-- vertical="bottom" horizontal="end"  -->
-  <ion-fab cdkDrag  [cdkDragFreeDragPosition]="dragPosition" cdkDragBoundary=".example-boundary">
-    <ion-fab-button size="small"><ion-icon name="apps-outline"></ion-icon></ion-fab-button>
+  <ion-fab cdkDrag [cdkDragFreeDragPosition]="dragPosition" cdkDragBoundary=".example-boundary">
+    <ion-fab-button size="small">
+      <ion-icon name="apps-outline"></ion-icon>
+    </ion-fab-button>
     <ion-fab-list side="top">
       <ion-fab-button>
         <ion-icon name="calculator-outline" (click)="presentModal()"></ion-icon>
@@ -72,73 +72,67 @@
         <ion-icon name="calendar-outline" [routerLink]="['/calendarview']"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
-  
     <ion-fab-list side="end">
       <ion-fab-button>
         <ion-icon name="document-outline" [routerLink]="['/notes']"></ion-icon>
       </ion-fab-button>
-     
     </ion-fab-list>
   </ion-fab>
-
 </ion-content>
-
 <ion-menu menuId="main-menu" content-id="main" side="end" style="background-color: #002C42;">
-  <ion-header >
+  <ion-header>
     <ion-row class="tab" id="main-book-section3">
-      <ion-col size="4"  class="tablinks" id="defaultOpen2"
-        (click)="openCity($event, 'chapter')">
+      <ion-col size="4" class="tablinks" id="defaultOpen2" (click)="openCity($event, 'chapter')">
         <ion-icon name="book-outline"></ion-icon>
       </ion-col>
-      <ion-col size="4"  class="tablinks"
-        (click)="openCity($event, 'Bookmark'); showbookmark()">
+      <ion-col size="4" class="tablinks" (click)="openCity($event, 'Bookmark'); showbookmark()">
         <ion-icon name="bookmark-outline"></ion-icon>
       </ion-col>
-      <ion-col size="4"  class="tablinks"
-        (click)="openCity($event, 'setting')">
+      <ion-col size="4" class="tablinks" (click)="openCity($event, 'setting')">
         <ion-icon name="settings-outline"></ion-icon>
       </ion-col>
-
     </ion-row>
   </ion-header>
-  <ion-content id="main-book-section2">
+  <ion-content id="main-book-section2" [scrollEvents]="true">
     <ion-row>
       <div id="chapter" class="tabcontent" style="height: 100%">
       </div>
       <div id="Bookmark" class="tabcontent">
-          <ul id="highlights" *ngFor="let highlight_item of bookmark_highlightData;" >
-            <li *ngIf="highlight_item.type else noBookmark"> <div (click)="this.rendition.display(highlight_item.location);this.menu.close()">{{highlight_item.type}} :<p
-                >{{highlight_item.bookChapter}}</p>
-              </div>
-              <a href="javascript:void(0)"
-                (click)="deletebookmark(highlight_item.location)" class="cross-btn">X</a>
-            </li>
-            <ng-template #noBookmark>
-
-            </ng-template> 
-          </ul>
+        <ul id="highlights" *ngFor="let highlight_item of bookmark_highlightData;">
+          <li *ngIf="highlight_item.type else noBookmark">
+            <div (click)="this.rendition.display(highlight_item.location);this.menu.close()">{{highlight_item.type}} :
+              <p>{{highlight_item.bookChapter}}</p>
+            </div>
+            <a href="javascript:void(0)" (click)="deletebookmark(highlight_item.location)" class="cross-btn">X</a>
+          </li>
+          <ng-template #noBookmark>
+          </ng-template>
+        </ul>
       </div>
       <div id="setting" class="tabcontent" style="height: 100%">
         <ion-row class="theme-wrap">
           <b>Themes</b>
           <div class="theme-container">
-            <ion-chip  style="background: #fff;" id="light" class="color-theme" (click)="setTheme2('light')">
+            <ion-chip style="background: #fff;" id="light" class="color-theme" (click)="setTheme2('light')">
               <ion-label>A</ion-label>
             </ion-chip>
 
-            <ion-chip  style="background: #000; color:#fff;" id="dark" class="color-theme" (click)="setTheme2('dark')">
+            <ion-chip style="background: #000; color:#fff;" id="dark" class="color-theme" (click)="setTheme2('dark')">
               <ion-label>A</ion-label>
             </ion-chip>
             <ion-chip style="background: #333; color: #eee;" id="blue" class="color-theme" (click)="setTheme2('blue')">
               <ion-label>A</ion-label>
             </ion-chip>
-            <ion-chip style="background: #f5deb3; color: #000;" id="lite_white" class="color-theme" (click)="setTheme2('lite_white')">
+            <ion-chip style="background: #f5deb3; color: #000;" id="lite_white" class="color-theme"
+              (click)="setTheme2('lite_white')">
               <ion-label>A</ion-label>
             </ion-chip>
-            <ion-chip style="background: #111; color: #f5deb3;" id="lite_dark" class="color-theme" (click)="setTheme2('lite_dark')">
+            <ion-chip style="background: #111; color: #f5deb3;" id="lite_dark" class="color-theme"
+              (click)="setTheme2('lite_dark')">
               <ion-label>A</ion-label>
             </ion-chip>
-            <ion-chip style="background: #111b21; color: #e8e8e8;" id="lite_blue" class="color-theme" (click)="setTheme2('lite_blue')">
+            <ion-chip style="background: #111b21; color: #e8e8e8;" id="lite_blue" class="color-theme"
+              (click)="setTheme2('lite_blue')">
               <ion-label>A</ion-label>
             </ion-chip>
           </div>
@@ -187,7 +181,8 @@
             <ion-chip (click)="setFontFamily('Arial')" id="ffamily_Arial" class="btn-font-cls">
               <ion-label>Arial</ion-label>
             </ion-chip>
-            <ion-chip (click)="setFontFamily('FontsFree-Net-George')" id="ffamily_FontsFree-Net-George" class="btn-font-cls">
+            <ion-chip (click)="setFontFamily('FontsFree-Net-George')" id="ffamily_FontsFree-Net-George"
+              class="btn-font-cls">
               <ion-label>George</ion-label>
             </ion-chip>
             <ion-chip (click)="setFontFamily('Lato-Regular')" id="ffamily_Lato-Regular" class="btn-font-cls">
@@ -199,10 +194,12 @@
             <ion-chip (click)="setFontFamily('Spectral-Regular')" id="ffamily_Spectral-Regular" class="btn-font-cls">
               <ion-label>Spectral</ion-label>
             </ion-chip>
-            <ion-chip (click)="setFontFamily('LibreBaskerville-Regular')" id="ffamily_LibreBaskerville-Regular" class="btn-font-cls">
+            <ion-chip (click)="setFontFamily('LibreBaskerville-Regular')" id="ffamily_LibreBaskerville-Regular"
+              class="btn-font-cls">
               <ion-label>Libre Baskerville</ion-label>
             </ion-chip>
-            <ion-chip (click)="setFontFamily('Merriweather-Regular')" id="ffamily_Merriweather-Regular" class="btn-font-cls">
+            <ion-chip (click)="setFontFamily('Merriweather-Regular')" id="ffamily_Merriweather-Regular"
+              class="btn-font-cls">
               <ion-label>Merriweather</ion-label>
             </ion-chip>
           </div>
@@ -216,7 +213,7 @@
             <ion-chip (click)="setlineSpacing('1.2')" id="linespacing1.2" class="btn-spline-cls">
               <ion-label>1.2</ion-label>
             </ion-chip>
-            <ion-chip (click)="setlineSpacing('1.4')" id="linespacing1.4" class="btn-spline-cls" >
+            <ion-chip (click)="setlineSpacing('1.4')" id="linespacing1.4" class="btn-spline-cls">
               <ion-label>1.4</ion-label>
             </ion-chip>
             <ion-chip (click)="setlineSpacing('1.6')" id="linespacing1.6" class="btn-spline-cls">

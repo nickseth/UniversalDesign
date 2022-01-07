@@ -1,7 +1,8 @@
 .top-slider {
     display: flex;
     overflow-x: scroll;
-    background-color: #05151b;
+    // background-color: #05151b;
+    background-color: #EBEBF2;
 	&::-webkit-scrollbar
 {
 	
@@ -16,9 +17,10 @@ button {
     padding: 15px;
     font-size: 15px;
     text-align: center;
-    font-weight: 400;white-space:nowrap;background:#002C42; color:#fff;
+    font-weight: 400;white-space:nowrap;
+    // background:#002C42; color:#fff;
 	border-bottom:solid 3px transparent;
-	&.active{border-bottom:solid 3px var(--ion-color-primary, #3880ff)}
+	&.active{border-bottom:solid 3px  #6eccdf}
 }
 .banner-img {
     position: relative;
@@ -44,7 +46,7 @@ button {
     button.read-btn {
         font-size: 18px;
         border-radius: 5px;
-        background-color: var(--ion-color-primary, #3880ff);
+        background-color: #36abe0;
         color: #fff;
         text-align: center; 
 		
@@ -66,7 +68,8 @@ button {
         float: left;
         margin: 0;
         font-size: 16px;
-        font-weight: 600;color:#fff;
+        font-weight: 600;
+        // color:#fff;
     }
     a {
         float: right;
@@ -75,7 +78,10 @@ button {
         display: flex;
         align-items: center;
         text-decoration: none;
-        color: #fff;
+        color: #971515;
+    }
+    ion-icon{
+        color: #971515;
     }   
 }
 
@@ -137,7 +143,7 @@ ion-card {
             font-size: 13px;
             font-weight: 700;
             text-align: left;
-            color: #fff;
+            // color: #fff;
         }
         p.author-name {
             font-size: 12px;
@@ -152,7 +158,7 @@ ion-card {
 }
 ion-icon {
     font-size: 24px;
-    color: #fff;
+    color: #e1841d;
 }
 ::ng-deep.toolbar-content {
     display: flex;
@@ -249,18 +255,19 @@ p{
         }
     }
     }
-	.app-bg{--background:#002C42;
-        --ion-toolbar-background:#002C42;
+	.app-bg{
+        // --background:#002C42;
+        --ion-toolbar-background:#36abe0;
     }
 	.logo-title .logo{margin-right:10px}
 	.logo-title{display:flex; align-items:center;}
 	.logo-title span{color:#fff}
-	.active{color:var(--ion-color-primary, #3880ff)}
+	.active{color: #6eccdf}
 	
 	.tab_bar, #tab-button-home {
-    --background: var(--ion-color-primary, #3880ff);
-	background: var(--ion-color-primary, #3880ff);
-}
+    // --background:  #6eccdf;
+	background: #6eccdf;
+       }
 .categries{margin-top:10px;}
 .categries button {margin-right: 10px;}
 ::ng-deep
@@ -276,6 +283,7 @@ p{
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    background: #EBEBF2;
 }
 .home_ion-slide {
     width: 50%;

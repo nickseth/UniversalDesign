@@ -84,7 +84,7 @@ ion-content{
       max-width: 1250px;
       z-index: 2;
       position: relative;
-      overflow: hidden;
+      overflow: hidden; 
       transition: margin-right .2s;
     }
     
@@ -182,8 +182,8 @@ ion-content{
     
     @media only screen and (max-width: 900px) {
       #viewer{
-        width: 100%;
-      
+        width: 636px;
+       height: 193px;
       }
       .reader-container{
         position: relative;
@@ -232,20 +232,21 @@ ion-content{
     /* For iPhone portrait layouts only */
     @media only screen and (max-device-width: 480px) and (orientation: portrait) {
       #viewer {
-        width: 100%;
-        height: 625px;
+        width: 369px;
+        height: 598px;
         // overflow-x: hidden;
       }
       #viewer iframe {
-        width: 100%;
+         width: 706px;
         height: 100%;
+      
       }
     }
     /* For iPhone landscape layouts only */
     @media only screen and (max-device-width: 480px) and (orientation: landscape) {
       #viewer iframe {
-        width: 100%;
-        height: 504px;
+        width: 600px;
+        height: 604px;
       }
     }
     
@@ -291,10 +292,13 @@ ion-content{
     .tab button:hover {
       background-color: #ddd;
     }
-    .active{
-      background-color: #002C42;
-      color: #ddd;
-    }
+    
+      .active2{
+        background-color: #002C42;
+        color: #ddd;
+      }
+    
+   
     
     /* Create an active/current tablink class */
     .tab button.active {
@@ -347,7 +351,7 @@ ion-content{
           color: var(--white);
           text-align: center;
           border-radius: 50%;
-          padding: 0px 18px;
+          // padding: 0px 18px;
           font-size: var(--small);
           vertical-align: middle;
         }
@@ -373,7 +377,7 @@ ion-content{
           font-size: var(--small);
           background-color: var(--nevyblue);
           color: var(--white);
-          padding: 20px;
+          // padding: 20px;
           box-shadow: var(--box-shadow2);
           border-radius: 25px;
         }

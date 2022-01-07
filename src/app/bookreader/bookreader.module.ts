@@ -8,6 +8,7 @@ import { BookreaderPageRoutingModule } from './bookreader-routing.module';
 
 import { BookreaderPage } from './bookreader.page';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+
 @NgModule({
   imports: [
     CommonModule,

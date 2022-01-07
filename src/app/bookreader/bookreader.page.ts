@@ -94,7 +94,7 @@ export class BookreaderPage implements OnInit {
 
   }
 
-  async presentActionSheet(cfiurl, text, index) {
+  async presentActionSheet(cfiurl, text) {
     const actionSheet = await this.actionSheetController.create({
       header: 'Action',
       cssClass: 'my-custom-class32',
@@ -103,7 +103,7 @@ export class BookreaderPage implements OnInit {
         icon: 'add',
         handler: () => {
           this.rendition.annotations.add('highlight', cfiurl, {}, (e) => {
-
+            this.book_highlight(cfiurl, text);
           }, "hl", { "fill": "yellow", "fill-opacity": "0.3", "mix-blend-mode": "multiply" });
           this.book_bookmark_highlight = this.storage.get('bookmark' + this.book_id);
           let list_bookmarks = { book_id: 12, type: "highlight", location: cfiurl, bookChapter: this.currentChapter.label, text: text }
@@ -111,14 +111,17 @@ export class BookreaderPage implements OnInit {
           this.book_bookmark_highlight.then(val => {
 
             if (val != null) {
-
               val.push(list_bookmarks);
               this.storage.set('bookmark' + this.book_id, this.book_bookmark_highlight);
+              setTimeout(() => {
+                this.showbookmark();
+              }, 1000);
             } else {
 
               this.book_bookmark_highlight = [];
               this.book_bookmark_highlight.push(list_bookmarks);
               this.storage.set('bookmark' + this.book_id, this.book_bookmark_highlight);
+              
               setTimeout(() => {
                 this.showbookmark();
               }, 1000);
@@ -131,24 +134,29 @@ export class BookreaderPage implements OnInit {
         role: 'destructive',
         icon: 'trash',
         handler: () => {
-
-          if (index != null) {
+          
+          // if (index != null) {
             let book = this.storage.get('bookmark' + this.book_id);
             book.then(val => {
+              let index = val.findIndex((rank, index) => rank.location === cfiurl && rank.type === "highlight");
               val.splice(index, 1);
               this.storage.set('bookmark' + this.book_id, book);
               this.rendition.annotations.remove(cfiurl, "highlight");
+             
               setTimeout(() => {
                 this.showbookmark();
               }, 1000);
             })
-          } else {
-            this.rendition.annotations.remove(cfiurl, "highlight");
-            setTimeout(() => {
-              this.showbookmark();
-            }, 1000);
-            return this.rendition.display(cfiurl);
-          }
+
+
+
+          // } else {
+          //   this.rendition.annotations.remove(cfiurl, "highlight");
+          //   setTimeout(() => {
+          //     this.showbookmark();
+          //   }, 1000);
+          //   return this.rendition.display(cfiurl);
+          // }
         }
       },
       {
@@ -186,13 +194,13 @@ export class BookreaderPage implements OnInit {
     const { role } = await actionSheet.onDidDismiss();
   }
   book_highlight(cfiRange, text) {
-    this.presentActionSheet(cfiRange, text, null);
+    this.presentActionSheet(cfiRange, text);
 
   }
 
-  ionViewWillEnter() {
-    console.log(this.content.scrollToTop());
-  }
+  // ionViewWillEnter() {
+  //   console.log(this.content.scrollToTop());
+  // }
   ngOnInit() {
 
     document.getElementById("defaultOpen2").click();
@@ -226,12 +234,15 @@ export class BookreaderPage implements OnInit {
     // "https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub"
 
     this.rendition = await this.book.renderTo('viewer', {
-      flow: 'auto', width: '100%',
-      height: '100%',
-      manager: "continuous", allowScriptedContent: true
+      flow: 'auto', 
+      width: "100%",
+      height: "100%",
+      // manager: "continuous",
+      fixedLayout:true,
+      spreads:false,
     });
     let current_location222 = this.storage.get('current_location' + this.book_id);
-
+  
     current_location222.then(val => {
       console.log(val)
       if (val != null) {
@@ -268,8 +279,12 @@ export class BookreaderPage implements OnInit {
     await this.rendition.hooks.content.register((contents) => {
       // contents.addScript("../../assets/js/jquery.min.js"),
       contents.addStylesheet("../../assets/css/theme.css")
-
+     
     });
+
+
+
+
     await this.rendition.on('relocated', (location) => {
 
       let locationCfi = location.start.cfi;
@@ -283,7 +298,7 @@ export class BookreaderPage implements OnInit {
 
 
     await this.storage.get('dark2').then((ev) => {
-
+      // this.rendition.themes.default({ "body": { "column-gap": "153px" } });
       if (ev == null) {
 
         document.querySelector(`#light`).classList.add('active_theme_btn');
@@ -482,15 +497,17 @@ export class BookreaderPage implements OnInit {
       this.bookTitle = meta.title;
 
     });
-
+ 
     this.rendition.on("rendered", (e, i) => {
       this.rendition.on('selected', (cfiRange, contents) => {
         this.sele_Range = cfiRange;
+       
         //   contents.window.getSelection().removeAllRanges();
       });
-
+    
       i.document.documentElement.addEventListener('contextmenu', (event: MouseEvent) => {
         event.preventDefault();
+       
         this.selected_txt = i.window.getSelection().toString();
 
         setTimeout(() => {
@@ -504,6 +521,8 @@ export class BookreaderPage implements OnInit {
 
         this.isClickBtn = !this.isClickBtn;
         if (this.isClickBtn) {
+          document.getElementById('next').classList.remove("active");
+          document.getElementById('prev').classList.remove("active");
           document.getElementById("prev").style.display = "block";
           document.getElementById("next").style.display = "block";
         } else {
@@ -513,26 +532,26 @@ export class BookreaderPage implements OnInit {
       })
 
     });
-
+   
     ///theme background change------------------------------------------
     this.rendition.themes.register("dark1",
       {
-        "body": { "background-color": "#111111", "color": "#ffffff", "overflow-x": "hidden" }
+        "body": { "background-color": "#111111", "color": "#ffffff" }
       });
 
     this.rendition.themes.register("blue1",
       {
-        "body": { "background-color": "rgb(51, 51, 51)", "color": "rgb(238, 238, 238)", "overflow-x": "hidden" }
+        "body": { "background-color": "rgb(51, 51, 51)", "color": "rgb(238, 238, 238)" }
       });
 
     this.rendition.themes.register("lite_white",
       {
-        "body": { "background-color": "rgb(245, 222, 179)", "color": "rgb(0, 0, 0)", "overflow-x": "hidden" }
+        "body": { "background-color": "rgb(245, 222, 179)", "color": "rgb(0, 0, 0)" }
       });
 
     this.rendition.themes.register("lite_dark",
       {
-        "body": { "background-color": "rgb(17, 17, 17)", "color": "rgb(245, 222, 179)", "overflow-x": "hidden" }
+        "body": { "background-color": "rgb(17, 17, 17)", "color": "rgb(245, 222, 179)" }
       });
 
     this.rendition.themes.register("lite_blue",
@@ -545,7 +564,7 @@ export class BookreaderPage implements OnInit {
         "body": { "background-color": "#ffffff", "color": "#000000", "overflow-x": "hidden" }
       });
 
-    await this.rendition.on('relocated', (location) => {
+    this.rendition.on('relocated', (location) => {
       this.storage.get('bookmark' + this.book_id).then((val) => {
 
         if (val != null) {
@@ -553,7 +572,7 @@ export class BookreaderPage implements OnInit {
 
             this.bookmarkData = true;
             this.bookmarks_index = location.start.cfi;
-
+  
           } else {
             this.bookmarkData = false;
           }
@@ -566,14 +585,9 @@ export class BookreaderPage implements OnInit {
         var result = val.filter((item) => {
           return item.type == 'highlight';
         });
-
         result.forEach((element, index) => {
-
-          this.rendition.annotations.add('highlight', element.location, {}, (e) => {
-
-            this.presentActionSheet(element.location, element.text, index);
-
-
+          this.rendition.annotations.add('highlight', element.location, {}, (e) => {  
+            this.presentActionSheet(element.location, element.text);
           }, "hl", { "fill": "yellow", "fill-opacity": "0.3", "mix-blend-mode": "multiply" });
         });
       }
@@ -610,7 +624,7 @@ export class BookreaderPage implements OnInit {
     let list_bookmarks = { book_id: this.book_id, type: "bookmark", location: current_location.start.cfi, bookChapter: curr_label }
 
     this.book_bookmark_highlight.then(val => {
-
+      this.bookmarks_index = current_location.start.cfi;
       if (val != null) {
 
         val.push(list_bookmarks);
@@ -659,7 +673,7 @@ export class BookreaderPage implements OnInit {
   }
 
   deletebookmark(item) {
-
+console.log(item);
     this.book_bookmark_highlight = this.storage.get('bookmark' + this.book_id);
     this.book_bookmark_highlight.then(val => {
       let index = val.findIndex((rank, index) => rank.location === item && rank.type === "bookmark");

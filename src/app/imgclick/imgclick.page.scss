@@ -273,4 +273,11 @@ margin-bottom: 10px;
 .btn-more{
     margin-bottom: 10px;
 }
-
+::ng-deep .backTransparent {
+    --background: transparent !important;
+  
+    }
+    .share-social{
+        font-size: 22px;
+        margin-right: 10px;
+    }
