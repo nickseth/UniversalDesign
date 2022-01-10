@@ -23,8 +23,8 @@
 
       </div>
     </div>
-    <div class="btn-more">
-      <h3 *ngIf="full_desc">Description</h3>
+    <div  *ngIf="full_desc" class="btn-more">
+      <h3 >Description</h3>
       <div  [innerHTML]="full_desc" [ngClass]="{'limitTextHeight': isReadMore}">
       </div>
       <span (click)="showText()" style="color: chocolate;">

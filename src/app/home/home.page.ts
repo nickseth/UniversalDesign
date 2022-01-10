@@ -36,7 +36,7 @@ export class HomePage implements OnInit {
   loading: any;
   fullonePro: any;
   // networkstatus: any;
-  connected_net:any;
+  connected_net: any;
   token1: any;
   pro_array: any;
   book_cmk: any;
@@ -49,19 +49,19 @@ export class HomePage implements OnInit {
     private activatedRoute: ActivatedRoute,
   ) {
 
-      activatedRoute.params.subscribe(async val => {
-        this.authenticationService.getToken().then(val => {
-          this.token1 = val.value;
-        });
-       let connection = await  Network.getStatus();
-       this.connected_net = connection.connected;
-      if(connection.connected == true){
+    activatedRoute.params.subscribe(async val => {
+      this.authenticationService.getToken().then(val => {
+        this.token1 = val.value;
+      });
+      let connection = await Network.getStatus();
+      this.connected_net = connection.connected;
+      if (connection.connected == true) {
         this.getbannerData();
         if (this.getProductCategory()) {
-                this.getProductWithCategory();
-              }
+          this.getProductWithCategory();
+        }
       }
-      });
+    });
     Network.addListener('networkStatusChange', status => {
       if (status.connected == false) {
         this.connected_net = false;
@@ -127,7 +127,7 @@ export class HomePage implements OnInit {
     await this.loading.present();
     await this.productService.getCategory().subscribe((res) => {
       this.produtCategoryData = res;
-      
+
     })
     return true;
   }
@@ -162,7 +162,7 @@ export class HomePage implements OnInit {
       this.combine_array_data.push(product);
       this.loading.dismiss();
       let clickDoc = document.getElementById("defaultOpen");
-        clickDoc.click();
+      clickDoc.click();
 
     });
   }
@@ -206,13 +206,11 @@ export class HomePage implements OnInit {
   }
 
   async presentModal(txt) {
-
     const modal = await this.modalController.create({
       component: LinkshowPage,
       cssClass: 'my-custom-class',
       componentProps: {
         'linkshowany': txt,
-
       }
     });
     return await modal.present();
@@ -221,10 +219,7 @@ export class HomePage implements OnInit {
     // console.log(product.id)
     if (product['isBookMark']) { //deleting the bookmark
       this.wishlistService.deletewishlist1(product.id);
-
-
       product['isBookMark'] = false;
-
     } else { /// adding the bbookmark
       if (this.token1 != null) {
         product['isBookMark'] = true;
@@ -234,11 +229,6 @@ export class HomePage implements OnInit {
       } else {
         this.router.navigate(['/login']);
       }
-
     }
-
   }
-
-
-
 }

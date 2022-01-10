@@ -50,8 +50,9 @@ export class ForgotPasswordPage implements OnInit {
       await this.loading.dismiss();
       this.ionicForm_reset.reset();
     this.router.navigate(['/login']); 
-     }, error => {
+     }, async error => {
       alert(error.error.message);
+      await this.loading.dismiss();
        this.ionicForm_reset.reset();
         
     });

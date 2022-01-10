@@ -47,21 +47,21 @@ export class LoginPage implements OnInit {
       async (res) => {
         this.authService.getToken().then(authe => {
           this.userdetailsService.getUserDeatils({ token: authe['value'] }).subscribe(async (val: any) => {
+            console.log(val);
             this.storage.set('username', val['fname'] + ' ' + val['lname']);
             await loading.dismiss();
             this.router.navigateByUrl('/tabs', { replaceUrl: true });
           });
         })
 
-
-
       },
       async (res) => {
+        console.log(res)
         await loading.dismiss();
         const alert = await this.alertController.create({
           cssClass: 'error_mess',
           header: 'Login failed',
-          message: res.error.error,
+          message: res.error.message,
           buttons: ['OK'],
         });
 

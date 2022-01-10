@@ -63,7 +63,7 @@ export class AccinformationPage implements OnInit {
   async presentAlertPrompt() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class22',
-      subHeader: 'Are you sure you want to sign out?',
+      header: 'Are you sure you want to sign out?',
       message: 'You wont be able to access Saved, and any titles you have download will be deleted.',
       buttons: [
         {

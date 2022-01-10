@@ -41,11 +41,19 @@
     --background:#ebf1f500e7;
     --spinner-color: #fff
 }
-::ng-deep .my-custom-class22{
-    --background: #002C42;
-    --color:white;
-}
-::ng-deep .alert-sub-title.sc-ion-alert-md,
-::ng-deep div#alert-2-msg {
-color:#fff;
-}
+// ::ng-deep .my-custom-class22{
+//     --background: #fff !important;
+//     // --color:white;
+// }
+// // ::ng-deep .alert-sub-title.sc-ion-alert-md,
+// // ::ng-deep div#alert-2-msg {
+// // // color:#fff;
+// // }
+// ::ng-deep .alert-title.sc-ion-alert-md {
+//     // color: #fff;
+//     font-size: 20px;
+//     font-weight: 500;
+// }
+// ::ng-deep alert-wrapper ion-overlay-wrapper sc-ion-alert-md{
+//     background-color: #fff !important;
+// }

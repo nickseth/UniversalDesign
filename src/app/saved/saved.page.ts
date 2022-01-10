@@ -21,6 +21,34 @@ export class SavedPage implements OnInit {
   data1: any;
   loading: any;
   connected_net: boolean;
+  length_notes: boolean = false;
+
+  colors:any = [
+    {
+      code: "#fff",
+     name: "White"
+    },
+    {
+       
+      code: '#000',
+      name: "Black"
+    },
+    {
+     
+      code: '#FFFF00',
+      name: "Yellow"
+    },
+    {
+     
+      code: '#FF00FF',
+      name:"Magenta"
+    }
+    ,{
+      code: '#00FFFF',
+      name: "Cyan"
+    }
+  ];
+
   constructor(private storagewishlistService: WishlistService, private activatedRouter: Router,
     private storage: Storage,
     private route: Router,
@@ -62,10 +90,19 @@ export class SavedPage implements OnInit {
       }
     });
 
+
+
+ 
+
+  }
+  getSelectedText(text_fun){
+    if(document.getSelection){
+      var sText = document.getSelection();
+      document.execCommand('foreColor',true,'#FFFF00');
+    }
   }
 
   ngOnInit() {
-
 
   }
 
@@ -103,7 +140,7 @@ export class SavedPage implements OnInit {
     await this.loading.present();
     this.notesService.getNotes(token1).subscribe(data => {
       this.notes_data = data;
-      console.log(this.notes_data)
+     this.length_notes = this.notes_data.length <= 0;
       this.loading.dismiss();
     }, error => {
     });
@@ -118,6 +155,7 @@ export class SavedPage implements OnInit {
     var token2 = { 'token': token1 };
     return this.notesService.getNotes(token2).subscribe(data => {
       this.notes_data = data;
+      console.log("notes leng",this.notes_data.length)
       if (event)
         event.target.complete();
     }, error => {
@@ -186,12 +224,20 @@ export class SavedPage implements OnInit {
 
   }
   async createNew(token) {
-
     let title = document.getElementById('newtitle').innerHTML;
     let description = document.getElementById('newcontent').innerHTML;
     var notesData = { 'token': token, 'title': title, 'description': description };
-    await this.notesService.addNotes(notesData);
+     this.notesService.addNotes(notesData);
+     setTimeout(() => {
+      this.dataRetrieve(this.token)
+    }, 1000);
     
+  }
+
+  compareWith(e){
+    // var sText = document.getSelection();
+    document.execCommand('foreColor',true,e.target.value);
+    document.designMode = "off";
   }
 
 }

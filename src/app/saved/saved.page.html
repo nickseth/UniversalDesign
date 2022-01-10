@@ -29,13 +29,20 @@
   
   <div *ngIf="segmentModel === 'wishlist'">
     <ion-grid>
-      <ion-row>
+      <ion-row *ngIf="wishlistData else wishlistEmpty">
         <ion-col size="4" size-sm *ngFor="let item of wishlistData">
           <ion-card style="width:100px;height: 130px" (click)="viewItem(item.id)">
             <img src="{{item.image_url}}" style="width: 100px; height: 130px;">
           </ion-card>
         </ion-col>
       </ion-row>
+       <ng-template #wishlistEmpty >
+         <div style="color: #fff;text-align: center;
+         padding-top: 50%">
+          <h6 >Wishlist Products not found</h6>
+         </div>
+           
+        </ng-template>
     </ion-grid>
   </div>
 
@@ -45,35 +52,43 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher> -->
  
-      <ion-row>
+      <ion-row *ngIf="!this.length_notes else notesEmpty">
+      
         <ion-col size="6" *ngFor="let item of notes_data; let i = index">
           <ion-card (click)="viewNotes(i,item.id)">
             <ion-card-header>
-              <h5>{{item.notes_title}}</h5>
+              <h5 class="noyes_heading">{{item.notes_title}}</h5>
             </ion-card-header>
             <ion-card-content>
-              <p> {{item.notes_desc}}</p>
+              <p class="noyes_cls"> {{item.notes_desc}}</p>
   
             </ion-card-content>
 
           </ion-card>
         </ion-col>
       </ion-row>
+      <ng-template #notesEmpty >
+        <div style="color: #fff;text-align: center;
+        padding-top: 50%">
+          <h6 >Notes not found</h6>
+        </div>
+      
+    </ng-template>
     </ion-grid>
   </div>
 
-  <div *ngIf="segmentModel === 'AddNotes'">
-    <div contenteditable="true"
-      style="border:1px solid white;margin-top: 22px;padding: 10px;height:10%;font-size: 40px;overflow: hidden; color:white"
-      data-text="Enter Title Here" id="newtitle"></div>
-    <hr>
-    <div contenteditable="true"
-      style="border:1px solid white;padding:10px;height: 160px; width: 100%;overflow: hidden;color:white"
-      data-text="Enter Description Here" id="newcontent"></div>
-    <div style="text-align: center;margin-top: 20px;" (click)="createNew(this.token)">
-      <ion-button expend="block">Save Note</ion-button>
+  <div *ngIf="segmentModel === 'AddNotes'" class="main-add-editor">
+    <div contenteditable="true" data-text="Enter Title Here" id="newtitle"></div>
+    <div contenteditable="true" data-text="Enter Description Here" id="newcontent"></div>
+    <div style="text-align: center;margin-top: 20px;" >
+      <ion-button expend="block" (click)="createNew(this.token)">Save Note</ion-button>
+      <ion-button expend="block" (click)="getSelectedText()">Get  Selected Text</ion-button>
     </div>
-
+ <!-- <div class="conte-menu">
+  <ion-select placeholder="Select Color" (ionChange)="compareWith($event)">
+  <ion-select-option  *ngFor="let key of colors" value="{{key.code}}">{{key.name}}</ion-select-option>
+</ion-select>
+</div> -->
   </div>
 </div>
 <ng-template #netproblem>

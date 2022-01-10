@@ -55,5 +55,36 @@ color: #fff;
   .segment-button-checked{
       color:black;
   }
-  
+  .noyes_cls{
+    height: 50px;
+    overflow: hidden;
+   text-overflow: ellipsis;
+  }
+  .conte-menu{
+    position: absolute;
+    bottom: 72px;
+    color: white;
+    
+  }
+
+ #newtitle{
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    margin-top: 22px;
+    padding: 10px;height:10%;
+    font-size: 40px;
+    overflow: hidden; 
+    color:white  
+ }
+ #newcontent{
+    border-bottom: 1px solid white;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    height: 400px; 
+    width: 100%;
+    padding: 5px;
+    overflow: hidden;
+    color:white
+ }
 

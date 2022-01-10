@@ -1,11 +1,10 @@
 .top-slider {
     display: flex;
     overflow-x: scroll;
-    // background-color: #05151b;
-    background-color: #EBEBF2;
+    background-color: #033348;
+    // background-color: #EBEBF2;
 	&::-webkit-scrollbar
 {
-	
 	display:none;
 }
 &::-webkit-scrollbar-track
@@ -18,7 +17,7 @@ button {
     font-size: 15px;
     text-align: center;
     font-weight: 400;white-space:nowrap;
-    // background:#002C42; color:#fff;
+    background:#002C42; color:#fff;
 	border-bottom:solid 3px transparent;
 	&.active{border-bottom:solid 3px  #6eccdf}
 }
@@ -69,7 +68,7 @@ button {
         margin: 0;
         font-size: 16px;
         font-weight: 600;
-        // color:#fff;
+        color:#fff;
     }
     a {
         float: right;
@@ -78,10 +77,10 @@ button {
         display: flex;
         align-items: center;
         text-decoration: none;
-        color: #971515;
+        color: #fff;
     }
     ion-icon{
-        color: #971515;
+        color: #fff;
     }   
 }
 
@@ -94,7 +93,7 @@ ion-card {
     height: auto;
     box-shadow: none;
     border-radius: 0px;background:transparent;
-    
+    padding: 10px;
     img {
         object-fit: contain;
         width: 100%;
@@ -142,13 +141,14 @@ ion-card {
     h3.books-name {
             font-size: 13px;
             font-weight: 700;
-            text-align: left;
-            // color: #fff;
+            text-align: center;
+            color: #fff;
         }
         p.author-name {
             font-size: 12px;
             font-weight: 600;
-            text-align: left;color:#fff;
+            text-align: center;
+            color:#fff;
         }    
 }
 .icon-wrap {
@@ -158,7 +158,8 @@ ion-card {
 }
 ion-icon {
     font-size: 24px;
-    color: #e1841d;
+    // color: #e1841d;
+    color:#fff;
 }
 ::ng-deep.toolbar-content {
     display: flex;
@@ -228,6 +229,7 @@ p{
     }
   ion-card.snapshot-img {
         border-radius: unset;
+       
         img {
             border-top-right-radius: 20px;
             border-bottom-right-radius: 20px;
@@ -256,8 +258,8 @@ p{
     }
     }
 	.app-bg{
-        // --background:#002C42;
-        --ion-toolbar-background:#36abe0;
+        --background:#002C42;
+        --ion-toolbar-background:#002C42;
     }
 	.logo-title .logo{margin-right:10px}
 	.logo-title{display:flex; align-items:center;}
@@ -283,7 +285,7 @@ p{
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    background: #EBEBF2;
+    background: #033348;
 }
 .home_ion-slide {
     width: 50%;

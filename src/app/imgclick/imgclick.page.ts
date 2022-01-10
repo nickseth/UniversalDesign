@@ -40,6 +40,7 @@ export class ImgclickPage implements OnInit {
   upselling_pro: any;
   isReadMore: any = true
   permalink1: any;
+  book_exist: boolean = false;
   constructor(private router: Router,
     private rec_router: ActivatedRoute,
     public alertController: AlertController,
@@ -65,40 +66,45 @@ export class ImgclickPage implements OnInit {
     this.product_id = this.rec_router.snapshot.paramMap.get('id');
     this.getProduct(this.product_id);
     this.addAndFetchWishlist();
-
-
-    this.platform.ready().then(() => {
-      if (this.platform.is('android')) {
-        this.file.checkDir(this.file.cacheDirectory, 'UniversalApp').then(response => {
-          console.log('Directory exists' + response);
-        }).catch(err => {
-          console.log('Directory doesn\'t exist' + JSON.stringify(err));
-          this.file.createDir(this.file.cacheDirectory, 'UniversalApp', false).then(response => {
-            console.log('Directory create' + response);
-          }).catch(err => {
-            console.log('Directory no create' + JSON.stringify(err));
-          });
-        });
-
-
-      } else {
-        this.file.checkDir(this.file.documentsDirectory, 'UniversalApp').then(response => {
-          console.log('Directory exists' + response);
-        }).catch(err => {
-          console.log('Directory doesn\'t exist' + JSON.stringify(err));
-          this.file.createDir(this.file.documentsDirectory, 'UniversalApp', false).then(response => {
-            console.log('Directory create' + response);
-          }).catch(err => {
-            console.log('Directory no create' + JSON.stringify(err));
-          });
-        });
-
-      }
-    });
-
   }
-  async getProduct(id) {
 
+getExistUrl(){
+  this.platform.ready().then(() => {
+    if (this.platform.is('android')) {
+      this.file.checkDir(this.file.cacheDirectory, 'UniversalApp').then(response => {
+        let filename1 = this.file_url_download.substring(this.file_url_download.lastIndexOf('/') + 1);
+        this.file.checkFile(this.file.cacheDirectory + "UniversalApp/",filename1).then(res=>{
+      this.book_exist = res;
+        },error=>{
+          console.log(error)
+        });
+      }).catch(err => {
+        console.log('Directory doesn\'t exist' + JSON.stringify(err));
+        this.file.createDir(this.file.cacheDirectory, 'UniversalApp', false).then(response => {
+          console.log('Directory create' + response);
+        }).catch(err => {
+          console.log('Directory no create' + JSON.stringify(err));
+        });
+      });
+
+
+    } else {
+      this.file.checkDir(this.file.documentsDirectory, 'UniversalApp').then(response => {
+        console.log('Directory exists' + response);
+      }).catch(err => {
+        console.log('Directory doesn\'t exist' + JSON.stringify(err));
+        this.file.createDir(this.file.documentsDirectory, 'UniversalApp', false).then(response => {
+          console.log('Directory create' + response);
+        }).catch(err => {
+          console.log('Directory no create' + JSON.stringify(err));
+        });
+      });
+
+    }
+  });
+}
+  
+  async getProduct(id) {
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       backdropDismiss: true,
@@ -119,6 +125,7 @@ export class ImgclickPage implements OnInit {
       this.permalink1 = this.data.permalink;
       this.related_pro = [];
       this.upselling_pro = [];
+      
       if (this.data.related_ids && this.data.related_ids.length > 0) {
         this.data.related_ids.forEach(element22 => {
           this.productService.getBookone(element22).subscribe(val2 => {
@@ -139,8 +146,9 @@ export class ImgclickPage implements OnInit {
 
         });
       }
+   
 
-
+      this.getExistUrl();
       this.loading.dismiss();
 
       let index_publisher = this.data.meta_data.findIndex(p => p.key == "book_publisher");
@@ -201,6 +209,7 @@ export class ImgclickPage implements OnInit {
 
 
   async downloadFileone(fileurl) {
+    this.getExistUrl();
     if (this.token != null) {
       const fileTransfer: FileTransferObject = this.transfer.create();
       let fileexternalurl = this.platform.is('android') ? this.file.cacheDirectory + "UniversalApp/" : this.file.documentsDirectory + "UniversalApp/";
@@ -212,17 +221,18 @@ export class ImgclickPage implements OnInit {
       let filename1 = url.substring(url.lastIndexOf('/') + 1);
 
       let geturlfinal = encodeURI(url);
-
+      if(this.book_exist != true){
       this.loading = await this.loadingController.create({
         cssClass: 'my-custom-class2',
         message: 'Downloading...',
-
       });
       await this.loading.present();
+     
       fileTransfer.download(geturlfinal, fileexternalurl + filename1).then((entry) => {
         this.downloadedfile.addBookDownload(this.product_id, this.token, this.title, this.imagescr, filename1, this.extenstion);
         this.showToast('Downloading Complete');
         this.loading.dismiss();
+        this.getExistUrl();
         setTimeout(() => {
           this.HideToast();
         }, 3000);
@@ -235,6 +245,18 @@ export class ImgclickPage implements OnInit {
         }, 3000);
 
       });
+    } else{
+      this.toast.create({
+        message: "Book already Downloaded",
+        duration: 2000
+      }).then((toastData) => {
+  
+        toastData.present();
+      });
+
+    }
+
+
     } else {
       this.router.navigate(['/login']);
     }

@@ -30,6 +30,7 @@ export class AuthenticationService {
   }
  
   login(credentials: {email, password}): Observable<any> {
+    console.log(credentials)
     return this.http.post(`https://universalbooks.wpengine.com/wp-json/jwt-auth/v1/token`, credentials).pipe(
       map((data: any) => data.token),
       switchMap(token => {

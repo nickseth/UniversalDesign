@@ -207,17 +207,17 @@ export class BookreaderPage implements OnInit {
     this.book_id = this.route.snapshot.paramMap.get('id');
 
 
-    // this.localdownload.getDownloadedBookLocation().then(val => {
-    //   if (val != null) {
-    //     let index_book = val.findIndex(p => p.id == this.book_id);
-    //     let bkdata = val[index_book].book_location;
-    //     this.epubFileReader(bkdata);
-    //   }
+    this.localdownload.getDownloadedBookLocation().then(val => {
+      if (val != null) {
+        let index_book = val.findIndex(p => p.id == this.book_id);
+        let bkdata = val[index_book].book_location;
+        this.epubFileReader(bkdata);
+      }
 
 
-    // })
+    })
 
-    this.epubFileReader(this.book_id);
+    // this.epubFileReader(this.book_id);
 
     // this.epubFileReader();
 
@@ -225,21 +225,19 @@ export class BookreaderPage implements OnInit {
   }
 
   async epubFileReader(urlbook) {
-    // let urls_for_read = this.platform.is('android') ? this.file.cacheDirectory + "UniversalApp/" + urlbook : this.file.documentsDirectory + "UniversalApp/" + urlbook;
-    // let newPath = this.win.Ionic.WebView.convertFileSrc(urls_for_read);
-    // console.log("this new url" + newPath);
-    // this.book = await Epub(newPath, { replacements: "blobUrl" });
-    this.book = Epub('https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub');
+    let urls_for_read = this.platform.is('android') ? this.file.cacheDirectory + "UniversalApp/" + urlbook : this.file.documentsDirectory + "UniversalApp/" + urlbook;
+    let newPath = this.win.Ionic.WebView.convertFileSrc(urls_for_read);
+    console.log("this new url" + newPath);
+    this.book = await Epub(newPath, { replacements: "blobUrl" });
+    // this.book = Epub('https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub');
 
     // "https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub"
-
-    this.rendition = await this.book.renderTo('viewer', {
-      flow: 'auto', 
+  // this.book = Epub('https://universalbooks.wpengine.com/wp-content/uploads/woocommerce_uploads/2021/07/orczy-old-man-in-the-corner-pfomdx.epub');
+    this.rendition = await this.book.renderTo('viewer', { 
       width: "100%",
       height: "100%",
-      // manager: "continuous",
-      fixedLayout:true,
-      spreads:false,
+      // script: 'allow-scripts',
+      allowScriptedContent: true,
     });
     let current_location222 = this.storage.get('current_location' + this.book_id);
   
@@ -278,6 +276,8 @@ export class BookreaderPage implements OnInit {
  
     await this.rendition.hooks.content.register((contents) => {
       // contents.addScript("../../assets/js/jquery.min.js"),
+      // contents.addScript("../../assets/js/turn.min.js"),
+      // contents.addScript("../../assets/js/trn.js"),
       contents.addStylesheet("../../assets/css/theme.css")
      
     });
